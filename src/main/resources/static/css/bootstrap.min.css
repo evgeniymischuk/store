@@ -444,11 +444,12 @@ hr {
 .header-wrap {
     border-bottom: 1px solid rgba(219, 219, 219, 1);
     background-color: rgba(255, 255, 255, 1);
-    height: 77px;
+    min-height: 77px;
 }
+
 .nav-wrap {
     background-color: rgba(255, 255, 255, 1);
-    height: 76px;
+    min-height: 76px;
 }
 
 .img-thumbnail {
@@ -10424,18 +10425,13 @@ a.text-dark:focus, a.text-dark:hover {
     /*transition: all .4s linear;*/
 }
 
-/*@media (max-width: 575.98px) {*/
-/*    .hovereffect p {*/
-/*        font-size: 0.5rem !important;*/
-/*    }*/
-/*}*/
 
 .hovereffect .title {
     text-transform: uppercase;
     color: #fff;
     text-align: center;
     position: relative;
-    font-size: 2rem;
+    font-size: 16px;
     background: rgba(0, 0, 0, 0.6);
     -webkit-transform: translatey(-100px);
     -ms-transform: translatey(-100px);
@@ -10461,6 +10457,7 @@ a.text-dark:focus, a.text-dark:hover {
     background-color: transparent;
     opacity: 0;
     filter: alpha(opacity=0);
+    font-size: 12px !important;
     /*-webkit-transition: all .2s ease-in-out;*/
     /*transition: all .2s ease-in-out;*/
     /*margin: 50px 0 0;*/
@@ -10493,4 +10490,26 @@ a.text-dark:focus, a.text-dark:hover {
 .hovereffect:hover a.info {
     /*-webkit-transition-delay: .2s;*/
     /*transition-delay: .2s;*/
+}
+
+.mt-card-custom {
+    margin-top: 3px !important
+}
+
+.mr-card-custom {
+    margin-right: 3px !important
+}
+
+@media (min-width: 576px) {
+    .hovereffect {
+        font-size: 20px !important;
+    }
+
+    .mt-card-custom {
+        margin-top: 1rem !important
+    }
+
+    .mr-card-custom {
+        margin-right: 1rem !important
+    }
 }
