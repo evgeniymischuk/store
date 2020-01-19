@@ -8,8 +8,8 @@ public class DbHelper {
         ItemDto item = new ItemDto();
 
         item.setId(id);
-        item.setPrice(name);
-        item.setName(price);
+        item.setName(name);
+        item.setPrice(price);
 
         Db.list.add(item);
     }

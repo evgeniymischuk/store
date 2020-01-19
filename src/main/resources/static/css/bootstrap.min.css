@@ -550,10 +550,10 @@ pre code {
 
 .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0;
+    margin-left: 0
 }
 
 @media (min-width: 576px) {
@@ -10413,16 +10413,17 @@ a.text-dark:focus, a.text-dark:hover {
     top: 0;
     left: 0;
     opacity: 0;
+    display: none;
     background-color: rgba(0, 0, 0, 0.5);
     /*-webkit-transition: all .0s ease-in-out;*/
-    /*transition: all .4s ease-in-out*/
+    transition: all .4s ease-in-out
 }
 
 .hovereffect img {
     display: block;
     position: relative;
     /*-webkit-transition: all .4s linear;*/
-    /*transition: all .4s linear;*/
+    transition: all .4s linear;
 }
 
 
@@ -10501,6 +10502,10 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 @media (min-width: 576px) {
+    .mr-card-custom {
+        margin-right: 28px !important
+    }
+
     .hovereffect {
         font-size: 20px !important;
     }
@@ -10509,7 +10514,15 @@ a.text-dark:focus, a.text-dark:hover {
         margin-top: 1rem !important
     }
 
-    .mr-card-custom {
-        margin-right: 1rem !important
+    .hovereffect .overlay{
+        display: block;
+    }
+    .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 935px;
     }
 }
