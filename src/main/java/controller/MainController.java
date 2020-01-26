@@ -12,20 +12,16 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    List<ItemDto> itemDtoList = new ArrayList<>();
-    static {
-
-    }
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("itemList", Db.list);
-
-        return "index";
+        return "indexDisplayGrid";
     }
 
-    @RequestMapping("/info")
-    public String info(Model model, @RequestParam Long id) {
-        model.addAttribute("id", id);
-        return "info";
+    @RequestMapping("/cards")
+    public String cards(Model model) {
+        model.addAttribute("itemList", Db.list);
+
+        return "indexDisplayCards";
     }
 }

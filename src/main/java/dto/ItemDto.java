@@ -4,6 +4,8 @@ public class ItemDto {
     private String id;
     private String name;
     private String price;
+    private String description;
+    private String likeCount;
 
     public String getId() {
         return id;
@@ -27,5 +29,21 @@ public class ItemDto {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
     }
 }
