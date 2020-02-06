@@ -14,11 +14,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Base64;
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 public class CloudController {
@@ -39,8 +37,8 @@ public class CloudController {
         List<String> images = new LinkedList<>();
         List<String> names = new LinkedList<>();
         File directory = new File("cloud/" + dir);
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            images.add("data:image/jpeg;base64,"+new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+        for (File file : directory.listFiles()) {
+            images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
         }
 
         model.addAttribute("images", images);
@@ -71,7 +69,7 @@ public class CloudController {
         final ServletOutputStream outputStream = response.getOutputStream();
 
         try {
-            for (File file : Objects.requireNonNull(dir.listFiles())) {
+            for (File file : dir.listFiles()) {
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/download");
                 response.setContentLength((int) file.length());
