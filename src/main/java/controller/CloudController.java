@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CloudController {
@@ -37,12 +38,55 @@ public class CloudController {
         List<String> images = new LinkedList<>();
         List<String> names = new LinkedList<>();
         File directory = new File("cloud/" + dir);
-        for (File file : directory.listFiles()) {
-            images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+        if (directory.exists()) {
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
+                images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+            }
         }
-
         model.addAttribute("images", images);
         return "cloudWatch";
+    }
+
+    @RequestMapping("/cloudAdd")
+    @PostMapping
+    public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
+                           @RequestParam(name = "dir") String dir) throws Exception {
+        for (MultipartFile multipartFile : images) {
+            saveImage(multipartFile.getOriginalFilename(), dir, multipartFile.getBytes());
+        }
+//        model.addAttribute("href", "http://yourSol.store/cloud/watch/" + dir);
+        return "redirect:/cloud" + dir;
+    }
+
+    private static void saveImage(String fileName, String dir, byte[] bytes) throws Exception {
+        OutputStream opStream = null;
+        try {
+            File f = new File("cloud");
+            boolean b = !f.exists() && f.mkdir() || f.exists();
+            if (!b) {
+                throw new IOException("no create cloud");
+            }
+            f = new File("cloud/" + dir);
+            b = !f.exists() && f.mkdir() || f.exists();
+            if (!b) {
+                throw new IOException("no create " + dir);
+            }
+            f = new File("cloud/" + dir + "/" + fileName);
+            boolean exist = f.exists();
+            if (!exist && f.createNewFile()) {
+                opStream = new FileOutputStream(f);
+                opStream.write(bytes);
+                opStream.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (opStream != null) opStream.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private static byte[] readFileToByteArray(File file) {
@@ -96,48 +140,6 @@ public class CloudController {
         }
 //        outputStream.flush();
 //        outputStream.close();
-    }
-
-    @RequestMapping("/cloudAdd")
-    @PostMapping
-    public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
-                           @RequestParam(name = "dir") String dir) throws IOException {
-        for (MultipartFile multipartFile : images) {
-            saveImage(multipartFile.getOriginalFilename(), dir, multipartFile.getBytes());
-        }
-        model.addAttribute("href", "http://yourSol.store/cloud/watch/" + dir);
-        return "redirect:/cloud" + dir;
-    }
-
-    private static void saveImage(String fileName, String dir, byte[] bytes) {
-        OutputStream opStream = null;
-        try {
-            File f = new File("cloud");
-            boolean b = !f.exists() && f.mkdir() || f.exists();
-            if (!b) {
-                return;
-            }
-            f = new File("cloud/" + dir);
-            b = !f.exists() && f.mkdir() || f.exists();
-            if (!b) {
-                return;
-            }
-            f = new File("cloud/" + dir + "/" + fileName);
-            boolean exist = f.exists();
-            if (!exist && f.createNewFile()) {
-                opStream = new FileOutputStream(f);
-                opStream.write(bytes);
-                opStream.flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (opStream != null) opStream.close();
-            } catch (Exception ex) {
-
-            }
-        }
     }
 
     private static void save(String fileName, String ext, byte[] bytes) {
