@@ -9,17 +9,14 @@ $(document).ready(function () {
     });
     $(document).on('click', '.btn-submit', function () {
         var val = $('#dir').val();
-        if (val){
+        if (val) {
             $("#loaderForm").submit();
-        }else {
+        } else {
             alert("Имя альбома?!")
         }
     })
 });
-
-
 var num = 1;
-
 function readImage() {
     if (window.File && window.FileList && window.FileReader) {
         var files = event.target.files; //FileList object

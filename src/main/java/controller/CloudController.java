@@ -24,10 +24,20 @@ public class CloudController {
         return "cloudMain";
     }
 
-    @RequestMapping("/cloud/download/{dir}")
-    public String download(Model model, @PathVariable("dir") String dir, final HttpServletResponse response) throws IOException {
-        write(response, "cloud/" + dir);
-        return "cloudMain";
+    @RequestMapping("/cloud/download")
+    public void download(Model model,
+                         @RequestParam("dir") String dir,
+                         @RequestParam("name") String name,
+                         final HttpServletResponse response
+    ) throws IOException {
+        File directory = new File("cloud/" + dir);
+        if (directory.exists()) {
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
+                if (file.getName().equalsIgnoreCase(name)) {
+                    write(response, file);
+                }
+            }
+        }
     }
 
     @RequestMapping(value = "/cloud/{dir}")
@@ -36,15 +46,18 @@ public class CloudController {
         List<String> names = new LinkedList<>();
         File directory = new File("cloud/" + dir);
         if (directory.exists()) {
-            for (File file : Objects.requireNonNull(directory.listFiles())) {
-                if (images.size() < 1) {
+            final File[] files = directory.listFiles();
+            final int last = files.length - 1;
+            final String lastName = files[last].getName();
+            for (final File file : files) {
+                if (images.size() < 4 || lastName.equals(file.getName())) {
                     images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
                 }
                 names.add(file.getName());
             }
+            model.addAttribute("last", last);
         }
-        model.addAttribute("pathToDir", dir);
-        model.addAttribute("item", images.get(0));
+        model.addAttribute("images", images);
         model.addAttribute("names", names);
 
         return "cloudWatch";
@@ -55,7 +68,7 @@ public class CloudController {
     public String loadImage(Model model,
                             @RequestParam("dir") String dir,
                             @RequestParam("name") String name
-    ) throws IOException {
+    ) {
         List<String> images = new LinkedList<>();
         File directory = new File("cloud/" + dir);
         if (directory.exists()) {
@@ -72,11 +85,11 @@ public class CloudController {
     @PostMapping
     public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
                            @RequestParam(name = "dir") String dir) throws Exception {
+        String dir64 = new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8);
         for (MultipartFile multipartFile : images) {
-            saveImage(multipartFile.getOriginalFilename(), dir, multipartFile.getBytes());
+            saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
         }
-//        model.addAttribute("href", "http://yourSol.store/cloud/watch/" + dir);
-        return "redirect:/cloud/" + dir;
+        return "redirect:/cloud/" + dir64;
     }
 
     private static void saveImage(String fileName, String dir, byte[] bytes) throws Exception {
@@ -126,19 +139,14 @@ public class CloudController {
         return bArray;
     }
 
-    public static void write(final HttpServletResponse response, String filePath) throws IOException {
-        File dir = new File(filePath);
-        if (!dir.exists()) {
-            return;
-        }
+    public static void write(final HttpServletResponse response, File file) throws IOException {
         final ServletOutputStream outputStream = response.getOutputStream();
 
         try {
-            for (File file : dir.listFiles()) {
-                response.setCharacterEncoding("UTF-8");
-                response.setContentType("application/download");
-                response.setContentLength((int) file.length());
-                String safariEncodedFileName = file.getName();
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/download");
+            response.setContentLength((int) file.length());
+            String safariEncodedFileName = file.getName();
 //            String defaultEncodedFileName = EncodeSupport.encodeAsURLEncoded(fileName);
 
 //            String agent = request.getHeader("User-Agent");
@@ -148,19 +156,18 @@ public class CloudController {
 //                response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"");
 //            }
 //            else {
-                response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"; filename*=UTF-8''" + safariEncodedFileName);
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"; filename*=UTF-8''" + safariEncodedFileName);
 //            }
-                InputStream in = new FileInputStream(file);
-                byte[] readBuffer = new byte[128];
-                int length;
-                while ((length = in.read(readBuffer)) != -1) {
-                    outputStream.write(readBuffer, 0, length);
-                }
+            InputStream in = new FileInputStream(file);
+            byte[] readBuffer = new byte[128];
+            int length;
+            while ((length = in.read(readBuffer)) != -1) {
+                outputStream.write(readBuffer, 0, length);
             }
         } finally {
+            outputStream.flush();
+            outputStream.close();
         }
-//        outputStream.flush();
-//        outputStream.close();
     }
 
     private static void save(String fileName, String ext, byte[] bytes) {

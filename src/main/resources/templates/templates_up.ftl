@@ -37,6 +37,7 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/cloud/watch.js"></script>
     <main>
         <#nested>
     </main>

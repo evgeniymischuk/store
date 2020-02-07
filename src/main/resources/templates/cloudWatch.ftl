@@ -1,8 +1,16 @@
 <#import "templates_up.ftl" as t>
 <@t.page_up>
     <div class="container-fluid">
+        <button type="button" class="mt-1 float-right btn btn-outline-dark" onclick="downloadImagesWithLinks()">
+            Скачать все фотографии
+        </button>
         <#assign x = 0>
         <div id="cloudCarousel" class="carousel slide" data-ride="carousel">
+            <div id="downloader" style="display: none">
+                <#list names as name >
+                    <a onclick="window.location.href = this.href" href="/cloud/download?dir=${dir}&name=${name}"></a>
+                </#list>
+            </div>
             <ol class="carousel-indicators">
                 <#list names as name >
                     <li data-target="#cloudCarousel" data-slide-to="${x}" class="${(x == 0)?then('active', '')}"></li>
@@ -12,11 +20,12 @@
             <#assign x = 0>
             <div class="carousel-inner">
                 <#list names as name >
-                    <div class="carousel-item ${(x == 0)?then('active', '')}">
+                    <div class="carousel-item carousel-item${x} ${(x == 0)?then('active', '')}">
                         <div class="d-flex mt-card-custom">
                             <div class="flex-fill">
-                                <div id="${name}" class="img-responsive-watch"
-                                     style="background: url('${(x == 0)?then(item, '')}');"></div>
+                                <div id="${name}" class="img-responsive-watch" data-dir="${dir}"
+                                     data-load="${(x < 4 || x == last)?then('true', 'false')}"
+                                     style="background: url('${(x < 4 || x == last)?then(images[(x == last)?then(4, x)], '')}');"></div>
                             </div>
                         </div>
                     </div>
@@ -32,23 +41,5 @@
                 <span class="sr-only">Следующая</span>
             </a>
         </div>
-
     </div>
-    <script>
-        $('#cloudCarousel').on('slide.bs.carousel', function (e) {
-            var el = $(e.relatedTarget).find('.img-responsive-watch');
-            if (el.data('load') !== 'true'){
-                // $('#cloudCarousel').carousel('pause');
-                $.ajax({
-                    url: "/cloud/load/image?dir=${dir}&name="+encodeURIComponent(el.attr('id')),
-                    cache: true,
-                    success: function (response) {
-                        el.attr('style', 'background: url('+ response+')');
-                        el.data('load', 'true');
-                        // $('#cloudCarousel').carousel(e.direction === 'left' ? 'prev' :'next')
-                    }
-                });
-            }
-        })
-    </script>
 </@t.page_up>

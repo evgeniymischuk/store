@@ -1,25 +1,16 @@
 .preview-images-zone {
     width: 100%;
     border: 1px solid #ddd;
-    min-height: 320px;
-    /* display: flex; */
+    min-height: 500px;
     padding: 0;
     position: relative;
     overflow:auto;
-}
-.preview-images-zone > .preview-image:first-child {
-    height: 185px;
-    width: 185px;
-    position: relative;
-    margin-right: 5px;
 }
 .preview-images-zone > .preview-image {
     height: 106px;
     width: 106px;
     position: relative;
-    /* margin-right: 5px; */
     float: left;
-    /* margin-bottom: 5px; */
 }
 .preview-images-zone > .preview-image > .image-zone {
     width: 100%;
