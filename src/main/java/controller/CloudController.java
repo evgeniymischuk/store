@@ -3,10 +3,7 @@ package controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -33,21 +30,45 @@ public class CloudController {
         return "cloudMain";
     }
 
-    @RequestMapping(value = "/cloud{dir}")
+    @RequestMapping(value = "/cloud/{dir}")
     public String watch(Model model, @PathVariable("dir") String dir) throws IOException {
         List<String> images = new LinkedList<>();
         List<String> names = new LinkedList<>();
         File directory = new File("cloud/" + dir);
         if (directory.exists()) {
             for (File file : Objects.requireNonNull(directory.listFiles())) {
-                images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+                if (images.size() < 1) {
+                    images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+                }
+                names.add(file.getName());
             }
         }
-        model.addAttribute("images", images);
+        model.addAttribute("pathToDir", dir);
+        model.addAttribute("item", images.get(0));
+        model.addAttribute("names", names);
+
         return "cloudWatch";
     }
 
-    @RequestMapping("/cloudAdd")
+    @RequestMapping(value = "/cloud/load/image", method = RequestMethod.GET)
+    @ResponseBody
+    public String loadImage(Model model,
+                            @RequestParam("dir") String dir,
+                            @RequestParam("name") String name
+    ) throws IOException {
+        List<String> images = new LinkedList<>();
+        File directory = new File("cloud/" + dir);
+        if (directory.exists()) {
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
+                if (images.size() < 1 && file.getName().equalsIgnoreCase(name)) {
+                    images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+                }
+            }
+        }
+        return images.get(0);
+    }
+
+    @RequestMapping("/cloud/add")
     @PostMapping
     public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
                            @RequestParam(name = "dir") String dir) throws Exception {
@@ -55,7 +76,7 @@ public class CloudController {
             saveImage(multipartFile.getOriginalFilename(), dir, multipartFile.getBytes());
         }
 //        model.addAttribute("href", "http://yourSol.store/cloud/watch/" + dir);
-        return "redirect:/cloud" + dir;
+        return "redirect:/cloud/" + dir;
     }
 
     private static void saveImage(String fileName, String dir, byte[] bytes) throws Exception {

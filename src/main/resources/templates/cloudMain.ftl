@@ -2,26 +2,28 @@
 <@t.page>
     <link rel="stylesheet" href="css/cloud/cloud.css">
     <script src="js/cloud/cloud.js"></script>
-    <div class="container-fluid">
-        <#--        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-        <#--        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
-        <#--        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
-        <!------ Include the above in your HEAD tag ---------->
-
-        <#--        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
-        <div class="container">
-            <form action="/cloudAdd" enctype="multipart/form-data" method="post">
-                <fieldset class="form-group">
-                    <a href="javascript:void(0)" onclick="$('#pro-image').click()">Загрузить фотографии</a>
-                    <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control"
-                           multiple>
-                    <input type="text" class="text-center" id="dir" name="dir" placeholder="Имя альбома"/>
-                    <span class="float-right" id="image-load-text"><button>Загрузить</button></span>
+    <div class="container-fluid pb-1 pt-3">
+            <form id="loaderForm" action="/cloud/add" enctype="multipart/form-data" method="post">
+                <fieldset class="form-group text-center col-12 p-0 ">
+                    <div class="col-12 col-md-3 float-left p-0 pl-md-0 pr-md-1 mb-1 mb-md-0">
+                        <button type="button" class="form-control btn btn-outline-dark"
+                                onclick="$('#pro-image').click()">
+                            Выбрать
+                        </button>
+                    </div>
+                    <input type="file" id="pro-image" name="pro-image" style="display: none;" multiple>
+                    <div class="col-12 col-md-6 float-left p-0 pl-md-1 pr-md-1 mb-1 mb-md-0">
+                        <input type="text" class="form-control text-center" id="dir"
+                               name="dir" placeholder="Имя альбома"
+                               aria-label="Имя альбома"/>
+                    </div>
+                    <div class="col-12 col-md-3 float-left p-0 pr-md-0 pl-md-1" id="image-load-text">
+                        <button class="btn btn-outline-dark form-control btn-submit" type="button">Загрузить</button>
+                    </div>
                 </fieldset>
             </form>
-            <div class="preview-images-zone">
+            <div class="preview-images-zone col-12">
             </div>
-        </div>
         <script src="js/jqueryui.js"></script>
     </div>
 </@t.page>

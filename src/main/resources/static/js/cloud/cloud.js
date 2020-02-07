@@ -7,6 +7,14 @@ $(document).ready(function () {
         let no = $(this).data('no');
         $(".preview-image.preview-show-" + no).remove();
     });
+    $(document).on('click', '.btn-submit', function () {
+        var val = $('#dir').val();
+        if (val){
+            $("#loaderForm").submit();
+        }else {
+            alert("Имя альбома?!")
+        }
+    })
 });
 
 
