@@ -56,6 +56,7 @@ public class CloudController {
                 names.add(file.getName());
             }
             model.addAttribute("last", last);
+            model.addAttribute("lastImageInArray", Math.min(last, 4));
         }
         model.addAttribute("images", images);
         model.addAttribute("names", names);
@@ -85,7 +86,8 @@ public class CloudController {
     @PostMapping
     public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
                            @RequestParam(name = "dir") String dir) throws Exception {
-        String dir64 = new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8);
+        String dir64 = new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8)
+                .replaceAll("/", "").replaceAll("[-+.^:,]","");
         for (MultipartFile multipartFile : images) {
             saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
         }

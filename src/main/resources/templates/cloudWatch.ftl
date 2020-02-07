@@ -1,7 +1,7 @@
 <#import "templates_up.ftl" as t>
 <@t.page_up>
     <div class="container-fluid">
-        <button type="button" class="mt-1 float-right btn btn-outline-dark" onclick="downloadImagesWithLinks()">
+        <button type="button" class="mt-1 btn btn-outline-dark" onclick="downloadImagesWithLinks()">
             Скачать все фотографии
         </button>
         <#assign x = 0>
@@ -25,7 +25,7 @@
                             <div class="flex-fill">
                                 <div id="${name}" class="img-responsive-watch" data-dir="${dir}"
                                      data-load="${(x < 4 || x == last)?then('true', 'false')}"
-                                     style="background: url('${(x < 4 || x == last)?then(images[(x == last)?then(4, x)], '')}');"></div>
+                                     style="background: url('${(x < 4 || x == last)?then(images[(x == last)?then(lastImageInArray, x)], '')}');"></div>
                             </div>
                         </div>
                     </div>
