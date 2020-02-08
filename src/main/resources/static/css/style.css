@@ -10553,8 +10553,13 @@ a.text-dark:focus, a.text-dark:hover {
     background-position: center center !important;
     background-size: contain !important;
     width: 100%;
-    background-color: black !important;
-    padding-bottom: 90%;
+    /* background-color: black !important; */
+    padding-bottom: 66.6666666666666666%;
+    margin-bottom: 3px;
+    -webkit-transition: opacity 1.5s ease-in-out;
+    -moz-transition: opacity 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
 }
 
 .img-responsive-cards {

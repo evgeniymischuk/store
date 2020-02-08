@@ -22,7 +22,11 @@
                 </div>
             </fieldset>
         </form>
-        <div class="preview-images-zone col-12">
+        <div class="progress" style="height: 20px;min-height: 20px;">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <input id="resultCopy" name="resultCopy" value="" class="d-none" type="text"/>
+        <div id="result">
         </div>
         <script src="js/jqueryui.js"></script>
     </div>

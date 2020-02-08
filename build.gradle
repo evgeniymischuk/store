@@ -18,9 +18,9 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootWar  {
-    baseName = 'your.sol.store'
-    version = '1.0.0'
-    mainClassName = 'your.sol.store'
+    baseName = 'ROOT'
+    version = ''
+    mainClassName = 'ROOT'
 }
 
 repositories {

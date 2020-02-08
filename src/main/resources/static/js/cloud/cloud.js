@@ -1,12 +1,4 @@
 $(document).ready(function () {
-    document.getElementById('pro-image').addEventListener('change', readImage, false);
-
-    $(".preview-images-zone").sortable();
-
-    $(document).on('click', '.image-cancel', function () {
-        let no = $(this).data('no');
-        $(".preview-image.preview-show-" + no).remove();
-    });
     $(document).on('click', '.btn-submit', function () {
         var val = $('#dir').val();
         if (val) {
@@ -14,36 +6,46 @@ $(document).ready(function () {
         } else {
             alert("Имя альбома?!")
         }
-    })
+    });
+    $('form').submit(function (e) {
+// Serialize the entire form:
+        e.preventDefault();
+        var form_data = new FormData(this);
+        $.ajax({
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        $('.progress-bar').attr('style', 'width:' + percentComplete * 100 + '%;');
+                        $('.progress-bar').html(parseInt(percentComplete * 100) + '%');
+                    }
+                }, false);
+                xhr.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                    }
+                }, false);
+
+                return xhr;
+            },
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            url: $('#loaderForm').attr('action'),
+            data: form_data,
+            success: function (data) {
+                $("#resultCopy").val(data)
+                var copyText = document.getElementById("resultCopy");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                $("#result").html('Ссылка <a href="' + data + '">' + data + '</a>')
+            }
+        });
+        return false;
+    });
 });
-var num = 1;
-function readImage() {
-    if (window.File && window.FileList && window.FileReader) {
-        var files = event.target.files; //FileList object
-        var output = $(".preview-images-zone");
 
-        for (let i = 0; i < files.length; i++) {
-            var file = files[i];
-            if (!file.type.match('image')) continue;
 
-            var picReader = new FileReader();
-
-            picReader.addEventListener('load', function (event) {
-                var picFile = event.target;
-                var html = '<div class="preview-image preview-show-' + num + '">' +
-                    '<div class="image-cancel" data-no="' + num + '">X</div>' +
-                    '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
-                    '</div>';
-
-                output.append(html);
-                num = num + 1;
-            });
-
-            picReader.readAsDataURL(file);
-        }
-        // $("#pro-image").val('');
-        // $("#image-load-text").html('Фотографии добавлены');
-    } else {
-        console.log('Browser not support');
-    }
-}

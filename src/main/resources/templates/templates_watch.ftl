@@ -16,7 +16,6 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
                 </ul>
-
             </div>
         </nav>
     </header>
@@ -24,7 +23,7 @@
     <script src="../js/jquery.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <main>
+    <main style="background: black;">
         <#nested>
     </main>
     </body>
