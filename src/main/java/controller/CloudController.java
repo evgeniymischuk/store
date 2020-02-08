@@ -47,6 +47,26 @@ public class CloudController {
         File directory = new File("cloud/" + dir);
         if (directory.exists()) {
             final File[] files = directory.listFiles();
+            for (final File file : files) {
+                if (images.size() < 5) {
+                    images.add("data:image/jpeg;base64," + new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+                }
+                names.add(file.getName());
+            }
+        }
+        model.addAttribute("images", images);
+        model.addAttribute("names", names);
+
+        return "cloudWatch";
+    }
+
+    @RequestMapping(value = "/cloud/watchCarousel/{dir}")
+    public String watchCarousel(Model model, @PathVariable("dir") String dir) throws IOException {
+        List<String> images = new LinkedList<>();
+        List<String> names = new LinkedList<>();
+        File directory = new File("cloud/" + dir);
+        if (directory.exists()) {
+            final File[] files = directory.listFiles();
             final int last = files.length - 1;
             final String lastName = files[last].getName();
             for (final File file : files) {
@@ -61,7 +81,7 @@ public class CloudController {
         model.addAttribute("images", images);
         model.addAttribute("names", names);
 
-        return "cloudWatch";
+        return "cloudWatchCarousel";
     }
 
     @RequestMapping(value = "/cloud/load/image", method = RequestMethod.GET)
@@ -87,7 +107,7 @@ public class CloudController {
     public String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
                            @RequestParam(name = "dir") String dir) throws Exception {
         String dir64 = new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8)
-                .replaceAll("/", "").replaceAll("[-+.^:,]","");
+                .replaceAll("/", "").replaceAll("[-+.^:,]", "");
         for (MultipartFile multipartFile : images) {
             saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
         }
