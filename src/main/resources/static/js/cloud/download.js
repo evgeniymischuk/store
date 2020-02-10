@@ -1,6 +1,6 @@
 function downloadImagesWithLinks() {
     var elements = $('#downloader a');
-    if ($("#downloadButton").html() == "ОСТАНОВИТЬ СКАЧИВАНИЕ") {
+    if ($("#downloadButton").html() === "ОСТАНОВИТЬ СКАЧИВАНИЕ") {
         var highestTimeoutId = setTimeout(";");
         for (var i = 0; i < highestTimeoutId; i++) {
             clearTimeout(i);
@@ -11,7 +11,7 @@ function downloadImagesWithLinks() {
         $.each(elements, function (i, e) {
             setTimeout(function () {
                 clickA(e);
-            }, 3000 * i)
+            }, 1500 * i)
         })
     }
 }

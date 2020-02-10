@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var els = $('.img-responsive-watch');
-    timeoutX = 0;
     count = 0;
     $.each(els, function (i, el) {
         loadImage($(el));
@@ -11,12 +10,9 @@ $(document).ready(function () {
 });
 var arrRequest = [];
 var count;
-var timeoutX;
 
 function loadImage(el) {
     if (el.data('load') !== true) {
-        timeoutX++;
-        // $('#cloudCarousel').carousel('pause');
         if (el.data('dir') !== undefined && el.attr('id') !== undefined) {
             arrRequest.push(el);
         }
@@ -24,7 +20,6 @@ function loadImage(el) {
 }
 
 function sendRequest(el) {
-    // if (count < 5) {
     count++;
     $.ajax({
         url: "/cloud/load/image?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(el.attr('id')),
@@ -39,5 +34,4 @@ function sendRequest(el) {
             }
         }
     });
-    // }
 }
