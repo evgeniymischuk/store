@@ -2621,7 +2621,7 @@ textarea.form-control {
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: .375em;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
@@ -10548,6 +10548,7 @@ a.text-dark:focus, a.text-dark:hover {
     background-size: cover;
     background-position: center;
 }
+
 .img-responsive-watch {
     background-repeat: no-repeat !important;
     background-position: center center !important;
@@ -10601,6 +10602,9 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 @media (min-width: 576px) {
+    .btn {
+        padding: .375rem .75rem;
+    }
 
     .hovereffect {
         font-size: 20px !important;

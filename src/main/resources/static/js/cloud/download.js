@@ -1,13 +1,19 @@
 function downloadImagesWithLinks() {
     var elements = $('#downloader a');
-    $.each(elements, function (i, e) {
-        setTimeout(function () {
-            clickA(e);
-        }, 2000 * i)
-    })
-    // setTimeout(function () {
-    //     sendRequestDownload(el);
-    // }, 0)
+    if ($("#downloadButton").html() == "ОСТАНОВИТЬ СКАЧИВАНИЕ") {
+        var highestTimeoutId = setTimeout(";");
+        for (var i = 0; i < highestTimeoutId; i++) {
+            clearTimeout(i);
+        }
+        $("#downloadButton").html("СКАЧАТЬ ВСЕ ФОТОГРАФИИ ПО ОДНОЙ");
+    } else {
+        $("#downloadButton").html("ОСТАНОВИТЬ СКАЧИВАНИЕ");
+        $.each(elements, function (i, e) {
+            setTimeout(function () {
+                clickA(e);
+            }, 3000 * i)
+        })
+    }
 }
 
 function clickA(e) {

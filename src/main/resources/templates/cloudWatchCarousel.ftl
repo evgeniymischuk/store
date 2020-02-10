@@ -1,9 +1,9 @@
+
 <#import "templates_watch.ftl" as t>
-<@t.page_up>
+<@t.page_watch>
+    <script src="../js/cloud/download.js"></script>
+    <script src="../js/cloud/watchCarousel.js"></script>
     <div class="container-fluid">
-        <button type="button" class="mt-1 btn btn-outline-dark" onclick="downloadImagesWithLinks()">
-            Скачать все фотографии
-        </button>
         <#assign x = 0>
         <div id="cloudCarousel" class="carousel slide" data-ride="carousel">
             <div id="downloader" style="display: none">
@@ -42,4 +42,4 @@
             </a>
         </div>
     </div>
-</@t.page_up>
+</@t.page_watch>

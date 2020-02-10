@@ -8,7 +8,6 @@ $(document).ready(function () {
         }
     });
     $('form').submit(function (e) {
-// Serialize the entire form:
         e.preventDefault();
         var form_data = new FormData(this);
         $.ajax({
@@ -17,16 +16,22 @@ $(document).ready(function () {
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
-                        $('.progress-bar').attr('style', 'width:' + percentComplete * 100 + '%;');
-                        $('.progress-bar').html(parseInt(percentComplete * 100) + '%');
+                        var parsePercent = parseInt(percentComplete * 100);
+                        if (parsePercent === 100) {
+                            $("#result").html('Идет обработка файлов...')
+                        }
+                        parsePercent = parsePercent > 0 ? parsePercent : 0;
+                        $('.progress-bar').attr('style', 'width:' + parsePercent + '%;');
+                        $('.progress-bar').html(parsePercent + '%');
                     }
                 }, false);
                 xhr.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
+                        $('.progress-bar').attr('style', 'width:' + 100 + '%;');
+                        $('.progress-bar').html(100 + '%');
                     }
                 }, false);
-
                 return xhr;
             },
             type: 'POST',
@@ -41,7 +46,7 @@ $(document).ready(function () {
                 copyText.select();
                 copyText.setSelectionRange(0, 99999);
                 document.execCommand("copy");
-                $("#result").html('Ссылка <a href="' + data + '">' + data + '</a>')
+                $("#result").html('Ссылка <a href="' + data + '">' + data + '</a> <br>')
             }
         });
         return false;

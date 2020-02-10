@@ -119,18 +119,24 @@ public class CloudController {
     public String watch(Model model, @PathVariable("dir") String dir) throws IOException {
         List<String> images = new LinkedList<>();
         List<String> names = new LinkedList<>();
-        File directory = new File("cloud/" + dir);
+        File directory = new File("cloud/" + dir + "-web");
         if (directory.exists()) {
             final File[] files = directory.listFiles();
 //            ByteArrayOutputStream fileTmp = new ByteArrayOutputStream();
             for (final File file : files) {
                 if (images.size() < 2) {
 //                    resize(1311, 874, file, fileTmp);
-//                    images.add(new String(Base64.getEncoder().encode(fileTmp.toByteArray()), StandardCharsets.UTF_8));
+//                    try {
                     images.add(new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+//                    } finally {
+//                        fileTmp.close();
+//                    }
+//                    images.add(new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
                 }
                 names.add(file.getName());
             }
+        }else {
+
         }
         model.addAttribute("images", images);
         model.addAttribute("names", names);
@@ -138,11 +144,11 @@ public class CloudController {
         return "cloudWatch";
     }
 
-    @RequestMapping(value = "/cloud/watchCarousel/{dir}")
+    @RequestMapping(value = "/cloud-carousel/{dir}")
     public String watchCarousel(Model model, @PathVariable("dir") String dir) throws IOException {
         List<String> images = new LinkedList<>();
         List<String> names = new LinkedList<>();
-        File directory = new File("cloud/" + dir);
+        File directory = new File("cloud/" + dir + "-web");
         if (directory.exists()) {
             final File[] files = directory.listFiles();
             final int last = files.length - 1;
@@ -169,22 +175,27 @@ public class CloudController {
                             @RequestParam("name") String name
     ) throws IOException {
         List<String> images = new LinkedList<>();
-        File directory = new File("cloud/" + dir);
+        File directory = new File("cloud/" + dir + "-web");
         if (directory.exists()) {
 //            ByteArrayOutputStream fileTmp = new ByteArrayOutputStream();
             for (File file : Objects.requireNonNull(directory.listFiles())) {
-                if (images.size() < 1 && file.getName().equalsIgnoreCase(name)) {
+                if (file.getName().equalsIgnoreCase(name)) {
 //                    resize(1311, 874, file, fileTmp);
-//                    images.add(new String(Base64.getEncoder().encode(fileTmp.toByteArray()), StandardCharsets.UTF_8));
+//                    try {
                     images.add(new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+                    break;
+//                    } finally {
+//                        fileTmp.close();
+//                    }
+//                    images.add(new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
                 }
             }
         }
         return images.get(0);
     }
 
-    private static BufferedImage scaleImage(BufferedImage bufferedImage, int size) {
-        double boundSize = size;
+    private static BufferedImage scaleImage(BufferedImage bufferedImage) {
+        double boundSize = 1000;
         int origWidth = bufferedImage.getWidth();
         int origHeight = bufferedImage.getHeight();
         double scale;
@@ -198,9 +209,6 @@ public class CloudController {
         int scaledWidth = (int) (scale * origWidth);
         int scaledHeight = (int) (scale * origHeight);
         Image scaledImage = bufferedImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
-        // new ImageIcon(image); // load image
-        // scaledWidth = scaledImage.getWidth(null);
-        // scaledHeight = scaledImage.getHeight(null);
         BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = scaledBI.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -212,17 +220,13 @@ public class CloudController {
     public static void resize(int scaledWidth, int scaledHeight, File inputFile, ByteArrayOutputStream outputStream)
             throws IOException {
         BufferedImage inputImage = ImageIO.read(inputFile);
-        // creates output image
-//        BufferedImage outputImage = new BufferedImage(scaledWidth,
-//                scaledHeight, inputImage.getType());
-//
-//        // scales the input image to the output image
-//        Graphics2D g2d = outputImage.createGraphics();
-//        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
-//        g2d.dispose();
-        // writes to output file
-//        ImageIO.write(outputImage, "jpeg", outputFile);
-        ImageIO.write(scaleImage(inputImage, 2000), "jpeg", outputStream);
+        ImageIO.write(scaleImage(inputImage), "jpeg", outputStream);
+    }
+
+    public static void resize(int scaledWidth, int scaledHeight, File inputFile, File outputFIle)
+            throws IOException {
+        BufferedImage inputImage = ImageIO.read(inputFile);
+        ImageIO.write(scaleImage(inputImage), "jpeg", outputFIle);
     }
 
     @RequestMapping("/cloud/add")
@@ -233,15 +237,43 @@ public class CloudController {
         String dir64 = new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8)
                 .replaceAll("/", "").replaceAll("[-+.^:,]", "");
         for (MultipartFile multipartFile : images) {
-            saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
+            if (Objects.requireNonNull(multipartFile.getContentType()).contains("jpg") || Objects.requireNonNull(multipartFile.getContentType()).contains("jpeg")) {
+                File f = saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
+                f = saveImage(multipartFile.getOriginalFilename(), dir64 + "-web", f);
+            }
         }
         return "http://yourSol.store/cloud/" + dir64;
     }
 
-    private static void saveImage(String fileName, String dir, byte[] bytes) throws Exception {
-        OutputStream opStream = null;
+    private static File saveImage(String fileName, String dir, File file) throws Exception {
+        File f = null;
         try {
-            File f = new File("cloud");
+            f = new File("cloud");
+            boolean b = !f.exists() && f.mkdir() || f.exists();
+            if (!b) {
+                throw new IOException("no create cloud");
+            }
+            f = new File("cloud/" + dir);
+            b = !f.exists() && f.mkdir() || f.exists();
+            if (!b) {
+                throw new IOException("no create " + dir);
+            }
+            f = new File("cloud/" + dir + "/" + fileName);
+            boolean exist = f.exists();
+            if (!exist && f.createNewFile()) {
+                resize(0, 0, file, f);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    private static File saveImage(String fileName, String dir, byte[] bytes) throws Exception {
+        OutputStream opStream = null;
+        File f = null;
+        try {
+            f = new File("cloud");
             boolean b = !f.exists() && f.mkdir() || f.exists();
             if (!b) {
                 throw new IOException("no create cloud");
@@ -267,6 +299,7 @@ public class CloudController {
                 ex.printStackTrace();
             }
         }
+        return f;
     }
 
     private static byte[] readFileToByteArray(File file) {

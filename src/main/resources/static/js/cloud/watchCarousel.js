@@ -37,7 +37,7 @@ function sendRequest(el) {
             cache: true,
             success: function (response) {
                 console.log('loadpic');
-                el.attr('style', 'background: url('+'data:image/jpeg;base64,' + response + ')');
+                el.attr('style', 'background: url(' + 'data:image/jpeg;base64,' + response + ')');
                 el.data('load', true);
                 count = 0;
                 // $('#cloudCarousel').carousel(e.direction === 'left' ? 'prev' :'next')
@@ -46,20 +46,4 @@ function sendRequest(el) {
     } else {
         count = 0;
     }
-}
-
-function downloadImagesWithLinks() {
-    var elements = $('#downloader a');
-    $.each(elements, function (i, e) {
-        setTimeout(function () {
-            clickA(e);
-        }, 1000 * i)
-    })
-    // setTimeout(function () {
-    //     sendRequestDownload(el);
-    // }, 0)
-}
-
-function clickA(e) {
-    e.click()
 }
