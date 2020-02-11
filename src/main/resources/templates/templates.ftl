@@ -17,19 +17,20 @@
                 <ul class="navbar-nav mr-auto ml-auto">
                 </ul>
                 <a class="navbar-brand" href="#">
-                    <img width="24" height="24" src="/svg/shopping.svg" alt="basket"/>
-                    <span class="basket">1</span>
+                    <img data-toggle="modal" data-target="#cart" width="24" height="24" src="/svg/shopping.svg" alt="basket"/>
+                    <span class="total-count basket"></span>
                 </a>
             </div>
         </nav>
     </header>
     <body>
     <script src="js/jquery.js"></script>
-    <script src="js/popper.min.js"></script>
+<#--    <script src="js/popper.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
     <main class="pt-5">
         <#nested>
     </main>
+    <script src="js/basket.js"></script>
     </body>
     </html>
 </#macro>
