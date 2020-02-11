@@ -23,7 +23,7 @@ $(document).ready(function () {
                             $("#result").html('Идет загрузка файлов на сервер...');
                         }
                         parsePercent = parsePercent - 21;
-                        parsePercent = parsePercent > 0 ? parsePercent : 21;
+                        parsePercent = parsePercent > 0 ? parsePercent + 21 : 21;
                         $('.progress-bar').attr('style', 'width:' + parsePercent + '%;');
                         $('.progress-bar').html(parsePercent + '%');
                     }

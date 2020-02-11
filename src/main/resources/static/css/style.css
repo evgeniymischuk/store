@@ -10562,6 +10562,18 @@ a.text-dark:focus, a.text-dark:hover {
     -o-transition: opacity 1.5s ease-in-out;
     transition: opacity 1.5s ease-in-out;
 }
+.animation-show {
+    -webkit-transition: opacity 1.5s ease-in-out;
+    -moz-transition: opacity 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
+}
+.downloaded-item {
+    -webkit-transition: opacity 1.5s ease-in-out;
+    -moz-transition: opacity 1.5s ease-in-out;
+    -o-transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.5s ease-in-out;
+}
 
 .img-responsive-cards {
     width: 100%;

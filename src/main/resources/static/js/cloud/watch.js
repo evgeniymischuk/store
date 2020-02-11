@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var els = $('.img-responsive-watch');
+    var els = $('.downloaded-item');
     count = 0;
     $.each(els, function (i, el) {
         loadImage($(el));
@@ -21,17 +21,42 @@ function loadImage(el) {
 
 function sendRequest(el) {
     count++;
-    $.ajax({
-        url: "/cloud/load/image?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(el.attr('id')),
-        cache: true,
-        success: function (response) {
-            console.log('loadpic');
-            el.attr('style', 'opacity: 0;display:block;');
-            el.attr('style', 'background: url(' + 'data:image/jpeg;base64,' + response + '); opacity: 1;');
-            el.data('load', true);
-            if (count < arrRequest.length) {
-                sendRequest(arrRequest[count])
-            }
-        }
-    });
+    console.log('loadpic');
+    var name = el.attr('id');
+    var lowerCaseName = name.toLowerCase();
+    el.removeClass("d-none");
+    if (lowerCaseName.includes(".jpg") || lowerCaseName.includes(".jpeg")) {
+        var button = $(document.getElementById(name+"DownloadButton"));
+        var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "-web" + "&name=" + encodeURIComponent(name);
+        el.attr('style', 'background: url(\'' + url + '\');opacity: 1;display:block; ');
+        el.data('load', true);
+        setTimeout(function () {
+            button.removeClass("d-none");
+        }, 1500);
+
+    } else if (lowerCaseName.includes(".mov") || lowerCaseName.includes(".mp4")) {
+        var button = $(document.getElementById(name+"DownloadButton"));
+        var embed = $(document.getElementById(name+"embed"));
+        var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(name);
+        el.attr('src', url);
+        var video = document.getElementById(name + "Video");
+        video.load();
+        $(embed).attr("style", "opacity:1;");
+        el.data('load', true);
+        // setTimeout(function () {
+        //     button.removeClass("d-none");
+        // }, 1500);
+    } else {
+        var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(name);
+        el.html(name);
+        el.attr("style", "opacity:1;");
+        el.attr('href', url);
+        el.data('load', true);
+    }
+
+    if (count < arrRequest.length) {
+        setTimeout(function () {
+            sendRequest(arrRequest[count])
+        }, 1000);
+    }
 }

@@ -49,17 +49,17 @@ public class CloudController {
     @RequestMapping("/cloud/add")
     @PostMapping
     public @ResponseBody
-    String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> images,
+    String cloudAdd(Model model, @RequestParam(name = "pro-image") List<MultipartFile> files,
                     @RequestParam(name = "dir") String dir) throws Exception {
         final String dir64 =
                 new String(Base64.getEncoder().encode(dir.getBytes()), StandardCharsets.UTF_8)
                         .replaceAll("/", "")
                         .replaceAll("[-+.^:,]", "");
 
-        for (final MultipartFile multipartFile : images) {
-            final String contentType = multipartFile.getContentType();
+        for (final MultipartFile multipartFile : files) {
+            final String contentType = multipartFile.getContentType().toLowerCase();
+            final File f = save(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
             if (contentType.contains("jpg") || contentType.contains("jpeg")) {
-                final File f = saveImage(multipartFile.getOriginalFilename(), dir64, multipartFile.getBytes());
                 saveCompressedImage(multipartFile.getOriginalFilename(), dir64 + "-web", f);
             }
         }
@@ -86,7 +86,6 @@ public class CloudController {
     @RequestMapping("/cloud/download/zip/")
     public void download(Model model,
                          @RequestParam("dir") String dir,
-                         final HttpServletRequest request,
                          final HttpServletResponse response
     ) throws IOException {
         final ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
@@ -107,45 +106,54 @@ public class CloudController {
 
     @RequestMapping(value = "/cloud/load/image", method = RequestMethod.GET)
     @ResponseBody
-    public String loadImage(Model model,
+    public Object loadImage(Model model,
                             @RequestParam("dir") String dir,
                             @RequestParam("name") String name
     ) throws IOException {
-        String imageBase64 = "exception";
 
-        final File directory = new File("cloud/" + dir + "-web");
-        if (directory.exists()) {
-            for (final File file : Objects.requireNonNull(directory.listFiles())) {
+        final File directoryWeb = new File("cloud/" + dir + "-web");
+        if (directoryWeb.exists()) {
+            for (final File file : Objects.requireNonNull(directoryWeb.listFiles())) {
                 if (file.getName().equalsIgnoreCase(name)) {
-                    imageBase64 = new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8);
-                    break;
+                    return new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8);
                 }
             }
         } else {
-            throw new IOException("directory not exist");
+            final File directory = new File("cloud/" + dir);
+            for (final File file : Objects.requireNonNull(directory.listFiles())) {
+                if (file.getName().equalsIgnoreCase(name)) {
+                    return file;
+                }
+            }
         }
 
-        return imageBase64;
+        return null;
     }
 
     @RequestMapping(value = "/cloud/{dir}")
     public String watch(Model model, @PathVariable("dir") String dir) throws IOException {
-        final List<String> images = new LinkedList<>();
         final List<String> names = new LinkedList<>();
-        final File directory = new File("cloud/" + dir + "-web");
-        if (directory.exists()) {
-            final File[] files = directory.listFiles();
-            if (files == null) {
-                throw new IOException("directory empty");
-            }
-            for (final File file : files) {
-                if (images.size() < 2) {
-                    images.add(new String(Base64.getEncoder().encode(readFileToByteArray(file)), StandardCharsets.UTF_8));
+        final File directoryWeb = new File("cloud/" + dir + "-web");
+        if (directoryWeb.exists()) {
+            final File[] files = directoryWeb.listFiles();
+            if (files != null) {
+                for (final File file : files) {
+                    names.add(file.getName());
                 }
-                names.add(file.getName());
             }
         }
-        model.addAttribute("images", images);
+        final File directory = new File("cloud/" + dir);
+        if (directory.exists()) {
+            final File[] files = directory.listFiles();
+            if (files != null) {
+                for (final File file : files) {
+                    final String fileName = file.getName().toLowerCase();
+                    if (!(fileName.contains("jpg") || fileName.contains("jpeg")) && fileName.contains(".")) {
+                        names.add(file.getName());
+                    }
+                }
+            }
+        }
         model.addAttribute("names", names);
 
         return "cloudWatch";
@@ -199,7 +207,7 @@ public class CloudController {
         FileInputStream fis = new FileInputStream(fileToZip);
         ZipEntry zipEntry = new ZipEntry(fileName);
         zipOut.putNextEntry(zipEntry);
-        byte[] bytes = new byte[1024];
+        byte[] bytes = new byte[5000];
         int length;
         while ((length = fis.read(bytes)) >= 0) {
             zipOut.write(bytes, 0, length);
@@ -263,7 +271,7 @@ public class CloudController {
         }
     }
 
-    private static File saveImage(String fileName, String dir, byte[] bytes) throws Exception {
+    private static File save(String fileName, String dir, byte[] bytes) throws Exception {
         OutputStream opStream = null;
         File f = null;
         try {
@@ -326,11 +334,12 @@ public class CloudController {
             boolean isSafari = agent != null && agent.contains("Safari");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"; filename*=UTF-8''" + safariEncodedFileName);
             InputStream in = new FileInputStream(file);
-            byte[] readBuffer = new byte[128];
+            byte[] readBuffer = new byte[(int) file.length()];
             int length;
             while ((length = in.read(readBuffer)) != -1) {
                 outputStream.write(readBuffer, 0, length);
             }
+        } catch (Exception ignored) {
         } finally {
             outputStream.flush();
             outputStream.close();
