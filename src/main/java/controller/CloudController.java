@@ -36,9 +36,9 @@ public class CloudController {
                 final String fileName = file.getName();
                 if (!(fileName.contains(".") || fileName.contains("-web"))) {
                     try {
-                        albums.put("http://yourSol.store/cloud/" + fileName, new String(Base64.getDecoder().decode(fileName.getBytes()), StandardCharsets.UTF_8));
+                        albums.put("http://yoursol.store/cloud/" + fileName, new String(Base64.getDecoder().decode(fileName.getBytes()), StandardCharsets.UTF_8));
                     } catch (Exception ignored) {
-                        albums.put("http://yourSol.store/cloud/" + fileName, fileName);
+                        albums.put("http://yoursol.store/cloud/" + fileName, fileName);
                     }
                 }
             }
@@ -63,7 +63,7 @@ public class CloudController {
                 saveCompressedImage(multipartFile.getOriginalFilename(), dir64 + "-web", f);
             }
         }
-        return "http://yourSol.store/cloud/" + dir64;
+        return "http://yoursol.store/cloud/" + dir64;
     }
 
     @RequestMapping("/cloud/download")
@@ -216,7 +216,7 @@ public class CloudController {
     }
 
     private static BufferedImage scaleImage(BufferedImage bufferedImage) {
-        final double boundSize = 1000;
+        final double boundSize = 2048;
         final int origWidth = bufferedImage.getWidth();
         final int origHeight = bufferedImage.getHeight();
         final double scale;
