@@ -4,15 +4,15 @@
         <#assign x = 0>
         <#list itemList as item >
             <#if x <= 0>
-                <div class="d-flex mt-card-custom">
+                <div class="mt-card-custom card-in-grid d-none">
             </#if>
             <div class="flex-fill ${(x == 2)?then('', 'mr-card-custom')}">
-                <div class="hovereffect" data-id="${item.id}">
-                    <div style="background-image: url('img/product_${item.id}.jpg')" class="img-responsive">
+                <div class="hover-effect" data-id="${item.id}">
+                    <div style="background-image: url('download?name=${item.id}')" class="img-responsive">
                         <div class="overlay">
                             <ul>
-                                <li>
-                                    <span>${item.likeCount}</span>
+                                <li class="likeCountLi animation-show" style="opacity: 0;">
+                                    <span class="like-count" data-instagram="${item.instagramLikeUrl}"></span>
                                     <span class="mr-1">
                                         <img width="19" height="19" src="svg/heart.svg" alt="heart">
                                     </span>
@@ -23,15 +23,27 @@
                 </div>
             </div>
             <#assign x++>
-            <#if x == 3>
+            <#if x == 3 || !(item_has_next)>
                 </div>
                 <#assign x = 0>
             </#if>
         </#list>
+        <#list itemList as item >
+            <div id="${item.id}" class="d-none trapHeader card-in-row">
+                <div class="flex-fill">
+                    <div class="card-title">${item.title}</div>
+                    <div style="background-image: url('download?name=${item.id}')" class="img-responsive-cards"></div>
+                    <div class="card-description">${item.description}</div>
+                    <div class="card-price border-btm mt-3">
+                        <div data-id="${item.id}" data-name="${item.title}" data-single="true" data-price="${item.price}"
+                             class="add-to-cart buy-btn btn btn-outline-dark">
+                            Купить
+                        </div>
+                        <span class="ml-4">${item.price}&#8381;</span>
+                    </div>
+                </div>
+            </div>
+        </#list>
     </div>
-    <script>
-        $(".hovereffect").on("click", function () {
-            window.location.href = "/cards#" + $(this).data('id');
-        });
-    </script>
+    <script src="js/postloadgrid.js"></script>
 </@t.page>

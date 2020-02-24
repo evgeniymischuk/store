@@ -14,7 +14,7 @@
                     <#if name?lower_case?contains(".jpg") || name?lower_case?contains(".jpeg")>
                         <img id="${name}DownloadButton" src="../svg/download.svg" width="25" height="25" class="mt-3 mr-3 float-right d-none" style="cursor: pointer"
                              onclick="document.getElementById('a${name}').click()" alt="Скачать">
-                        <div id="${name}" class="img-responsive-watch downloaded-item" data-dir="${dir}"
+                        <div id="${name}" class="img-responsive-watch downloaded-item animation-show" data-dir="${dir}"
                              data-load="false" style="opacity: 0"></div>
                     <#elseif name?lower_case?contains(".mov") || name?lower_case?contains(".mp4")>
 <#--                        <img id="${name}DownloadButton" src="../svg/download.svg" width="25" height="25"-->
@@ -22,13 +22,13 @@
 <#--                             onclick="document.getElementById('a${name}').click()" alt="Скачать">-->
                         <div id="${name}embed" class="embed-responsive embed-responsive-16by9 animation-show" style="opacity: 0">
                             <video id="${name}Video" class="embed-responsive-item" controls>
-                                <source class="downloaded-item" id="${name}"
+                                <source class="downloaded-item animation-show" id="${name}"
                                         data-dir="${dir}"
                                         data-load="false" type="video/mp4"/>
                             </video>
                         </div>
                     <#else>
-                        <a id="${name}" class="downloaded-item page-link text-center d-none" style="opacity: 0" data-dir="${dir}" data-load="false"></a>
+                        <a id="${name}" class="downloaded-item page-link text-center d-none" data-dir="${dir}" data-load="false"></a>
                     </#if>
                 </div>
             </div>

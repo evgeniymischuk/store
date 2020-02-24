@@ -2,10 +2,10 @@ package dto;
 
 public class ItemDto {
     private String id;
-    private String name;
+    private String title;
     private String price;
     private String description;
-    private String likeCount;
+    private String instagramLikeUrl;
 
     public String getId() {
         return id;
@@ -15,12 +15,12 @@ public class ItemDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPrice() {
@@ -39,11 +39,11 @@ public class ItemDto {
         this.description = description;
     }
 
-    public String getLikeCount() {
-        return likeCount;
+    public String getInstagramLikeUrl() {
+        return instagramLikeUrl;
     }
 
-    public void setLikeCount(String likeCount) {
-        this.likeCount = likeCount;
+    public void setInstagramLikeUrl(String instagramLikeUrl) {
+        this.instagramLikeUrl = instagramLikeUrl;
     }
 }

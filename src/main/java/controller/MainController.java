@@ -12,11 +12,4 @@ public class MainController {
         model.addAttribute("itemList", Db.list);
         return "indexDisplayGrid";
     }
-
-    @RequestMapping("/cards")
-    public String cards(Model model) {
-        model.addAttribute("itemList", Db.list);
-
-        return "indexDisplayCards";
-    }
 }

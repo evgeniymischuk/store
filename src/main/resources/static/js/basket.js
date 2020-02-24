@@ -10,6 +10,7 @@ var shoppingCart = (function () {
 
     function saveCart() {
         sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+        __blockBasket();
     }
 
     function loadCart() {
@@ -61,7 +62,7 @@ var shoppingCart = (function () {
                 var els = $(".add-to-cart");
                 $.each(els, function (i, e) {
                     var $el = $(e);
-                    if (name === $el.data('name')){
+                    if (name === $el.data('name')) {
                         $el.html("Купить");
                         return false;
                     }
@@ -103,6 +104,22 @@ var shoppingCart = (function () {
         }
         return cartCopy;
     };
+
+    obj.hasListCart = function () {
+        return cart && cart.length > 0;
+    };
+
+    function __blockBasket() {
+        if (!(cart && cart.length > 0)) {
+            $("#basket").removeAttr("data-toggle");
+            $("#basketModal").modal('hide');
+        } else {
+            $("#basket").attr("data-toggle", "modal");
+        }
+    }
+
+    __blockBasket();
+
     return obj;
 })();
 
@@ -113,7 +130,7 @@ $('.add-to-cart').click(function (event) {
     var price = Number($(this).data('price'));
     var added = shoppingCart.addItemToCart(name, price, 1, single);
     if ($(this).html() === "Добавлено. Перейти в корзину") {
-        $("#cart").modal();
+        $("#basketModal").modal();
     }
     if (single && added) {
         $(this).html("Добавлено. Перейти в корзину");
@@ -141,31 +158,34 @@ function displayCart() {
         var cartArrayTotal = card.total;
         var cartArrayCount = card.count;
         var cartArraySingle = card.single;
-        if (cartArraySingle){
+        var $el;
+        if (cartArraySingle) {
             var els = $(".add-to-cart");
             $.each(els, function (i, e) {
-                var $el = $(e);
-                if (cartArrayName === $el.data('name')){
+                $el = $(e);
+                if (cartArrayName === $el.data('name')) {
                     $el.html("Добавлено. Перейти в корзину");
                     return false;
                 }
             });
-        }
-        if (cartArraySingle) {
-            output += "<tr>"
-                + "<td>"
-                + "<button class='delete-item btn btn-outline-dark' data-name='" + cartArrayName + "'>X</button>"
-                + "</td>"
-                + "<td>" + cartArrayName + "</td>"
-                + "<td>" + cartArrayPrice + "&#8381;</td>"
-                + "<td></td>"
-                + "<td></td>"
-
-                + "</tr>";
+            if ($el){
+                var imgSrc = "/download?name=" + $el.data("id") + ".jpg";
+                var divImg = "<div style='background-image: url(" + imgSrc + ")' class='img-responsive-basket'></div>";
+                output += "<tr>"
+                    + "<td class='hw-38px'>"
+                    + "<button class='delete-item btn btn-outline-dark hw-38px' data-name='" + cartArrayName + "'>X</button>"
+                    + "</td>"
+                    + "<td class='hw-38px'>" + divImg + "</td>"
+                    + "<td>" + cartArrayName + "</td>"
+                    + "<td>" + cartArrayPrice + "&#8381;</td>"
+                    + "<td></td>"
+                    + "<td></td>"
+                    + "</tr>";
+            }
         } else {
             output += "<tr>"
-                + "<td>"
-                + "<button class='delete-item btn btn-outline-dark' data-name='" + cartArrayName + "'>X</button>"
+                + "<td class='w-38px'>"
+                + "<button class='delete-item btn btn-outline-dark w-38px' data-name='" + cartArrayName + "'>X</button>"
                 + "</td>"
                 + "<td>" + cartArrayName + "</td>"
                 + "<td> 1x" + cartArrayPrice + "&#8381;</td>"
@@ -180,17 +200,10 @@ function displayCart() {
                 + "</tr>";
         }
     }
-    // output += "<tr>"
-    //     + "<td></td>"
-    //     + "<td></td>"
-    //     + "<td></td>"
-    //     + "<td></td>"
-    //     + "<td>"
-    //     + "<span class='total-cart'>" + Number(shoppingCart.totalCart()).toFixed(2) + "</span>&#8381;"
-    //     + "</td>"
-    //     + "</tr>";
+
     $('.show-cart').html(output);
-    $('.total-count').html(shoppingCart.totalCount());
+    var totalCount = shoppingCart.totalCount();
+    $('.total-count').html(totalCount > 0 ? totalCount : '');
 }
 
 $('.show-cart').on("click", ".delete-item", function (event) {

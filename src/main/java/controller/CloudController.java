@@ -75,7 +75,7 @@ public class CloudController {
     ) throws IOException {
         final File directory = new File("cloud/" + dir);
         if (directory.exists()) {
-            for (File file : Objects.requireNonNull(directory.listFiles())) {
+            for (File file : directory.listFiles()) {
                 if (file.getName().equalsIgnoreCase(name)) {
                     write(response, request, file);
                 }
@@ -110,7 +110,6 @@ public class CloudController {
                             @RequestParam("dir") String dir,
                             @RequestParam("name") String name
     ) throws IOException {
-
         final File directoryWeb = new File("cloud/" + dir + "-web");
         if (directoryWeb.exists()) {
             for (final File file : Objects.requireNonNull(directoryWeb.listFiles())) {
@@ -154,11 +153,15 @@ public class CloudController {
                 }
             }
         }
-        model.addAttribute("names", names);
-
-        return "cloudWatch";
+        if (names.size() > 0) {
+            model.addAttribute("names", names);
+            return "cloudWatch";
+        } else {
+            return "cloudWatchNotFound";
+        }
     }
 
+    @Deprecated
     @RequestMapping(value = "/cloud-carousel/{dir}")
     public String watchCarousel(Model model, @PathVariable("dir") String dir) throws IOException {
         List<String> images = new LinkedList<>();
@@ -318,7 +321,7 @@ public class CloudController {
         return bArray;
     }
 
-    public static void write(
+    private static void write(
             final HttpServletResponse response,
             final HttpServletRequest request,
             File file
@@ -331,7 +334,6 @@ public class CloudController {
             response.setContentLength((int) file.length());
             String safariEncodedFileName = file.getName();
             String agent = request.getHeader("User-Agent");
-            boolean isSafari = agent != null && agent.contains("Safari");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"; filename*=UTF-8''" + safariEncodedFileName);
             InputStream in = new FileInputStream(file);
             byte[] readBuffer = new byte[(int) file.length()];

@@ -17,7 +17,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-bootWar  {
+bootWar {
     baseName = 'ROOT'
     version = ''
     mainClassName = 'ROOT'
@@ -33,6 +33,7 @@ targetCompatibility = 1.8
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile("org.springframework.boot:spring-boot-starter-freemarker")
+    compile 'org.apache.commons:commons-csv:1.8'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     providedCompile 'javax.servlet:servlet-api:2.5'
 }

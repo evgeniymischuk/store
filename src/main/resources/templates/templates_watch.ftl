@@ -42,24 +42,12 @@
                            href="javascript:window.location.href = '/cloud/download/zip/?dir='+ encodeURIComponent('${dir}')">
                             СКАЧАТЬ АРХИВОМ(.ZIP)</a>
                     </li>
-                    <#--                    <li class="nav-item">-->
-                    <#--                        <button type="button" class="mt-1 btn btn-outline-dark col-12" onclick="downloadImagesWithLinks()">-->
-                    <#--                            СКАЧАТЬ ВСЕ ФОТОГРАФИИ ПО ОДНОЙ-->
-                    <#--                        </button>-->
-                    <#--                    </li>-->
-                    <#--                    <li class="ml-0 ml-md-1 nav-item">-->
-                    <#--                        <button type="button" class="mt-1 btn btn-outline-dark col-12"-->
-                    <#--                                onclick="window.location.href = '/cloud/download/zip/?dir='+ encodeURIComponent('${dir}')">-->
-                    <#--                            СКАЧАТЬ АРХИВОМ(.ZIP)-->
-                    <#--                        </button>-->
-                    <#--                    </li>-->
                 </ul>
             </div>
         </nav>
     </header>
     <body>
     <script src="../js/jquery.js"></script>
-    <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <main style="background: black;">
         <#nested>
