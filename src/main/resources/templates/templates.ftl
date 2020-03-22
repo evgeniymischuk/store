@@ -11,7 +11,7 @@
     <header class="header-wrap fixed-top pr-0">
         <nav class="nav-wrap navbar navbar-expand-lg navbar-light m-auto">
             <a class="navbar-brand" href="/">
-                Your Sol
+                <img src="img/your-sol-logo.png" width="120" height="20" alt="your-sol-logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
