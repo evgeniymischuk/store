@@ -22,7 +22,7 @@ import java.util.zip.ZipOutputStream;
 @Controller
 public class CloudController {
 
-    @RequestMapping("/cloud")
+    @RequestMapping("/cloud-admin-olya-solnceva")
     public String cloud(Model model) {
         final Map<String, String> albums = new LinkedHashMap<>();
         model.addAttribute("albumsMap", albums);
@@ -336,7 +336,7 @@ public class CloudController {
             String agent = request.getHeader("User-Agent");
             response.setHeader("Content-Disposition", "attachment; filename=\"" + safariEncodedFileName + "\"; filename*=UTF-8''" + safariEncodedFileName);
             InputStream in = new FileInputStream(file);
-            byte[] readBuffer = new byte[(int) file.length()];
+            byte[] readBuffer = new byte[10000];
             int length;
             while ((length = in.read(readBuffer)) != -1) {
                 outputStream.write(readBuffer, 0, length);

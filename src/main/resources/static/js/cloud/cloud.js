@@ -9,6 +9,7 @@ $(document).ready(function () {
     });
     $('form').submit(function (e) {
         e.preventDefault();
+        console.log(1)
         var form_data = new FormData(this);
         $.ajax({
             xhr: function () {

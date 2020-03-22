@@ -39,19 +39,21 @@ function sendRequest(el) {
             button.removeClass("d-none");
         }, min ? 0 : 1000);
 
-    } else if (lowerCaseName.includes(".mov") || lowerCaseName.includes(".mp4")) {
-        // var button = $(document.getElementById(name+"DownloadButton"));
-        var embed = $(document.getElementById(name + "embed"));
-        var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(name);
-        el.attr('src', url);
-        var video = document.getElementById(name + "Video");
-        video.load();
-        $(embed).attr("style", "opacity:1;");
-        el.data('load', true);
-        // setTimeout(function () {
-        //     button.removeClass("d-none");
-        // }, 1500);
-    } else {
+    }
+    // else if (lowerCaseName.includes(".mov") || lowerCaseName.includes(".mp4")) {
+    //     // var button = $(document.getElementById(name+"DownloadButton"));
+    //     var embed = $(document.getElementById(name + "embed"));
+    //     var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(name);
+    //     el.attr('src', url);
+    //     var video = document.getElementById(name + "Video");
+    //     video.load();
+    //     $(embed).attr("style", "opacity:1;");
+    //     el.data('load', true);
+    //     // setTimeout(function () {
+    //     //     button.removeClass("d-none");
+    //     // }, 1500);
+    // }
+    else {
         var url = "../cloud/download?dir=" + encodeURIComponent(el.data('dir')) + "&name=" + encodeURIComponent(name);
         el.html(name);
         el.attr('href', url);

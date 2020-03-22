@@ -1848,7 +1848,7 @@ pre code {
 
 body, button, input, textarea {
     color: #262626;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 18px;
 }
@@ -4782,6 +4782,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     text-align: justify;
     margin: 1em;
     margin-bottom: 0.25em;
+    word-break: break-all;
 }
 
 .card-subtitle {
@@ -10466,7 +10467,7 @@ a.text-dark:focus, a.text-dark:hover {
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    margin-right: 30px;
+    margin-right: 0px;
     /* vertical-align: middle; */
 }
 
@@ -10562,6 +10563,7 @@ a.text-dark:focus, a.text-dark:hover {
     background-size: cover;
     background-position: center;
 }
+
 .img-responsive-basket {
     width: 38px;
     height: 38px;
@@ -10614,6 +10616,30 @@ a.text-dark:focus, a.text-dark:hover {
 
 .mr-card-custom {
     margin-right: 3px !important
+}
+
+.ulAddBtn {
+    width: 96% !important;
+    height: 96% !important;;
+    padding: 0;
+    margin: 4% 0 0 0;
+}
+
+.coreSpriteHeartSmall, .coreSpriteHyperlapse {
+    background-image: url("img/instagram-sprite.png");
+    background-repeat: no-repeat;
+    background-position: -320px -224px;
+    height: 19px;
+    width: 19px;
+}
+
+.basket {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.opacity-1 {
+    opacity: 1 !important;
 }
 
 @media (min-width: 768px) {
@@ -10679,22 +10705,19 @@ a.text-dark:focus, a.text-dark:hover {
         margin-right: 17px;
     }
 
+    .ulAddBtn {
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0;
+        margin: 0 0 0 0;
+    }
+
     /*.img-responsive-basket {*/
     /*    width: 70px;*/
     /*    height: 70px;*/
     /*}*/
+    .hover-effect ul li {
+        margin-right: 30px;
+        /* vertical-align: middle; */
+    }
 }
-
-.coreSpriteHeartSmall, .coreSpriteHyperlapse {
-    background-image: url("img/instagram-sprite.png");
-    background-repeat: no-repeat;
-    background-position: -320px -224px;
-    height: 19px;
-    width: 19px;
-}
-
-.basket {
-    font-weight: bold;
-    font-size: 14px;
-}
-

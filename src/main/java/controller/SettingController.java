@@ -16,7 +16,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.function.Predicate;
 
 import static db.CacheHelper.addToMemory;
@@ -26,81 +25,9 @@ import static db.CacheHelper.clearMemory;
 public class SettingController {
     private static String[] HEADERS = {"id", "title", "price", "description", "instagramLikeUrl"};
 
-    @RequestMapping("/setting")
-    public String index(Model model) throws Exception {
-        File f = new File("setting.csv");
-        f.createNewFile();
-        fillCacheFromCsv(null);
-        model.addAttribute("itemList", Db.list);
-        return "indexDisplayGridSetting";
-    }
-
-    @RequestMapping("/download")
-    public void download(Model model,
-                         @RequestParam("name") String name,
-                         final HttpServletRequest request,
-                         final HttpServletResponse response
-    ) throws IOException {
-        final File directory = new File("img");
-        if (directory.exists()) {
-            for (File file : directory.listFiles()) {
-                if (file.getName().contains(name)) {
-                    write(response, request, file);
-                }
-            }
-        }
-    }
-
-    @RequestMapping("/setting/add")
-    @PostMapping
-    public String addToCSVFile(ItemDto dto, @RequestParam(name = "pro-image") MultipartFile file) throws Exception {
-        PrintWriter out = new PrintWriter("setting.csv", StandardCharsets.UTF_8);
-        File savedFile = save(dto.getId() + ".jpg", file.getBytes());
-        if (savedFile == null || !savedFile.exists()) {
-            return "redirect:/setting";
-        }
-        try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(HEADERS))) {
-            for (ItemDto itemDto : Db.list) {
-                printer.printRecord(
-                        itemDto.getId(),
-                        itemDto.getTitle(),
-                        itemDto.getPrice(),
-                        itemDto.getDescription(),
-                        itemDto.getInstagramLikeUrl()
-                );
-            }
-            printer.printRecord(
-                    dto.getId(),
-                    dto.getTitle(),
-                    dto.getPrice(),
-                    dto.getDescription(),
-                    dto.getInstagramLikeUrl()
-            );
-        }
-        return "redirect:/setting";
-    }
-
-    @RequestMapping("/setting/remove")
-    @PostMapping
-    public String removeFromCSVFile(ItemDto dto) throws IOException {
-        fillCacheFromCsv(x -> x.equals(dto.getId()));
-        try (CSVPrinter printer = new CSVPrinter(new PrintWriter("setting.csv", StandardCharsets.UTF_8), CSVFormat.DEFAULT.withHeader(HEADERS))) {
-            for (ItemDto itemDto : Db.list) {
-                printer.printRecord(
-                        itemDto.getId(),
-                        itemDto.getTitle(),
-                        itemDto.getPrice(),
-                        itemDto.getDescription(),
-                        itemDto.getInstagramLikeUrl()
-                );
-            }
-        }
-        return "redirect:/setting";
-    }
-
     public static void fillCacheFromCsv(Predicate<String> remove) throws IOException {
         clearMemory();
-        Reader in = new FileReader("setting.csv", StandardCharsets.UTF_8);
+        Reader in = new FileReader("setting.csv");
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withHeader(HEADERS)
                 .withFirstRecordAsHeader()
@@ -178,5 +105,82 @@ public class SettingController {
             outputStream.flush();
             outputStream.close();
         }
+    }
+
+    @RequestMapping("/setting-admin-olya-solnceva")
+    public String index(Model model) throws Exception {
+        File f = new File("setting.csv");
+        f.createNewFile();
+        fillCacheFromCsv(null);
+        model.addAttribute("itemList", Db.list);
+        return "indexDisplayGridSetting";
+    }
+
+    @RequestMapping("/download")
+    public void download(Model model,
+                         @RequestParam("name") String name,
+                         final HttpServletRequest request,
+                         final HttpServletResponse response
+    ) throws IOException {
+        final File directory = new File("img");
+        if (directory.exists()) {
+            for (File file : directory.listFiles()) {
+                if (file.getName().contains(name)) {
+                    write(response, request, file);
+                }
+            }
+        }
+    }
+
+    @RequestMapping("/setting-admin-olya-solnceva/add")
+    @PostMapping
+    public String addToCSVFile(
+            ItemDto dto,
+            @RequestParam(name = "pro-small-image") MultipartFile smallImage,
+            @RequestParam(name = "pro-image") MultipartFile fullImage
+    ) throws Exception {
+        PrintWriter out = new PrintWriter("setting.csv");
+        File savedSmallImage = save(dto.getId() + "_small.jpg", smallImage.getBytes());
+        File savedFullImage = save(dto.getId() + ".jpg", fullImage.getBytes());
+        if ((savedFullImage == null || !savedFullImage.exists()) || (savedSmallImage == null || !savedSmallImage.exists())) {
+            return "redirect:/setting-admin-olya-solnceva";
+        }
+        try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(HEADERS))) {
+            for (ItemDto itemDto : Db.list) {
+                printer.printRecord(
+                        itemDto.getId(),
+                        itemDto.getTitle(),
+                        itemDto.getPrice(),
+                        itemDto.getDescription(),
+                        itemDto.getInstagramLikeUrl()
+                );
+            }
+            printer.printRecord(
+                    dto.getId(),
+                    dto.getTitle(),
+                    dto.getPrice(),
+                    dto.getDescription(),
+                    dto.getInstagramLikeUrl()
+            );
+        }
+        return "redirect:/setting-admin-olya-solnceva";
+    }
+
+    @RequestMapping("/setting-admin-olya-solnceva/remove")
+    @PostMapping
+    public String removeFromCSVFile(ItemDto dto) throws IOException {
+        fillCacheFromCsv(x -> x.equals(dto.getId()));
+        try (CSVPrinter printer = new CSVPrinter(new PrintWriter("setting.csv"), CSVFormat.DEFAULT.withHeader(HEADERS))) {
+            for (ItemDto itemDto : Db.list) {
+                printer.printRecord(
+                        itemDto.getId(),
+                        itemDto.getTitle(),
+                        itemDto.getPrice(),
+                        itemDto.getDescription(),
+                        itemDto.getInstagramLikeUrl()
+                );
+            }
+        }
+        return "redirect:/setting-admin-olya-solnceva";
     }
 }

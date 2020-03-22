@@ -17,7 +17,7 @@
                 <ul class="navbar-nav mr-auto ml-auto">
                 </ul>
                 <a id="basket" data-toggle="modal" data-target="#basketModal" class="navbar-brand"
-                   href="javascript:void(0)">
+                   href="javascript:void(0);">
                     <img width="24" height="24" src="/svg/shopping.svg" alt="basket"/>
                     <span class="total-count basket"></span>
                 </a>
@@ -44,7 +44,7 @@
                 <div class="modal-body">
                     <table class="show-cart mb-0 table">
                     </table>
-                    <form id="basketForm" type="GET" action="" >
+                    <form id="basketForm" type="GET" action="">
                         <div class="mt-3px">
                             <input type="text"
                                    id="name"

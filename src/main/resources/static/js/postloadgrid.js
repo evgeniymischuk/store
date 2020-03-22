@@ -5,12 +5,12 @@ $(document).ready(function () {
         cardInRow.removeClass("d-none");
         cardInRow.addClass("d-flex");
         window.location.href = "/" + anchor;
-    }else {
+    } else {
         var cardInGrid = $(".card-in-grid");
         cardInGrid.removeClass("d-none");
         cardInGrid.addClass("d-flex");
     }
-    $(".hover-effect").on("click", function () {
+    $(".hover-effect").on("click", function (e) {
         var cardInGrid = $(".card-in-grid");
         var cardInRow = $(".card-in-row");
         cardInGrid.addClass("d-none");
@@ -23,7 +23,7 @@ $(document).ready(function () {
     likeCountEls.each(function (i, e) {
         var el = $(e);
         var url = el.data('instagram');
-        if (url){
+        if (url) {
             $.ajax({
                 url: el.data('instagram'),
                 success: function (html) {
