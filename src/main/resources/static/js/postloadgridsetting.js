@@ -41,8 +41,7 @@ $(document).ready(function () {
                     div.remove();
                 },
                 error: function (e) {
-                    console.log(e);
-                    el.parent('.likeCountLi').attr("style", "opacity:0;");
+                    // el.parent('.likeCountLi').attr("style", "opacity:0;");
                 }
             });
         }
