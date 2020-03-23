@@ -227,5 +227,9 @@ $('.show-cart').on("change", ".item-count", function (event) {
     shoppingCart.setCountForItem(name, count);
     displayCart();
 });
+$('.btn-order-show').on("click", function (event) {
+   $("#basketForm").removeClass("d-none");
+   $(".show-cart").addClass("d-none");
+});
 
 displayCart();

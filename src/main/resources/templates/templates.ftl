@@ -11,7 +11,7 @@
     <header class="header-wrap fixed-top pr-0">
         <nav class="nav-wrap navbar navbar-expand-lg navbar-light m-auto">
             <a class="navbar-brand" href="/">
-                <img src="img/your-sol-logo.png" width="120" height="20" alt="your-sol-logo">
+                <img src="img/your-sol-logo.png" width="120" height="20" alt="your-sol-logo" style="margin-left: 3px;">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
@@ -44,7 +44,7 @@
                 <div class="modal-body">
                     <table class="show-cart mb-0 table">
                     </table>
-                    <form id="basketForm" type="GET" action="">
+                    <form id="basketForm" type="GET" action="" class="d-none">
                         <div class="mt-3px">
                             <input type="text"
                                    id="name"
@@ -69,25 +69,18 @@
                                    id="postal"
                                    name="postal"
                                    class="form-control"
-                                   placeholder="Почтовый индекс"
-                                   aria-label="Почтовый индекс"
+                                   placeholder="Почтовый индекс или Адрес"
+                                   aria-label="Почтовый индекс иди Адрес"
                                    required="required"
-                            >
-                        </div>
-                        <div class="mt-3px">
-                            <input type="text"
-                                   id="address"
-                                   name="address"
-                                   class="form-control"
-                                   placeholder="Адрес (необязательно)"
-                                   aria-label="Адрес (необязательно)"
                             >
                         </div>
                         <button type="submit" class="btn btn-primary d-none" id="basketBtnSubmit">Отправить</button>
                     </form>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button onclick="$('#basketBtnSubmit').click()" type="button" class="btn btn-outline-dark">Оформить заказ</button>
+                    <button type="button" class="btn btn-outline-dark btn-order-show">
+                        Перейти к оформлению заказа
+                    </button>
                 </div>
             </div>
         </div>
