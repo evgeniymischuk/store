@@ -25,12 +25,16 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 *, ::after, ::before {
     box-sizing: border-box
+}
+
+.danger-text {
+    color: #dc3545 !important;
 }
 
 html {
@@ -46,7 +50,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -139,7 +143,7 @@ sup {
 a {
     /* color: #007bff; */
     color: #00376b;
-    color: rgba(var(--fe0,0,55,107),1);
+    color: rgba(var(--fe0, 0, 55, 107), 1);
     text-decoration: none;
     background-color: transparent;
 }
@@ -439,7 +443,7 @@ hr {
 
 .header-wrap {
     border-bottom: 1px solid rgba(219, 219, 219, 1);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(250, 250, 250, 1);
     min-height: 40px;
     transition: 0.4s;
     width: 100%;
@@ -448,7 +452,7 @@ hr {
 }
 
 .nav-wrap {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(250, 250, 250, 1);
     min-height: 40px;
     max-width: 935px;
     line-height: 40px;
@@ -6182,7 +6186,7 @@ a.close.disabled {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6295,7 +6299,7 @@ a.close.disabled {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6930,6 +6934,11 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 
 .d-none {
     display: none !important
+}
+
+.dao-none {
+    display: none !important;
+    opacity: 0 !important;
 }
 
 .d-inline {
@@ -8341,7 +8350,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .mr-1, .mx-1 {
-    margin-right: .25rem !important
+    margin-right: .25rem !important;
 }
 
 .mb-1, .my-1 {
@@ -10472,8 +10481,8 @@ a.text-dark:focus, a.text-dark:hover {
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    /* margin-right: 0px; */
-    margin: auto;
+    margin-right: 1rem;
+    /* margin: auto; */
     /* bottom: 0px; */
     /* vertical-align: middle; */
 }
@@ -10502,19 +10511,11 @@ a.text-dark:focus, a.text-dark:hover {
     /* text-align: center; */
 }
 
-/*.hover-effect .overlay {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    position: absolute;*/
-/*    overflow: hidden;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    opacity: 0;*/
-/*    display: none;*/
-/*    background-color: rgba(0, 0, 0, 0.2);*/
-/*    -webkit-transition: all .0s ease-in-out;*/
-/*    transition: all .4s ease-in-out;*/
-/*}*/
+.hover-effect .overlay {
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
 .card-price {
     font-size: 14px;
     font-weight: 600;
@@ -10523,25 +10524,30 @@ a.text-dark:focus, a.text-dark:hover {
     position: relative;
     height: 1.65rem;
 }
-.buy-btn-in-card{
+
+.buy-btn-in-card {
     padding: 9px 8px;
-    left: 11rem;
+    right: 3rem;
     position: absolute;
 }
-.buy-btn-in-card-added{
- left: 10rem;
+
+.buy-btn-in-card-added {
+    /* right: 3rem; */
 }
-.price-in-card{
+
+.price-in-card {
     position: absolute;
     top: 0.7rem;
     right: 0rem;
 }
-.like-count-in-card{
+
+.like-count-in-card {
     position: absolute;
     left: -0.18rem;
     top: 26px;
 }
-.like-count-svg{
+
+.like-count-svg {
     position: absolute;
     left: -0.16rem;
 }
@@ -10615,11 +10621,26 @@ a.text-dark:focus, a.text-dark:hover {
     margin-bottom: 3px;
 }
 
+#basketModal {
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+}
+
 .animation-show {
-    -webkit-transition: opacity 1s ease-in;
-    -moz-transition: opacity 1s ease-in;
-    -o-transition: opacity 1s ease-in;
-    transition: opacity 1s ease-in;
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+.price-in-grid {
+    display: none;
+}
+
+.btn-in-grid {
+    display: none;
 }
 
 .img-responsive-cards {
@@ -10672,6 +10693,10 @@ a.text-dark:focus, a.text-dark:hover {
     font-size: 14px;
 }
 
+.opacity-0 {
+    opacity: 0 !important;
+}
+
 .opacity-1 {
     opacity: 1 !important;
 }
@@ -10688,7 +10713,10 @@ a.text-dark:focus, a.text-dark:hover {
 
 @media (min-width: 576px) {
     .btn {
-        padding: .375rem .75rem;
+        /* padding: 1px 0; */
+        /* margin: 0; */
+        /* width: 50px; */
+        /* text-align: center; */
     }
 
     .hover-effect {
@@ -10714,27 +10742,26 @@ a.text-dark:focus, a.text-dark:hover {
         max-width: 935px;
     }
 
-    .hover-effect ul {
-        list-style: none;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-        color: #fff;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        font-size: 16px;
-        font-weight: 600;
-        height: 100%;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        width: 100%;
-    }
-
+    /*.hover-effect ul {*/
+    /*    list-style: none;*/
+    /*    -webkit-box-align: center;*/
+    /*    -webkit-align-items: center;*/
+    /*    -ms-flex-align: center;*/
+    /*    align-items: center;*/
+    /*    color: #fff;*/
+    /*    display: -webkit-box;*/
+    /*    display: -webkit-flex;*/
+    /*    display: -ms-flexbox;*/
+    /*    display: flex;*/
+    /*    font-size: 16px;*/
+    /*    font-weight: 600;*/
+    /*    height: 100%;*/
+    /*    -webkit-box-pack: center;*/
+    /*    -webkit-justify-content: center;*/
+    /*    -ms-flex-pack: center;*/
+    /*    justify-content: center;*/
+    /*    width: 100%;*/
+    /*}*/
     .hover-effect ul li {
         margin-right: 17px;
     }
@@ -10753,5 +10780,38 @@ a.text-dark:focus, a.text-dark:hover {
     .hover-effect ul li {
         margin-right: 30px;
         /* vertical-align: middle; */
+    }
+
+    .price-in-grid {
+        display: inline;
+    }
+
+    .btn-in-grid {
+        display: block;
+    }
+
+    .hover-effect ul li {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+        margin-right: 1rem;
+        display: block;
+    }
+
+    .hover-effect ul {
+        list-style: none;
+        display: block;
+        color: #fff;
+        margin-top: 7rem;
+        margin-right: 2rem;
+        margin-left: 2rem;
+        font-size: 14px;
+        font-weight: 400;
+        -webkit-box-pack: end;
+        -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
     }
 }

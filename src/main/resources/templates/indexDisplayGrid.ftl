@@ -1,5 +1,6 @@
 <#import "templates.ftl" as t>
 <@t.page>
+    <script>var mobile = ${mobile};</script>
     <div class="container-fluid">
         <#assign x = 0>
         <#assign lastState = 0>
@@ -12,7 +13,7 @@
                     <div style="background-image: url('download?name=${item.id}_small')" class="img-responsive">
                         <div class="overlay">
                             <ul>
-                                <li class="likeCountLi animation-show" style="opacity: 0;">
+                                <li class="likeCountLi animation-show">
                                     <span class="like-count" data-instagram="${item.instagramLikeUrl}"></span>
                                     <span class="mr-1">
                                         <svg aria-label="Unlike" class="_8-yf5 " fill="#ed4956"
@@ -23,8 +24,15 @@
                                                   fill-rule="evenodd">
                                                         </path>
                                         </svg>
-<#--                                        <img width="19" height="19" src="svg/heart.svg" alt="heart">-->
                                     </span>
+                                    <#if mobile == "false">
+                                        <span class="ml-1 price-in-grid">${item.price}&#8381;</span>
+                                        <div data-id="${item.id}" data-name="${item.title}" data-single="true"
+                                             data-price="${item.price}"
+                                             class="mt-2 add-to-cart buy-btn btn btn-outline-light btn-in-grid">
+                                            Купить
+                                        </div>
+                                    </#if>
                                 </li>
                             </ul>
                         </div>
@@ -43,26 +51,29 @@
                 <#assign x = 0>
             </#if>
         </#list>
-        <#list itemList as item >
-            <div id="${item.id}" class="d-none trapHeader card-in-row">
-                <div class="flex-fill">
-                    <div class="card-title">${item.title}</div>
-                    <div style="background-image: url('download?name=${item.id}')" class="img-responsive-cards"></div>
-                    <div class="card-price">
-                        <div data-id="${item.id}" data-name="${item.title}" data-single="true"
-                             data-price="${item.price}"
-                             class="add-to-cart buy-btn btn btn-outline-dark buy-btn-in-card">
-                            Купить
-                        </div>
-                        <span class="ml-1 price-in-card">${item.price}&#8381;</span>
-                        <span class="like-count like-count-in-card animation-show"
-                              data-instagram="${item.instagramLikeUrl}" style="opacity: 0"></span>
-                        <svg onclick="location.href = '/#${item.id}'" aria-label="Share Post" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48"
-                             width="24" style="position: absolute;left: 2.3rem;">
-                            <path d="M46.5 3.5h-45C.6 3.5.2 4.6.8 5.2l16 15.8 5.5 22.8c.2.9 1.4 1 1.8.3L47.4 5c.4-.7-.1-1.5-.9-1.5zm-40.1 3h33.5L19.1 18c-.4.2-.9.1-1.2-.2L6.4 6.5zm17.7 31.8l-4-16.6c-.1-.4.1-.9.5-1.1L41.5 9 24.1 38.3z"></path>
-                            <path d="M14.7 48.4l2.9-.7"></path>
-                        </svg>
-                        <span class="like-count-svg animation-show" style="opacity: 0">
+        <#if mobile == "true">
+            <#list itemList as item >
+                <div id="${item.id}" class="d-none trapHeader card-in-row">
+                    <div class="flex-fill">
+                        <div class="card-title">${item.title}</div>
+                        <div style="background-image: url('download?name=${item.id}')"
+                             class="img-responsive-cards"></div>
+                        <div class="card-price">
+                            <div data-id="${item.id}" data-name="${item.title}" data-single="true"
+                                 data-price="${item.price}"
+                                 class="add-to-cart buy-btn btn btn-outline-dark buy-btn-in-card">
+                                Купить
+                            </div>
+                            <span class="ml-1 price-in-card">${item.price}&#8381;</span>
+                            <span class="like-count like-count-in-card animation-show"
+                                  data-instagram="${item.instagramLikeUrl}" style="opacity: 0"></span>
+                            <svg onclick="location.href = '/#${item.id}'" aria-label="Share Post"
+                                 fill="#262626" height="24" viewBox="0 0 48 48"
+                                 width="24" style="position: absolute;left: 2.3rem;">
+                                <path d="M46.5 3.5h-45C.6 3.5.2 4.6.8 5.2l16 15.8 5.5 22.8c.2.9 1.4 1 1.8.3L47.4 5c.4-.7-.1-1.5-.9-1.5zm-40.1 3h33.5L19.1 18c-.4.2-.9.1-1.2-.2L6.4 6.5zm17.7 31.8l-4-16.6c-.1-.4.1-.9.5-1.1L41.5 9 24.1 38.3z"></path>
+                                <path d="M14.7 48.4l2.9-.7"></path>
+                            </svg>
+                            <span class="like-count-svg animation-show" style="opacity: 0">
                             <svg aria-label="Unlike" fill="#ed4956" height="24" viewBox="0 0 48 48"
                                  width="24">
                             <path clip-rule="evenodd"
@@ -71,11 +82,12 @@
                             </path>
                         </svg>
                         </span>
+                        </div>
+                        <div class="card-description border-btm mt-3">${item.description}</div>
                     </div>
-                    <div class="card-description border-btm mt-3">${item.description}</div>
                 </div>
-            </div>
-        </#list>
+            </#list>
+        </#if>
     </div>
     <script src="js/postloadgrid.js"></script>
 </@t.page>

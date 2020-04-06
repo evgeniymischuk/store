@@ -1,5 +1,5 @@
 var shoppingCart = (function () {
-    cart = [];
+    let cart = [];
 
     function Item(name, price, count, single) {
         this.name = name;
@@ -20,19 +20,18 @@ var shoppingCart = (function () {
     if (sessionStorage.getItem("shoppingCart") != null) {
         loadCart();
     }
-    var obj = {};
+    const obj = {};
     obj.addItemToCart = function (name, price, count, single) {
-        for (var item in cart) {
-            if (cart[item].name === name) {
+        for (const item in cart) {
+            if (cart[i].name === name) {
                 if (!single) {
-                    cart[item].count++;
+                    cart[i].count++;
                     saveCart();
                 }
                 return false;
             }
         }
-        var item = new Item(name, price, count, single);
-        cart.push(item);
+        cart.push(new Item(name, price, count, single));
         saveCart();
         return true;
     };
@@ -45,11 +44,11 @@ var shoppingCart = (function () {
         }
     };
     obj.removeItemFromCart = function (name) {
-        for (var item in cart) {
-            if (cart[item].name === name) {
-                cart[item].count--;
-                if (cart[item].count === 0) {
-                    cart.splice(item, 1);
+        for (const i in cart) {
+            if (cart[i].name === name) {
+                cart[i].count--;
+                if (cart[i].count === 0) {
+                    cart.splice(i, 1);
                 }
                 break;
             }
@@ -57,8 +56,8 @@ var shoppingCart = (function () {
         saveCart();
     };
     obj.removeItemFromCartAll = function (name) {
-        for (var item in cart) {
-            if (cart[item].name === name) {
+        for (const i in cart) {
+            if (cart[i].name === name) {
                 var els = $(".add-to-cart");
                 $.each(els, function (i, e) {
                     var $el = $(e);
@@ -68,7 +67,7 @@ var shoppingCart = (function () {
                         return false;
                     }
                 });
-                cart.splice(item, 1);
+                cart.splice(i, 1);
                 break;
             }
         }
@@ -79,25 +78,25 @@ var shoppingCart = (function () {
         saveCart();
     };
     obj.totalCount = function () {
-        var totalCount = 0;
-        for (var item in cart) {
-            totalCount += cart[item].count;
+        let totalCount = 0;
+        for (const i in cart) {
+            totalCount += cart[i].count;
         }
         return totalCount;
     };
     obj.totalCart = function () {
         var totalCart = 0;
-        for (var item in cart) {
-            totalCart += cart[item].price * cart[item].count;
+        for (const i in cart) {
+            totalCart += cart[i].price * cart[i].count;
         }
         return Number(totalCart.toFixed(2));
     };
     obj.listCart = function () {
-        var cartCopy = [];
+        const cartCopy = [];
         for (i in cart) {
-            item = cart[i];
-            itemCopy = {};
-            for (p in item) {
+            let item = cart[i];
+            let itemCopy = {};
+            for (const p in item) {
                 itemCopy[p] = item[p];
             }
             itemCopy.total = Number(item.price * item.count).toFixed(2);
@@ -123,44 +122,21 @@ var shoppingCart = (function () {
 
     return obj;
 })();
-
-$('.add-to-cart').click(function (event) {
-    event.preventDefault();
-    var name = $(this).data('name');
-    var single = $(this).data('single');
-    var price = Number($(this).data('price'));
-    var added = shoppingCart.addItemToCart(name, price, 1, single);
-    if ($(this).html() === "В корзину") {
-        $("#basketModal").modal();
-    }
-    if (single && added) {
-        $(this).addClass("buy-btn-in-card-added");
-        $(this).html("В корзину");
-    }
-    if (single && !added) {
-        // shoppingCart.removeItemFromCart(name);
-        // $(this).html($(this).data('name'));
-    }
-    displayCart();
-});
-
-$('.clear-cart').click(function () {
-    shoppingCart.clearCart();
-    displayCart();
-});
-
+const $show_cart = $(".show-cart");
 
 function displayCart() {
-    var cartArray = shoppingCart.listCart();
-    var output = "";
-    for (var i in cartArray) {
-        var card = cartArray[i];
-        var cartArrayName = card.name;
-        var cartArrayPrice = card.price;
-        var cartArrayTotal = card.total;
-        var cartArrayCount = card.count;
-        var cartArraySingle = card.single;
-        var $el;
+    const cartArray = shoppingCart.listCart();
+    let output = "";
+    let sum = 0;
+    for (const i in cartArray) {
+        const card = cartArray[i];
+        const cartArrayName = card.name;
+        const cartArrayPrice = card.price;
+        const cartArrayTotal = card.total;
+        const cartArrayCount = card.count;
+        const cartArraySingle = card.single;
+        sum = sum + cartArrayPrice;
+        let $el;
         if (cartArraySingle) {
             var els = $(".add-to-cart");
             $.each(els, function (i, e) {
@@ -171,9 +147,9 @@ function displayCart() {
                     return false;
                 }
             });
-            if ($el){
-                var imgSrc = "/download?name=" + $el.data("id") + ".jpg";
-                var divImg = "<div style='background-image: url(" + imgSrc + ")' class='img-responsive-basket'></div>";
+            if ($el) {
+                const imgSrc = "/download?name=" + $el.data("id") + ".jpg";
+                const divImg = "<div style='background-image: url(" + imgSrc + ")' class='img-responsive-basket'></div>";
                 output += "<tr>"
                     + "<td class='hw-38px'>"
                     + "<button class='delete-item btn btn-outline-dark hw-38px' data-name='" + cartArrayName + "'>X</button>"
@@ -204,35 +180,90 @@ function displayCart() {
         }
     }
 
-    $('.show-cart').html(output);
-    var totalCount = shoppingCart.totalCount();
+    $show_cart.html(output);
+    const totalCount = shoppingCart.totalCount();
     $('.total-count').html(totalCount > 0 ? totalCount : '');
+    $('.total-sum').html(sum + "&#8381;");
 }
 
-$('.show-cart').on("click", ".delete-item", function (event) {
-    var name = $(this).data('name');
+$('.add-to-cart').on("click", function () {
+    event.preventDefault();
+    const name = $(this).data('name');
+    const single = $(this).data('single');
+    const price = Number($(this).data('price'));
+    const added = shoppingCart.addItemToCart(name, price, 1, single);
+    if ($(this).html() === "В корзину") {
+        $("#basketModal").modal();
+    }
+    if (single && added) {
+        $(this).addClass("buy-btn-in-card-added");
+        $(this).html("В корзину");
+    }
+    if (single && !added) {
+        // shoppingCart.removeItemFromCart(name);
+        // $(this).html($(this).data('name'));
+    }
+    displayCart();
+});
+
+$('.clear-cart').on("click", function () {
+    shoppingCart.clearCart();
+    displayCart();
+});
+$show_cart.on("click", ".delete-item", function () {
+    const name = $(this).data('name');
     shoppingCart.removeItemFromCartAll(name);
     displayCart();
 });
-$('.show-cart').on("click", ".minus-item", function (event) {
-    var name = $(this).data('name');
+$show_cart.on("click", ".minus-item", function () {
+    const name = $(this).data('name');
     shoppingCart.removeItemFromCart(name);
     displayCart();
 });
-$('.show-cart').on("click", ".plus-item", function (event) {
-    var name = $(this).data('name');
+$show_cart.on("click", ".plus-item", function () {
+    const name = $(this).data('name');
     shoppingCart.addItemToCart(name);
     displayCart();
 });
-$('.show-cart').on("change", ".item-count", function (event) {
-    var name = $(this).data('name');
-    var count = Number($(this).val());
+$show_cart.on("change", ".item-count", function () {
+    const name = $(this).data('name');
+    const count = Number($(this).val());
     shoppingCart.setCountForItem(name, count);
     displayCart();
 });
-$('.btn-order-show').on("click", function (event) {
-   $("#basketForm").removeClass("d-none");
-   $(".show-cart").addClass("d-none");
+const $btn_order_show = $(".btn-order-show");
+$('.btn-order-show').on("click", function () {
+    const showText = $btn_order_show.html().trim();
+    if (showText === "Перейти к оформлению заказа") {
+        $("#basketForm").removeClass("dao-none");
+        $(".show-cart").addClass("dao-none");
+        $(".btn-order-back").removeClass("dao-none");
+        $btn_order_show.html("Перейти к оплате");
+    } else if (showText === "Перейти к оплате") {
+        $("#basketForm").addClass("dao-none");
+        $(".pay-stage").removeClass("dao-none");
+        $btn_order_show.html("Оформить заказ");
+    } else if (showText === "Оформить заказ") {
+        $(".show-cart").removeClass("dao-none");
+        $("#basketForm").addClass("dao-none");
+        $(".btn-order-back").addClass("dao-none");
+        $(".pay-stage").addClass("dao-none");
+        $btn_order_show.html("Перейти к оформлению заказа");
+        shoppingCart.clearCart();
+        $("basketBtnSubmit").click();
+        $("#basketModalBtnClose").click();
+    }
 });
-
-displayCart();
+$('.btn-order-back').on("click", function () {
+    const showText = $btn_order_show.html().trim();
+    if (showText === "Перейти к оплате") {
+        $(".show-cart").removeClass("dao-none");
+        $("#basketForm").addClass("dao-none");
+        $(".btn-order-back").addClass("dao-none");
+        $btn_order_show.html("Перейти к оформлению заказа")
+    } else if (showText === "Оформить заказ") {
+        $("#basketForm").removeClass("dao-none");
+        $(".pay-stage").addClass("dao-none");
+        $btn_order_show.html("Перейти к оплате")
+    }
+});

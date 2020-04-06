@@ -1,6 +1,14 @@
 $(document).ready(function () {
     var anchor = window.location.hash;
-    if (anchor) {
+    if (!mobile){
+        $(".card-in-row").remove();
+    }else {
+        var hoverEffect = $(".hover-effect");
+        hoverEffect.find(".add-to-cart").remove();
+        hoverEffect.find(".price-in-grid").remove();
+    }
+    displayCart();
+    if (anchor && mobile) {
         var cardInRow = $(".card-in-row");
         cardInRow.removeClass("d-none");
         cardInRow.addClass("d-flex");
@@ -11,13 +19,15 @@ $(document).ready(function () {
         cardInGrid.addClass("d-flex");
     }
     $(".hover-effect").on("click", function (e) {
-        var cardInGrid = $(".card-in-grid");
-        var cardInRow = $(".card-in-row");
-        cardInGrid.addClass("d-none");
-        cardInGrid.removeClass("d-flex");
-        cardInRow.removeClass("d-none");
-        cardInRow.addClass("d-flex");
-        window.location.href = "/#" + $(this).data('id');
+        if (mobile){
+            var cardInGrid = $(".card-in-grid");
+            var cardInRow = $(".card-in-row");
+            cardInGrid.addClass("d-none");
+            cardInGrid.removeClass("d-flex");
+            cardInRow.removeClass("d-none");
+            cardInRow.addClass("d-flex");
+            window.location.href = "/#" + $(this).data('id');
+        }
     });
     var likeCountEls = $(".like-count");
     likeCountEls.each(function (i, e) {

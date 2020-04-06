@@ -44,7 +44,7 @@
                 <div class="modal-body">
                     <table class="show-cart mb-0 table">
                     </table>
-                    <form id="basketForm" type="GET" action="" class="d-none">
+                    <form id="basketForm" type="GET" action="" class="dao-none">
                         <div class="mt-3px">
                             <input type="text"
                                    id="name"
@@ -76,8 +76,16 @@
                         </div>
                         <button type="submit" class="btn btn-primary d-none" id="basketBtnSubmit">Отправить</button>
                     </form>
+                    <div class="alert alert-info pay-stage dao-none" role="alert">
+                        Произведите оплату в размере <span class="total-sum danger-text"></span><br>
+                        через приложения Сбербанка на карту <span class="danger-text">4212 1234 1432 1234</span>.<br>
+                        После оплаты нажмите оформить заказ, вас переведет на страницу с заказом
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-outline-dark btn-order-back dao-none">
+                        Назад
+                    </button>
                     <button type="button" class="btn btn-outline-dark btn-order-show">
                         Перейти к оформлению заказа
                     </button>

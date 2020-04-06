@@ -12,16 +12,22 @@
                     <div style="background-image: url('../download?name=${item.id}_small')" class="img-responsive">
                         <div class="overlay">
                             <ul>
-                                <li class="mr-0">
-                                    <button id="removeButton" name="removeButton" class="btn btn-outline-light"
-                                            type="button" data-id="${item.id}">Remove
-                                    </button>
-                                </li>
-                                <li class="likeCountLi animation-show" style="opacity: 0;">
+                                <li class="likeCountLi animation-show">
                                     <span class="like-count" data-instagram="${item.instagramLikeUrl}"></span>
-                                    <span class="mr-4">
-                                        <img width="19" height="19" src="svg/heart.svg" alt="heart">
+                                    <span class="mr-1">
+                                        <svg aria-label="Unlike" class="_8-yf5 " fill="#ed4956"
+                                             height="19" viewBox="0 0 48 48"
+                                             width="19">
+                                            <path clip-rule="evenodd"
+                                                  d="M35.3 35.6c-9.2 8.2-9.8 8.9-11.3 8.9s-2.1-.7-11.3-8.9C6.5 30.1.5 25.6.5 17.8.5 9.9 6.4 3.5 13.7 3.5 20.8 3.5 24 8.8 24 8.8s3.2-5.3 10.3-5.3c7.3 0 13.2 6.4 13.2 14.3 0 7.8-6.1 12.3-12.2 17.8z"
+                                                  fill-rule="evenodd">
+                                                        </path>
+                                        </svg>
                                     </span>
+                                    <span class="ml-1 price-in-grid">${item.price}&#8381;</span>
+                                    <div id="removeButton" class="mt-2 add-to-cart buy-btn btn btn-outline-light d-block"
+                                         type="button" data-id="${item.id}">Remove
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -36,7 +42,7 @@
                             <div class="hover-effect w-100 h-100">
                                 <div class="img-responsive bg-white">
                                     <div class="overlay opacity-1 bg-white w-100 h-100">
-                                        <ul class="ulAddBtn">
+                                        <ul class="ulAddBtn m-0">
                                             <li class="mr-0 h-100 w-100">
                                                 <button id="addButton" name="addButton"
                                                         type="button"
@@ -64,7 +70,7 @@
                     <div class="hover-effect w-100 h-100">
                         <div class="img-responsive bg-white">
                             <div class="overlay opacity-1 bg-white w-100 h-100">
-                                <ul class="ulAddBtn">
+                                <ul class="ulAddBtn m-0">
                                     <li class="mr-0 h-100 w-100">
                                         <button id="addButton" name="addButton"
                                                 type="button"

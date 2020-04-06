@@ -17,9 +17,6 @@ public class WebSecurityLocal extends WebSecurityConfigurerAdapter {
                 .antMatchers("/svg").permitAll()
                 .antMatchers("/settings").hasRole("manager")
                 .and()
-                .logout()
-                .logoutUrl("/settings/*")
-                .and()
                 .formLogin();
     }
 }
