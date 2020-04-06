@@ -25,8 +25,8 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 *, ::after, ::before {
@@ -46,7 +46,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -137,9 +137,11 @@ sup {
 }
 
 a {
-    color: #007bff;
+    /* color: #007bff; */
+    color: #00376b;
+    color: rgba(var(--fe0,0,55,107),1);
     text-decoration: none;
-    background-color: transparent
+    background-color: transparent;
 }
 
 a:hover {
@@ -4776,13 +4778,16 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .card-description {
-    font-size: 1em;
+    font-size: 14px;
     font-family: inherit;
     font-weight: 400;
-    text-align: justify;
-    margin: 1em;
-    margin-bottom: 0.25em;
-    word-break: break-all;
+    line-height: 18px;
+    /* text-align: justify; */
+    color: #262626;
+    /* word-break: break-all; */
+    vertical-align: baseline;
+    overflow-wrap: break-word;
+    padding: 0.7rem;
 }
 
 .card-subtitle {
@@ -6177,7 +6182,7 @@ a.close.disabled {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6290,7 +6295,7 @@ a.close.disabled {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -10467,29 +10472,34 @@ a.text-dark:focus, a.text-dark:hover {
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    margin-right: 0px;
+    /* margin-right: 0px; */
+    margin: auto;
+    /* bottom: 0px; */
     /* vertical-align: middle; */
 }
 
 .hover-effect ul {
     list-style: none;
-    -webkit-box-align: end;
-    -webkit-align-items: flex-end;
+    /* bottom: 0; */
+    /* -webkit-box-align: end; */
+    /* -webkit-align-items: flex-end; */
     -ms-flex-align: end;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     color: #fff;
     display: -webkit-box;
     display: -webkit-flex;
+    margin-top: 5em;
     display: -ms-flexbox;
     display: flex;
-    font-size: 16px;
-    font-weight: 600;
-    height: 98%;
+    font-size: 14px;
+    font-weight: 400;
+    /* height: 98%; */
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
     -ms-flex-pack: end;
     justify-content: flex-end;
-    width: 107%;
+    /* width: 107%; */
+    /* text-align: center; */
 }
 
 /*.hover-effect .overlay {*/
@@ -10507,9 +10517,33 @@ a.text-dark:focus, a.text-dark:hover {
 /*}*/
 .card-price {
     font-size: 14px;
-    font-family: inherit;
-    font-weight: bold;
-    text-align: center;
+    font-weight: 600;
+    color: #262626;
+    margin: 1em 1em 0.25em;
+    position: relative;
+    height: 1.65rem;
+}
+.buy-btn-in-card{
+    padding: 9px 8px;
+    left: 11rem;
+    position: absolute;
+}
+.buy-btn-in-card-added{
+ left: 10rem;
+}
+.price-in-card{
+    position: absolute;
+    top: 0.7rem;
+    right: 0rem;
+}
+.like-count-in-card{
+    position: absolute;
+    left: -0.18rem;
+    top: 26px;
+}
+.like-count-svg{
+    position: absolute;
+    left: -0.16rem;
 }
 
 .hover-effect .overlay {

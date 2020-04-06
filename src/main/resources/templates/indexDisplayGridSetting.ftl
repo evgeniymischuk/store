@@ -96,7 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="settingForm" enctype="multipart/form-data" method="post" action="../setting-admin-olya-solnceva/add"
+                    <form id="settingForm" enctype="multipart/form-data" method="post" action="../settings/add"
                           class="row">
                         <div class="mt-3px col-12">
                             <input type="text"

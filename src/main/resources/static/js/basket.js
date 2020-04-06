@@ -64,6 +64,7 @@ var shoppingCart = (function () {
                     var $el = $(e);
                     if (name === $el.data('name')) {
                         $el.html("Купить");
+                        $el.removeClass("buy-btn-in-card-added");
                         return false;
                     }
                 });
@@ -129,11 +130,12 @@ $('.add-to-cart').click(function (event) {
     var single = $(this).data('single');
     var price = Number($(this).data('price'));
     var added = shoppingCart.addItemToCart(name, price, 1, single);
-    if ($(this).html() === "Добавлено. Перейти в корзину") {
+    if ($(this).html() === "В корзину") {
         $("#basketModal").modal();
     }
     if (single && added) {
-        $(this).html("Добавлено. Перейти в корзину");
+        $(this).addClass("buy-btn-in-card-added");
+        $(this).html("В корзину");
     }
     if (single && !added) {
         // shoppingCart.removeItemFromCart(name);
@@ -164,7 +166,8 @@ function displayCart() {
             $.each(els, function (i, e) {
                 $el = $(e);
                 if (cartArrayName === $el.data('name')) {
-                    $el.html("Добавлено. Перейти в корзину");
+                    $el.addClass("buy-btn-in-card-added");
+                    $el.html("В корзину");
                     return false;
                 }
             });

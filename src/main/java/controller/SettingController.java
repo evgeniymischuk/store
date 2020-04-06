@@ -27,7 +27,7 @@ public class SettingController {
 
     public static void fillCacheFromCsv(Predicate<String> remove) throws IOException {
         clearMemory();
-        Reader in = new FileReader("setting.csv");
+        Reader in = new FileReader("settings.csv");
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withHeader(HEADERS)
                 .withFirstRecordAsHeader()
@@ -107,9 +107,9 @@ public class SettingController {
         }
     }
 
-    @RequestMapping("/setting-admin-olya-solnceva")
+    @RequestMapping("/settings")
     public String index(Model model) throws Exception {
-        File f = new File("setting.csv");
+        File f = new File("settings.csv");
         f.createNewFile();
         fillCacheFromCsv(null);
         model.addAttribute("itemList", Db.list);
@@ -132,18 +132,18 @@ public class SettingController {
         }
     }
 
-    @RequestMapping("/setting-admin-olya-solnceva/add")
+    @RequestMapping("/settings/add")
     @PostMapping
     public String addToCSVFile(
             ItemDto dto,
             @RequestParam(name = "pro-small-image") MultipartFile smallImage,
             @RequestParam(name = "pro-image") MultipartFile fullImage
     ) throws Exception {
-        PrintWriter out = new PrintWriter("setting.csv");
+        PrintWriter out = new PrintWriter("settings.csv");
         File savedSmallImage = save(dto.getId() + "_small.jpg", smallImage.getBytes());
         File savedFullImage = save(dto.getId() + ".jpg", fullImage.getBytes());
         if ((savedFullImage == null || !savedFullImage.exists()) || (savedSmallImage == null || !savedSmallImage.exists())) {
-            return "redirect:/setting-admin-olya-solnceva";
+            return "redirect:/settings";
         }
         try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(HEADERS))) {
             for (ItemDto itemDto : Db.list) {
@@ -163,14 +163,14 @@ public class SettingController {
                     dto.getInstagramLikeUrl()
             );
         }
-        return "redirect:/setting-admin-olya-solnceva";
+        return "redirect:/settings";
     }
 
-    @RequestMapping("/setting-admin-olya-solnceva/remove")
+    @RequestMapping("/settings/remove")
     @PostMapping
     public String removeFromCSVFile(ItemDto dto) throws IOException {
         fillCacheFromCsv(x -> x.equals(dto.getId()));
-        try (CSVPrinter printer = new CSVPrinter(new PrintWriter("setting.csv"), CSVFormat.DEFAULT.withHeader(HEADERS))) {
+        try (CSVPrinter printer = new CSVPrinter(new PrintWriter("settings.csv"), CSVFormat.DEFAULT.withHeader(HEADERS))) {
             for (ItemDto itemDto : Db.list) {
                 printer.printRecord(
                         itemDto.getId(),
@@ -181,6 +181,6 @@ public class SettingController {
                 );
             }
         }
-        return "redirect:/setting-admin-olya-solnceva";
+        return "redirect:/settings";
     }
 }

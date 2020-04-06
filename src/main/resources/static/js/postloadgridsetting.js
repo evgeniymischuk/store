@@ -12,7 +12,7 @@ $(document).ready(function () {
     }
     $(".hover-effect").on("click", function (e) {
         if (e && e.target && e.target.id === "removeButton") {
-            window.location.href = '/setting-admin-olya-solnceva/remove?id=' + $(this).data('id');
+            window.location.href = '/settings/remove?id=' + $(this).data('id');
         } else if (e && e.target && e.target.id === "addButton") {
             $('#settingModal').modal()
         } else {
