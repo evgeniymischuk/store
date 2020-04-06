@@ -52,6 +52,7 @@
                                    class="form-control"
                                    placeholder="Имя"
                                    aria-label="Имя"
+                                   required="required"
                             >
                         </div>
                         <div class="mt-3px">
@@ -69,17 +70,17 @@
                                    id="postal"
                                    name="postal"
                                    class="form-control"
-                                   placeholder="Почтовый индекс или Адрес"
-                                   aria-label="Почтовый индекс иди Адрес"
+                                   placeholder="Адрес или почтовый индекс"
+                                   aria-label="Адрес или почтовый индекс"
                                    required="required"
                             >
                         </div>
                         <button type="submit" class="btn btn-primary d-none" id="basketBtnSubmit">Отправить</button>
                     </form>
                     <div class="alert alert-info pay-stage dao-none" role="alert">
-                        Произведите оплату в размере <span class="total-sum danger-text"></span><br>
-                        через приложения Сбербанка на карту <span class="danger-text">4212 1234 1432 1234</span>.<br>
-                        После оплаты нажмите оформить заказ, вас переведет на страницу с заказом
+                        Произведите оплату в размере <span class="total-sum danger-text"></span>,<br>
+                        через приложение Сбербанка или любым удобным вам способом, на карту <span class="danger-text">4212 1234 1432 1234</span>.<br>
+                        После оплаты нажмите оформить заказ, вас переведет на страницу с вашим заказом.
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">

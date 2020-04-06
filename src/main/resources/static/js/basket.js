@@ -74,7 +74,16 @@ var shoppingCart = (function () {
         saveCart();
     };
     obj.clearCart = function () {
+        for (const i in cart) {
+            var els = $(".add-to-cart");
+            $.each(els, function (i, e) {
+                var $el = $(e);
+                $el.html("Купить");
+                $el.removeClass("buy-btn-in-card-added");
+            });
+        }
         cart = [];
+        $(".total-count").html('');
         saveCart();
     };
     obj.totalCount = function () {
@@ -123,6 +132,35 @@ var shoppingCart = (function () {
     return obj;
 })();
 const $show_cart = $(".show-cart");
+$(document).ready(function () {
+    var msg = "";
+    var elements = document.getElementsByTagName("INPUT");
+
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function (e) {
+            if (!e.target.validity.valid) {
+                switch (e.target.id) {
+                    case 'name' :
+                        e.target.setCustomValidity("Введите имя");
+                        break;
+                    case 'email' :
+                        e.target.setCustomValidity("Пожалуйста введите электронную почту");
+                        break;
+                    case 'postal' :
+                        e.target.setCustomValidity("Пожалуйста введите адрес или индекс почтового отделения");
+                        break;
+                    default :
+                        e.target.setCustomValidity("");
+                        break;
+
+                }
+            }
+        };
+        elements[i].oninput = function (e) {
+            e.target.setCustomValidity(msg);
+        };
+    }
+});
 
 function displayCart() {
     const cartArray = shoppingCart.listCart();
@@ -240,9 +278,23 @@ $('.btn-order-show').on("click", function () {
         $(".btn-order-back").removeClass("dao-none");
         $btn_order_show.html("Перейти к оплате");
     } else if (showText === "Перейти к оплате") {
-        $("#basketForm").addClass("dao-none");
-        $(".pay-stage").removeClass("dao-none");
-        $btn_order_show.html("Оформить заказ");
+        let count = 0;
+        if ($("#postal").val()) {
+            count = count + 1;
+        }
+        if ($("#email").val()) {
+            count = count + 1;
+        }
+        if ($("#name").val()) {
+            count = count + 1;
+        }
+        if (count !== 3) {
+            $("#basketBtnSubmit").click();
+        } else {
+            $("#basketForm").addClass("dao-none");
+            $(".pay-stage").removeClass("dao-none");
+            $btn_order_show.html("Оформить заказ");
+        }
     } else if (showText === "Оформить заказ") {
         $(".show-cart").removeClass("dao-none");
         $("#basketForm").addClass("dao-none");
