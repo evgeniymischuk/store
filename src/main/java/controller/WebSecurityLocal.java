@@ -15,7 +15,7 @@ public class WebSecurityLocal extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css").permitAll()
                 .antMatchers("/img").permitAll()
                 .antMatchers("/svg").permitAll()
-                .antMatchers("/settings").hasRole("manager")
+                .antMatchers("/admin").hasRole("manager")
                 .and()
                 .formLogin();
     }

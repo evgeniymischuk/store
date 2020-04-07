@@ -89,5 +89,5 @@
             </#list>
         </#if>
     </div>
-    <script src="js/postloadgrid.js"></script>
+    <script src="js/index.js"></script>
 </@t.page>

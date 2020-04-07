@@ -6,6 +6,7 @@ public class ItemDto {
     private String price;
     private String description;
     private String instagramLikeUrl;
+    private String reservation;
 
     public String getId() {
         return id;
@@ -45,5 +46,13 @@ public class ItemDto {
 
     public void setInstagramLikeUrl(String instagramLikeUrl) {
         this.instagramLikeUrl = instagramLikeUrl;
+    }
+
+    public String getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(String reservation) {
+        this.reservation = reservation;
     }
 }

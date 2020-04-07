@@ -157,12 +157,12 @@
                         <div class="mt-3px col-12">
                             <label for="imageSmall" class="col-4">Miniature image</label>
                             <button id="imageSmall" type="button" class="form-control btn btn-outline-dark col-4"
-                                    onclick="$('#pro-small-image').click()">
+                                    onclick="$('#small-image').click()">
                                 Choose file
                             </button>
                             <input type="file"
-                                   id="pro-small-image"
-                                   name="pro-small-image"
+                                   id="small-image"
+                                   name="small-image"
                                    style="display: none;"
                                    required="required"
                             >
@@ -170,12 +170,12 @@
                         <div class="mt-3px col-12">
                             <label for="imageFull" class="col-4">Full-size image</label>
                             <button id="imageFull" type="button" class="form-control btn btn-outline-dark col-4"
-                                    onclick="$('#pro-image').click()">
+                                    onclick="$('#full-image').click()">
                                 Choose file
                             </button>
                             <input type="file"
-                                   id="pro-image"
-                                   name="pro-image"
+                                   id="full-image"
+                                   name="full-image"
                                    style="display: none;"
                                    required="required"
                             >
@@ -184,12 +184,11 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-center col-12">
-                    <button onclick="$('#settingBtnSubmit').click()" type="button" class="btn btn-outline-dark col-4"
-                            style="line-height: 4em;">
+                    <button onclick="$('#settingBtnSubmit').click()" type="button" class="btn btn-outline-dark col-3">
                         Add new item
                     </button>
                 </div>
             </div>
         </div>
-        <script src="js/postloadgridsetting.js"></script>
+        <script src="js/admin.js"></script>
 </@t.page>
