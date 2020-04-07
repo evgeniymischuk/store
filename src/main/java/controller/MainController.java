@@ -14,6 +14,6 @@ public class MainController {
         final String userAgent = request.getHeader("User-Agent").toLowerCase();
         model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
         model.addAttribute("itemList", CacheDb.list);
-        return "indexDisplayGrid";
+        return "index";
     }
 }

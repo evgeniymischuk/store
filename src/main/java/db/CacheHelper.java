@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-public class CacheHelper {
+public abstract class CacheHelper {
 
     public static void addToMemory(final String id,
                                    final String title,
@@ -33,9 +33,9 @@ public class CacheHelper {
         CacheDb.list.clear();
     }
 
-    public static void fillCacheFromCsv(List<String> list) throws IOException {
+    public synchronized static void fillCacheFromCsv(List<String> list) throws IOException {
         clearMemory();
-        final Reader in = new FileReader("admin_db.csv");
+        final Reader in = new FileReader("items.csv");
         final Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withHeader(HEADERS)
                 .withFirstRecordAsHeader()
@@ -61,5 +61,5 @@ public class CacheHelper {
         }
     }
 
-    private static String[] HEADERS = {"id", "title", "price", "description", "instagramLikeUrl", "reservation"};
+    public static String[] HEADERS = {"id", "title", "price", "description", "instagramLikeUrl", "reservation"};
 }

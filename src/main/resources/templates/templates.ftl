@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="css/style.css">
         <title>Your Sol</title>
-        <link rel=icon href="/static/img/favicon.png" sizes="16x16" type="image/png">
+        <link rel=icon href="img/favicon.png" sizes="16x16" type="image/png">
     </head>
     <header class="header-wrap fixed-top pr-0">
         <nav class="nav-wrap navbar navbar-expand-lg navbar-light m-auto">
@@ -44,7 +44,7 @@
                 <div class="modal-body">
                     <table class="show-cart mb-0 table">
                     </table>
-                    <form id="basketForm" type="GET" action="" class="dao-none">
+                    <form id="basketForm" type="POST" action="/submitConfirm" class="dao-none">
                         <div class="mt-3px">
                             <input type="text"
                                    id="name"
