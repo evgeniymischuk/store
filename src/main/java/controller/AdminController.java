@@ -16,30 +16,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collections;
 
-import static db.CacheHelper.HEADERS;
-import static db.CacheHelper.fillCacheFromCsv;
-import static db.Helper.removeFromCsv;
-import static db.Helper.save;
+import static helpers.FileHelper.save;
+import static helpers.ItemsHelper.*;
 
 @Controller
 public class AdminController {
 
     @RequestMapping("/admin")
-    public String index(Model model) throws Exception {
+    public String admin(Model model) throws Exception {
         final File f = new File("items.csv");
         if (!f.exists()) {
             if (!f.createNewFile()) {
                 throw new Exception("doesnt create file");
             }
         }
-        fillCacheFromCsv(null);
+        fillCacheFromCsv(null, false);
         model.addAttribute("itemList", CacheDb.list);
         return "admin";
     }
 
     @RequestMapping("/admin/add")
     @PostMapping
-    public String addToCSVFile(
+    public String add(
             ItemDto dto,
             @RequestParam(name = "small-image") MultipartFile smallImage,
             @RequestParam(name = "full-image") MultipartFile fullImage
@@ -77,8 +75,8 @@ public class AdminController {
 
     @RequestMapping("/admin/remove")
     @PostMapping
-    public String removeFromCSVFile(ItemDto dto) throws IOException {
-        removeFromCsv(Collections.singletonList(dto.getId()));
+    public String remove(ItemDto dto) throws IOException {
+        removeOrReservationFromCsv(Collections.singletonList(dto.getId()), false);
         return "redirect:/admin";
     }
 }

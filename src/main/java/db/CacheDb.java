@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static db.CacheHelper.fillCacheFromCsv;
+import static helpers.ItemsHelper.fillCacheFromCsv;
 
 public class CacheDb {
 
@@ -14,7 +14,7 @@ public class CacheDb {
 
     static {
         try {
-            fillCacheFromCsv(null);
+            fillCacheFromCsv(null, false);
         } catch (IOException e) {
             e.printStackTrace();
         }

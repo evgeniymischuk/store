@@ -6,14 +6,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static db.Helper.removeFromCsv;
-import static db.Helper.write;
+import static helpers.FileHelper.write;
+import static helpers.ItemsHelper.removeOrReservationFromCsv;
 
 @Controller
 public class OtherController {
@@ -39,16 +41,17 @@ public class OtherController {
 
     @RequestMapping("/submitConfirm")
     @PostMapping
-    public String submitConfirm(Model model,  @RequestParam List<String> ids) throws IOException {
-        removeFromCsv(ids);
-        return "redirect:/confirm?n=1";
+    public RedirectView submitConfirm(RedirectAttributes attributes, @RequestParam List<String> ids) throws IOException {
+        removeOrReservationFromCsv(ids, true);
+        attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
+        attributes.addAttribute("n", "1234");
+        return new RedirectView("/confirm");
     }
 
     @RequestMapping("/confirm")
     @PostMapping
-    public String confirm(Model model,  @RequestParam(name = "n") String n) throws IOException {
-        model.addAttribute("purchaseNumber", "");
-        model.addAttribute("purchaseNumber", "");
+    public String confirm(Model model, @RequestParam(name = "n") String n) throws IOException {
+        //get from db purchase
         return "confirm";
     }
 }

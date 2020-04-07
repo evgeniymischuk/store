@@ -22,7 +22,7 @@ var shoppingCart = (function () {
     }
     const obj = {};
     obj.addItemToCart = function (name, price, count, single) {
-        for (const item in cart) {
+        for (const i in cart) {
             if (cart[i].name === name) {
                 if (!single) {
                     cart[i].count++;
