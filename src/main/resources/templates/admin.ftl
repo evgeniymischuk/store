@@ -25,7 +25,8 @@
                                         </svg>
                                     </span>
                                     <span class="ml-1 price-in-grid">${item.price}&#8381;</span>
-                                    <div id="removeButton" class="mt-2 add-to-cart buy-btn btn btn-outline-light d-block"
+                                    <div id="removeButton"
+                                         class="mt-2 add-to-cart buy-btn btn btn-outline-light d-block"
                                          type="button" data-id="${item.id}">Remove
                                     </div>
                                 </li>
@@ -92,103 +93,103 @@
     </div>
     <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="settingModalTitle"
          aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="settingModalTitle"></h5>
-                    <button id="settingModalBtnClose" type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="settingForm" enctype="multipart/form-data" method="post" action="../admin/add"
-                          class="row">
-                        <div class="mt-3px col-12">
-                            <input type="text"
-                                   id="id"
-                                   name="id"
-                                   class="form-control"
-                                   placeholder="Identifier"
-                                   aria-label="Identifier"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <input type="text"
-                                   id="title"
-                                   name="title"
-                                   class="form-control"
-                                   placeholder="Heading"
-                                   aria-label="Heading"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <input type="text"
-                                   id="price"
-                                   name="price"
-                                   class="form-control"
-                                   placeholder="Price"
-                                   aria-label="Price"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <input type="text"
-                                   id="description"
-                                   name="description"
-                                   class="form-control"
-                                   placeholder="Description"
-                                   aria-label="Description"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <input type="text"
-                                   id="instagramLikeUrl"
-                                   name="instagramLikeUrl"
-                                   class="form-control"
-                                   placeholder="Instagram link"
-                                   aria-label="Instagram link"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <label for="imageSmall" class="col-4">Miniature image</label>
-                            <button id="imageSmall" type="button" class="form-control btn btn-outline-dark col-4"
-                                    onclick="$('#small-image').click()">
-                                Choose file
-                            </button>
-                            <input type="file"
-                                   id="small-image"
-                                   name="small-image"
-                                   style="display: none;"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px col-12">
-                            <label for="imageFull" class="col-4">Full-size image</label>
-                            <button id="imageFull" type="button" class="form-control btn btn-outline-dark col-4"
-                                    onclick="$('#full-image').click()">
-                                Choose file
-                            </button>
-                            <input type="file"
-                                   id="full-image"
-                                   name="full-image"
-                                   style="display: none;"
-                                   required="required"
-                            >
-                        </div>
-                        <button type="submit" class="btn btn-primary d-none" id="settingBtnSubmit"></button>
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-center col-12">
-                    <button onclick="$('#settingBtnSubmit').click()" type="button" class="btn btn-outline-dark col-3">
-                        Add new item
-                    </button>
-                </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="settingModalTitle"></h5>
+                <button id="settingModalBtnClose" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="settingForm" enctype="multipart/form-data" method="post" action="../admin/add"
+                      class="row">
+                    <#--                        <div class="mt-3px col-12">-->
+                    <#--                            <input type="text"-->
+                    <#--                                   id="id"-->
+                    <#--                                   name="id"-->
+                    <#--                                   class="form-control"-->
+                    <#--                                   placeholder="Identifier"-->
+                    <#--                                   aria-label="Identifier"-->
+                    <#--                                   required="required"-->
+                    <#--                            >-->
+                    <#--                        </div>-->
+                    <div class="mt-3px col-12">
+                        <input type="text"
+                               id="title"
+                               name="title"
+                               class="form-control"
+                               placeholder="Heading"
+                               aria-label="Heading"
+                               required="required"
+                        >
+                    </div>
+                    <div class="mt-3px col-12">
+                        <input type="text"
+                               id="price"
+                               name="price"
+                               class="form-control"
+                               placeholder="Price"
+                               aria-label="Price"
+                               required="required"
+                        >
+                    </div>
+                    <div class="mt-3px col-12">
+                        <input type="text"
+                               id="description"
+                               name="description"
+                               class="form-control"
+                               placeholder="Description"
+                               aria-label="Description"
+                               required="required"
+                        >
+                    </div>
+                    <div class="mt-3px col-12">
+                        <input type="text"
+                               id="instagramLikeUrl"
+                               name="instagramLikeUrl"
+                               class="form-control"
+                               placeholder="Instagram link"
+                               aria-label="Instagram link"
+                               required="required"
+                        >
+                    </div>
+                    <div class="mt-3px col-12">
+                        <label for="imageSmall" class="col-4">Miniature image</label>
+                        <button id="imageSmall" type="button" class="form-control btn btn-outline-dark col-4"
+                                onclick="$('#small-image').click()">
+                            Choose file
+                        </button>
+                        <input type="file"
+                               id="small-image"
+                               name="small-image"
+                               style="display: none;"
+                               required="required"
+                        >
+                    </div>
+                    <div class="mt-3px col-12">
+                        <label for="imageFull" class="col-4">Full-size image</label>
+                        <button id="imageFull" type="button" class="form-control btn btn-outline-dark col-4"
+                                onclick="$('#full-image').click()">
+                            Choose file
+                        </button>
+                        <input type="file"
+                               id="full-image"
+                               name="full-image"
+                               style="display: none;"
+                               required="required"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary d-none" id="settingBtnSubmit"></button>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center col-12">
+                <button onclick="$('#settingBtnSubmit').click()" type="button" class="btn btn-outline-dark col-3">
+                    Add new item
+                </button>
             </div>
         </div>
-        <script src="js/admin.js"></script>
+    </div>
+    <script src="js/admin.js"></script>
 </@t.page>

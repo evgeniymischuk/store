@@ -1,20 +1,26 @@
 package db;
 
 import dto.ItemDto;
+import dto.OrderDto;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static helpers.ItemsHelper.fillCacheFromCsv;
+import static helpers.ItemHelper.refreshCache;
 
 public class CacheDb {
 
-    public volatile static List<ItemDto> list = new LinkedList<>();
+    public volatile static List<ItemDto> itemList = new ArrayList<>();
+    public volatile static Map<String, ItemDto> itemMap = new HashMap<>();
+    public volatile static List<OrderDto> orderList = new ArrayList<>();
+    public volatile static Map<String, OrderDto> orderMap = new HashMap<>();
 
     static {
         try {
-            fillCacheFromCsv(null, false);
+            refreshCache();
         } catch (IOException e) {
             e.printStackTrace();
         }

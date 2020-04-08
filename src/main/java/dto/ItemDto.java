@@ -6,7 +6,8 @@ public class ItemDto {
     private String price;
     private String description;
     private String instagramLikeUrl;
-    private String reservation;
+    private String reservation = "false";
+    private String hide = "false";
 
     public String getId() {
         return id;
@@ -54,5 +55,13 @@ public class ItemDto {
 
     public void setReservation(String reservation) {
         this.reservation = reservation;
+    }
+
+    public String getHide() {
+        return hide;
+    }
+
+    public void setHide(String hide) {
+        this.hide = hide;
     }
 }

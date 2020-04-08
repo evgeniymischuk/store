@@ -12,26 +12,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collections;
 
+import static helpers.CommonHelper.getId;
 import static helpers.FileHelper.save;
-import static helpers.ItemsHelper.*;
+import static helpers.ItemHelper.*;
+import static helpers.OrderHelper.ORDERS_CSV;
 
 @Controller
 public class AdminController {
 
     @RequestMapping("/admin")
     public String admin(Model model) throws Exception {
-        final File f = new File("items.csv");
-        if (!f.exists()) {
-            if (!f.createNewFile()) {
+        final File f = new File(ITEMS_CSV);
+        final File f1 = new File(ORDERS_CSV);
+        if (!f.exists() || !f1.exists()) {
+            if (!f.createNewFile() || !f1.createNewFile()) {
                 throw new Exception("doesnt create file");
             }
         }
-        fillCacheFromCsv(null, false);
-        model.addAttribute("itemList", CacheDb.list);
+        refreshCache();
+        model.addAttribute("itemList", CacheDb.itemList);
         return "admin";
     }
 
@@ -42,31 +45,23 @@ public class AdminController {
             @RequestParam(name = "small-image") MultipartFile smallImage,
             @RequestParam(name = "full-image") MultipartFile fullImage
     ) throws Exception {
-        final PrintWriter out = new PrintWriter("items.csv");
+        dto.setId(getId());
         final File savedSmallImage = save(dto.getId() + "_small.jpg", smallImage.getBytes());
         final File savedFullImage = save(dto.getId() + ".jpg", fullImage.getBytes());
 
         if ((savedFullImage == null || !savedFullImage.exists()) || (savedSmallImage == null || !savedSmallImage.exists())) {
             return "redirect:/admin";
         }
-        try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(HEADERS))) {
-            for (ItemDto itemDto : CacheDb.list) {
-                printer.printRecord(
-                        itemDto.getId(),
-                        itemDto.getTitle(),
-                        itemDto.getPrice(),
-                        itemDto.getDescription(),
-                        itemDto.getInstagramLikeUrl(),
-                        itemDto.getReservation()
-                );
-            }
+        final CSVFormat csvFormat = CacheDb.itemList.size() == 0 ? CSVFormat.DEFAULT.withHeader(ITEM_HEADER) : CSVFormat.DEFAULT;
+        try (CSVPrinter printer = new CSVPrinter(new FileWriter(ITEMS_CSV, true), csvFormat)) {
             printer.printRecord(
                     dto.getId(),
                     dto.getTitle(),
                     dto.getPrice(),
                     dto.getDescription(),
                     dto.getInstagramLikeUrl(),
-                    dto.getReservation()
+                    dto.getReservation(),
+                    "false"
             );
         }
 

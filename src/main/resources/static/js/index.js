@@ -1,8 +1,8 @@
 $(document).ready(function () {
     var anchor = window.location.hash;
-    if (!mobile){
+    if (!mobile) {
         $(".card-in-row").remove();
-    }else {
+    } else {
         var hoverEffect = $(".hover-effect");
         hoverEffect.find(".add-to-cart").remove();
         hoverEffect.find(".price-in-grid").remove();
@@ -19,7 +19,7 @@ $(document).ready(function () {
         cardInGrid.addClass("d-flex");
     }
     $(".hover-effect").on("click", function (e) {
-        if (mobile){
+        if (mobile) {
             var cardInGrid = $(".card-in-grid");
             var cardInRow = $(".card-in-row");
             cardInGrid.addClass("d-none");

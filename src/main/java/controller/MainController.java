@@ -13,7 +13,7 @@ public class MainController {
     public String index(Model model, HttpServletRequest request) {
         final String userAgent = request.getHeader("User-Agent").toLowerCase();
         model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
-        model.addAttribute("itemList", CacheDb.list);
+        model.addAttribute("itemList", CacheDb.itemList);
         return "index";
     }
 }

@@ -1,7 +1,8 @@
 var shoppingCart = (function () {
     let cart = [];
 
-    function Item(name, price, count, single) {
+    function Item(id, name, price, count, single) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
@@ -21,33 +22,36 @@ var shoppingCart = (function () {
         loadCart();
     }
     const obj = {};
-    obj.addItemToCart = function (name, price, count, single) {
+    obj.addItemToCart = function (id, name, price, count, single) {
         for (const i in cart) {
-            if (cart[i].name === name) {
+            const cartItem = cart[i];
+            if (cartItem.id == id) {
                 if (!single) {
-                    cart[i].count++;
+                    cartItem.count++;
                     saveCart();
                 }
                 return false;
             }
         }
-        cart.push(new Item(name, price, count, single));
+        cart.push(new Item(id, name, price, count, single));
         saveCart();
         return true;
     };
-    obj.setCountForItem = function (name, count) {
+    obj.setCountForItem = function (id, count) {
         for (var i in cart) {
-            if (cart[i].name === name) {
-                cart[i].count = count;
+            const cartItem = cart[i];
+            if (cartItem.id === id) {
+                cartItem.count = count;
                 break;
             }
         }
     };
-    obj.removeItemFromCart = function (name) {
+    obj.removeItemFromCart = function (id) {
         for (const i in cart) {
-            if (cart[i].name === name) {
-                cart[i].count--;
-                if (cart[i].count === 0) {
+            const cartItem = cart[i];
+            if (cartItem.id === id) {
+                cartItem.count--;
+                if (cartItem.count === 0) {
                     cart.splice(i, 1);
                 }
                 break;
@@ -55,13 +59,14 @@ var shoppingCart = (function () {
         }
         saveCart();
     };
-    obj.removeItemFromCartAll = function (name) {
+    obj.removeItemFromCartAll = function (id) {
         for (const i in cart) {
-            if (cart[i].name === name) {
-                var els = $(".add-to-cart");
+            const cartItem = cart[i];
+            if (cartItem.id === id) {
+                const els = $(".add-to-cart");
                 $.each(els, function (i, e) {
-                    var $el = $(e);
-                    if (name === $el.data('name')) {
+                    const $el = $(e);
+                    if (id === $el.data('id')) {
                         $el.html("Купить");
                         $el.removeClass("buy-btn-in-card-added");
                         return false;
@@ -75,9 +80,9 @@ var shoppingCart = (function () {
     };
     obj.clearCart = function () {
         for (const i in cart) {
-            var els = $(".add-to-cart");
+            const els = $(".add-to-cart");
             $.each(els, function (i, e) {
-                var $el = $(e);
+                const $el = $(e);
                 $el.html("Купить");
                 $el.removeClass("buy-btn-in-card-added");
             });
@@ -96,17 +101,18 @@ var shoppingCart = (function () {
     obj.totalCart = function () {
         var totalCart = 0;
         for (const i in cart) {
-            totalCart += cart[i].price * cart[i].count;
+            const cartItem = cart[i];
+            totalCart += cartItem.price * cartItem.count;
         }
         return Number(totalCart.toFixed(2));
     };
     obj.listCart = function () {
         const cartCopy = [];
-        for (i in cart) {
+        for (const i in cart) {
             let item = cart[i];
             let itemCopy = {};
-            for (const p in item) {
-                itemCopy[p] = item[p];
+            for (const k in item) {
+                itemCopy[k] = item[k];
             }
             itemCopy.total = Number(item.price * item.count).toFixed(2);
             cartCopy.push(itemCopy)
@@ -163,23 +169,24 @@ $(document).ready(function () {
 });
 
 function displayCart() {
-    const cartArray = shoppingCart.listCart();
+    const cardArr = shoppingCart.listCart();
     let output = "";
     let sum = 0;
-    for (const i in cartArray) {
-        const card = cartArray[i];
-        const cartArrayName = card.name;
-        const cartArrayPrice = card.price;
-        const cartArrayTotal = card.total;
-        const cartArrayCount = card.count;
-        const cartArraySingle = card.single;
-        sum = sum + cartArrayPrice;
+    for (const i in cardArr) {
+        const card = cardArr[i];
+        const cardId = card.id;
+        const cardName = card.name;
+        const cardPrice = card.price;
+        const cardTotal = card.total;
+        const cardCount = card.count;
+        const cardSingle = card.single;
+        sum = sum + cardPrice;
         let $el;
-        if (cartArraySingle) {
-            var els = $(".add-to-cart");
+        if (cardSingle) {
+            const els = $(".add-to-cart");
             $.each(els, function (i, e) {
                 $el = $(e);
-                if (cartArrayName === $el.data('name')) {
+                if (cardId === $el.data('id')) {
                     $el.addClass("buy-btn-in-card-added");
                     $el.html("В корзину");
                     return false;
@@ -190,11 +197,11 @@ function displayCart() {
                 const divImg = "<div style='background-image: url(" + imgSrc + ")' class='img-responsive-basket'></div>";
                 output += "<tr>"
                     + "<td class='hw-38px'>"
-                    + "<button class='delete-item btn btn-outline-dark hw-38px' data-name='" + cartArrayName + "'>X</button>"
+                    + "<button class='delete-item btn btn-outline-dark hw-38px' data-id='" + cardId + "' data-name='" + cardName + "'>X</button>"
                     + "</td>"
                     + "<td class='hw-38px'>" + divImg + "</td>"
-                    + "<td>" + cartArrayName + "</td>"
-                    + "<td>" + cartArrayPrice + "&#8381;</td>"
+                    + "<td>" + cardName + "</td>"
+                    + "<td>" + cardPrice + "&#8381;</td>"
                     + "<td></td>"
                     + "<td></td>"
                     + "</tr>";
@@ -202,18 +209,18 @@ function displayCart() {
         } else {
             output += "<tr>"
                 + "<td class='w-38px'>"
-                + "<button class='delete-item btn btn-outline-dark w-38px' data-name='" + cartArrayName + "'>X</button>"
+                + "<button class='delete-item btn btn-outline-dark w-38px' data-id='" + cardId + "' data-name='" + cardName + "'>X</button>"
                 + "</td>"
-                + "<td>" + cartArrayName + "</td>"
-                + "<td> 1x" + cartArrayPrice + "&#8381;</td>"
+                + "<td>" + cardName + "</td>"
+                + "<td> 1x" + cardPrice + "&#8381;</td>"
                 + "<td>"
                 + "<div class='input-group'>"
-                + "<button class='minus-item input-group-addon btn btn-primary' data-name='" + cartArrayName + "'>-</button>"
-                + "<input type='number' class='item-count form-control'  data-name='" + cartArrayName + "' value='" + cartArrayCount + "'>"
-                + "<button class='plus-item btn btn-primary input-group-addon' data-name='" + cartArrayName + "'>+</button>"
+                + "<button class='minus-item input-group-addon btn btn-primary' data-id='" + cardId + "' data-name='" + cardName + "'>-</button>"
+                + "<input type='number' class='item-count form-control' data-id='" + cardId + "' data-name='" + cardName + "' value='" + cardCount + "'>"
+                + "<button class='plus-item btn btn-primary input-group-addon' data-id='" + cardId + "' data-name='" + cardName + "'>+</button>"
                 + "</div>"
                 + "</td>"
-                + "<td>" + cartArrayTotal + "&#8381;" + "</td>"
+                + "<td>" + cardTotal + "&#8381;" + "</td>"
                 + "</tr>";
         }
     }
@@ -226,10 +233,11 @@ function displayCart() {
 
 $('.add-to-cart').on("click", function () {
     event.preventDefault();
+    const id = $(this).data('id');
     const name = $(this).data('name');
     const single = $(this).data('single');
     const price = Number($(this).data('price'));
-    const added = shoppingCart.addItemToCart(name, price, 1, single);
+    const added = shoppingCart.addItemToCart(id, name, price, 1, single);
     if ($(this).html() === "В корзину") {
         $("#basketModal").modal();
     }
@@ -238,8 +246,8 @@ $('.add-to-cart').on("click", function () {
         $(this).html("В корзину");
     }
     if (single && !added) {
-        // shoppingCart.removeItemFromCart(name);
-        // $(this).html($(this).data('name'));
+        // shoppingCart.removeItemFromCart(id);
+        // $(this).html($(this).data('id'));
     }
     displayCart();
 });
@@ -249,24 +257,24 @@ $('.clear-cart').on("click", function () {
     displayCart();
 });
 $show_cart.on("click", ".delete-item", function () {
-    const name = $(this).data('name');
-    shoppingCart.removeItemFromCartAll(name);
+    const id = $(this).data('id');
+    shoppingCart.removeItemFromCartAll(id);
     displayCart();
 });
 $show_cart.on("click", ".minus-item", function () {
-    const name = $(this).data('name');
-    shoppingCart.removeItemFromCart(name);
+    const id = $(this).data('id');
+    shoppingCart.removeItemFromCart(id);
     displayCart();
 });
 $show_cart.on("click", ".plus-item", function () {
-    const name = $(this).data('name');
-    shoppingCart.addItemToCart(name);
+    const id = $(this).data('id');
+    shoppingCart.addItemToCart(id);
     displayCart();
 });
 $show_cart.on("change", ".item-count", function () {
-    const name = $(this).data('name');
+    const id = $(this).data('id');
     const count = Number($(this).val());
-    shoppingCart.setCountForItem(name, count);
+    shoppingCart.setCountForItem(id, count);
     displayCart();
 });
 const $btn_order_show = $(".btn-order-show");
