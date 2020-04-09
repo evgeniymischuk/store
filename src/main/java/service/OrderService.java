@@ -1,20 +1,19 @@
 package service;
 
-import db.CacheDb;
 import dto.OrderDto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.tomcat.util.buf.StringUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static db.CacheDb.*;
 import static utils.CommonUtil.getDate;
 import static utils.CommonUtil.getId;
 
 public abstract class OrderService {
     public static final String ORDERS_CSV = "orders.csv";
-    public static String[] ORDER_HEADER = {"id", "status", "done", "track", "info", "purchasesIds", "priceTotal", "date"};
+    public static String[] ORDER_HEADER = {"id", "name", "email", "postal", "status", "done", "number", "track", "info", "purchasesIds", "priceTotal", "date"};
 
     public synchronized static String addAndGetId(
             OrderDto dto
@@ -23,8 +22,15 @@ public abstract class OrderService {
         dto.setId(getId());
         dto.setStatus("Проверка оплаты");
         dto.setDate(getDate());
-        dto.setNumber(String.valueOf(CacheDb.orderMap.size() + 1));
+        dto.setNumber(String.valueOf(orderMap.size() + 1));
         try (CSVPrinter printer = new CSVPrinter(new FileWriter(ORDERS_CSV, true), CSVFormat.DEFAULT.withHeader(ORDER_HEADER))) {
+            StringBuilder purchasesIds = new StringBuilder();
+            for (String id : dto.getPurchasesIds()) {
+                if (purchasesIds.length() > 0) {
+                    purchasesIds.append("zZ");
+                }
+                purchasesIds.append(id);
+            }
             printer.printRecord(
                     dto.getId(),
                     dto.getName(),
@@ -35,14 +41,17 @@ public abstract class OrderService {
                     dto.getNumber(),
                     dto.getTrack(),
                     dto.getInfo(),
-                    StringUtils.join(dto.getPurchasesIds(), '|'),
+                    purchasesIds,
                     dto.getPriceTotal(),
                     dto.getDate()
             );
         }
-
-        CacheDb.orderList.add(dto);
-        CacheDb.orderMap.put(dto.getId(), dto);
+        for (final String uid : dto.getPurchasesIds()) {
+            dto.getPurchasesDtoList().add(itemMap.get(uid));
+        }
+        orderList.add(dto);
+        orderMap.put(dto.getId(), dto);
+        orderNumberMap.put(dto.getNumber(), dto);
 
         return dto.getId();
     }

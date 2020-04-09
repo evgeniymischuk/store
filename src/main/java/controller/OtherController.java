@@ -13,9 +13,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import static db.CacheDb.orderMap;
+import static db.CacheDb.orderNumberMap;
 import static service.FileService.write;
 import static service.ItemService.removeOrReservation;
 import static service.OrderService.addAndGetId;
@@ -54,14 +54,21 @@ public class OtherController {
                         @RequestParam(name = "number", required = false) String number
     ) {
         if ((id == null || id.isEmpty()) && (number == null || number.isEmpty())) return "orderNotFound";
-        final Map<String, OrderDto> map = orderMap;
-        for (Map.Entry<String, OrderDto> orderDto: map.entrySet()){
-            orderDto.getKey();
+        final OrderDto orderDto;
+        if (!StringUtils.isEmpty(id)) {
+            orderDto = orderMap.get(id);
+            if (orderDto == null || orderDto.getId() == null) {
+                return "orderNotFound";
+            }
+        } else if (!StringUtils.isEmpty(number)) {
+            orderDto = orderNumberMap.get(number);
+            if (orderDto == null || orderDto.getId() == null) {
+                return "orderNotFound";
+            }
+        } else {
+            return "orderNotFound";
         }
-        final OrderDto orderDto = orderMap.get(id);
-        if (orderDto == null || orderDto.getId() == null) return "orderNotFound";
-
-        model.addAttribute("orderDto", orderDto);
+        model.addAttribute("order", orderDto);
 
         return "order";
     }

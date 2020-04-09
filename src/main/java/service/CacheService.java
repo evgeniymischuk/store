@@ -1,6 +1,5 @@
 package service;
 
-import db.CacheDb;
 import dto.ItemDto;
 import dto.OrderDto;
 import org.apache.commons.csv.CSVFormat;
@@ -10,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static db.CacheDb.*;
 import static service.ItemService.ITEMS_CSV;
 import static service.ItemService.ITEM_HEADER;
 import static service.OrderService.ORDERS_CSV;
@@ -34,8 +34,8 @@ public abstract class CacheService {
         item.setDescription(description);
         item.setReservation(reservation);
 
-        CacheDb.itemList.add(item);
-        CacheDb.itemMap.put(id, item);
+        itemList.add(item);
+        itemMap.put(id, item);
     }
 
     public static void addOrder(
@@ -63,19 +63,23 @@ public abstract class CacheService {
         item.setNumber(number);
         item.setTrack(track);
         item.setInfo(info);
-        item.setPurchasesIds(Arrays.asList(purchasesIds.split("\\|")));
+        item.setPurchasesIds(Arrays.asList(purchasesIds.split("zZ")));
         item.setPriceTotal(priceTotal);
         item.setDate(date);
-
-        CacheDb.orderList.add(item);
-        CacheDb.orderMap.put(id, item);
+        for (final String uid : item.getPurchasesIds()) {
+            item.getPurchasesDtoList().add(itemMap.get(uid));
+        }
+        orderList.add(item);
+        orderMap.put(id, item);
+        orderNumberMap.put(number, item);
     }
 
     public static void clearMemory() {
-        CacheDb.itemList.clear();
-        CacheDb.itemMap.clear();
-        CacheDb.orderList.clear();
-        CacheDb.orderMap.clear();
+        itemList.clear();
+        itemMap.clear();
+        orderList.clear();
+        orderMap.clear();
+        orderNumberMap.clear();
     }
 
     public synchronized static void refreshCache() throws IOException {
@@ -120,7 +124,6 @@ public abstract class CacheService {
             final String purchasesIds = record.get("purchasesIds");
             final String priceTotal = record.get("priceTotal");
             final String date = record.get("date");
-
             addOrder(
                     id,
                     name,

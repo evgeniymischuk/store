@@ -2,6 +2,11 @@ package dto;
 
 import org.apache.tomcat.util.buf.StringUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class OrderDto {
@@ -11,10 +16,11 @@ public class OrderDto {
     private String postal;
     private String number;
     private String status;
-    private String done;
-    private String track;
-    private String info;
+    private String done = "false";
+    private String track = "";
+    private String info = "";
     private List<String> purchasesIds;
+    private List<ItemDto> purchasesDtoList;
     private String priceTotal;
     private String date;
 
@@ -102,6 +108,17 @@ public class OrderDto {
         this.purchasesIds = purchasesIds;
     }
 
+    public List<ItemDto> getPurchasesDtoList() {
+        if (purchasesDtoList == null) {
+            purchasesDtoList = new ArrayList<>();
+        }
+        return purchasesDtoList;
+    }
+
+    public void setPurchasesDtoList(List<ItemDto> purchasesDtoList) {
+        this.purchasesDtoList = purchasesDtoList;
+    }
+
     public String getPriceTotal() {
         return priceTotal;
     }
@@ -112,6 +129,13 @@ public class OrderDto {
 
     public String getDate() {
         return date;
+    }
+
+    public String getDateString() {
+        final Date d = new Date();
+        d.setTime(Long.parseLong(this.date));
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return dateFormat.format(d);
     }
 
     public void setDate(String date) {

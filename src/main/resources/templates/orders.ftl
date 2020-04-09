@@ -1,34 +1,42 @@
-<#import "templates.ftl" as t>
+<#import "templatesupper.ftl" as t>
 <@t.page>
     <div class="container-fluid">
-        <div class="alert alert-info" role="alert">
-            <h1>Номер вашего заказа : </h1>
-        </div>
-        <table>
-            <thead>
-            <tr>
-                <th>Номер</th>
-                <th>Статус</th>
-                <th>Дата</th>
-                <th>Трек номер</th>
-                <th>Заказ</th>
-                <th>Информация</th>
-                <th>Стоимость</th>
-            </tr>
-            </thead>
-            <tbody>
-            <#list orderList as order >
-                <tr>
-                    <td>${order.number}</td>
-                    <td>${order.status}</td>
-                    <td>${order.date}</td>
-                    <td>${order.track}</td>
-                    <td>${order.purchasesIdsString}</td>
-                    <td>${order.info}</td>
-                    <td>${order.priceTotal}</td>
-                </tr>
-            </#list>
-            </tbody>
-        </table>
+        <#list orderList as order>
+            <ul class="list-group mt-3 list-none">
+                <li class="list-group-item active text-center">Номер заказ : ${order.number}</li>
+                <li class="list-group-item">Статус : ${order.status}</li>
+                <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>
+                <#if order.track != "">
+                    <li class="list-group-item">Трек номер ${order.track}</li>
+                </#if>
+                <li>
+                    <ul class="list-group text-center list-none">
+                        <li class="list-group-item active">
+                            Заказанные товары:
+                        </li>
+                        <#list order.purchasesDtoList as purchase>
+                            <li class="list-group-item">
+                                <a href="/#${purchase.id}"
+                                   class="text-primary">${purchase.title}
+                                </a>
+                            </li>
+                            <li class="list-group-item ">
+                                <div style='background-image: url("/download?name=${purchase.id}.jpg")'
+                                     class='img-responsive-order m-auto'>
+                                </div>
+                            </li>
+                            <li class="list-group-item text-dark">${purchase.price} &#8381;</li>
+                        </#list>
+                    </ul>
+                </li>
+                <#if order.track != "">
+                    <li class="list-group-item">Информация : ${order.info}</li>
+                </#if>
+                <li class="list-group-item">Имя : ${order.name}</li>
+                <li class="list-group-item">Электронная почта : ${order.email} </li>
+                <li class="list-group-item">Дата заказа : ${order.dateString}</li>
+                <li class="list-group-item text-danger text-center">Общая стоимость : ${order.priceTotal} &#8381;</li>
+            </ul>
+        </#list>
     </div>
 </@t.page>

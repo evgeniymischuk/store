@@ -19,7 +19,6 @@ import java.util.Collections;
 import static service.CacheService.refreshCache;
 import static service.FileService.save;
 import static service.ItemService.*;
-import static service.OrderService.ORDERS_CSV;
 import static utils.CommonUtil.getId;
 
 @Controller
@@ -27,13 +26,6 @@ public class AdminController {
 
     @RequestMapping("/admin")
     public String admin(Model model) throws Exception {
-        final File i = new File(ITEMS_CSV);
-        final File o = new File(ORDERS_CSV);
-        if (!i.exists() || !o.exists()) {
-            if (!i.createNewFile() || !o.createNewFile()) {
-                throw new Exception("doesnt create file");
-            }
-        }
         refreshCache();
         model.addAttribute("itemList", CacheDb.itemList);
         return "admin";

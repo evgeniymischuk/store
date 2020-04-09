@@ -10611,6 +10611,13 @@ a.text-dark:focus, a.text-dark:hover {
     background-position: center;
 }
 
+.img-responsive-order {
+    width: 5rem;
+    height: 5rem;
+    background-size: cover;
+    background-position: center;
+}
+
 .img-responsive-watch {
     background-repeat: no-repeat !important;
     background-position: center center !important;
@@ -10814,4 +10821,7 @@ a.text-dark:focus, a.text-dark:hover {
         -ms-flex-pack: end;
         justify-content: flex-end;
     }
+}
+.list-none{
+    list-style: none !important;
 }

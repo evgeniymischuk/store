@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
+import static service.CacheService.refreshCache;
 import static service.ItemService.ITEMS_CSV;
 import static service.OrderService.ORDERS_CSV;
 
@@ -28,5 +30,23 @@ public class MainController {
         f.deleteOnExit();
         f1.deleteOnExit();
         return "redirect:/admin";
+    }
+
+    @PostConstruct
+    public void post() throws Exception {
+        final File i = new File(ITEMS_CSV);
+        final File o = new File(ORDERS_CSV);
+        if (!i.exists()) {
+            if (!i.createNewFile()) {
+                throw new Exception("doesnt create file");
+            }
+        }
+        if (!o.exists()) {
+            if (!o.createNewFile()) {
+                throw new Exception("doesnt create file");
+            }
+        }
+        new CacheDb();
+        refreshCache();
     }
 }

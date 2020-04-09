@@ -176,6 +176,9 @@ function displayCart() {
     for (const i in cardArr) {
         const card = cardArr[i];
         const cardId = card.id;
+        if (purchasesIds.length > 0) {
+            purchasesIds = purchasesIds + ",";
+        }
         purchasesIds = purchasesIds + cardId;
         const cardName = card.name;
         const cardPrice = card.price;
@@ -314,7 +317,7 @@ $('.btn-order-show').on("click", function () {
         $(".pay-stage").addClass("dao-none");
         $btn_order_show.html("Перейти к оформлению заказа");
         shoppingCart.clearCart();
-        $("basketBtnSubmit").click();
+        $("#basketBtnSubmit").click();
         $("#basketModalBtnClose").click();
     }
 });

@@ -1,7 +1,11 @@
 $(document).ready(function () {
+    let cardInRow;
     var anchor = window.location.hash;
     if (!mobile) {
-        $(".card-in-row").remove();
+        if (anchor) {
+        } else {
+            $(".card-in-row").remove();
+        }
     } else {
         var hoverEffect = $(".hover-effect");
         hoverEffect.find(".add-to-cart").remove();
@@ -9,7 +13,7 @@ $(document).ready(function () {
     }
     displayCart();
     if (anchor && mobile) {
-        var cardInRow = $(".card-in-row");
+        cardInRow = $(".card-in-row");
         cardInRow.removeClass("d-none");
         cardInRow.addClass("d-flex");
         window.location.href = "/" + anchor;
