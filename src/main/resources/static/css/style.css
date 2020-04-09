@@ -10527,7 +10527,7 @@ a.text-dark:focus, a.text-dark:hover {
 
 .buy-btn-in-card {
     padding: 9px 8px;
-    right: 3rem;
+    right: 0rem;
     position: absolute;
 }
 
@@ -10538,7 +10538,13 @@ a.text-dark:focus, a.text-dark:hover {
 .price-in-card {
     position: absolute;
     top: 0.7rem;
-    right: 0rem;
+    font-size: 1.5rem;
+    font-weight: 100;
+    right: 7.5rem;
+}
+
+.price-in-card-reservation {
+    right: 9rem;
 }
 
 .like-count-in-card {
@@ -10822,6 +10828,7 @@ a.text-dark:focus, a.text-dark:hover {
         justify-content: flex-end;
     }
 }
-.list-none{
+
+.list-none {
     list-style: none !important;
 }

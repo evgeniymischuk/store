@@ -1,31 +1,32 @@
 $(document).ready(function () {
-    let cardInRow;
-    var anchor = window.location.hash;
+    const cardInGrid = $(".card-in-grid");
+    const cardInRow = $(".card-in-row");
+    const anchor = window.location.hash;
     if (!mobile) {
         if (anchor) {
-        } else {
-            $(".card-in-row").remove();
+            $(".card-in-row:not(" + anchor + ")").remove();
+            cardInRow.removeClass("d-none");
+            cardInRow.addClass("d-flex");
+            cardInGrid.remove();
+        } else if (!archive) {
+            cardInRow.remove();
         }
     } else {
-        var hoverEffect = $(".hover-effect");
+        const hoverEffect = $(".hover-effect");
         hoverEffect.find(".add-to-cart").remove();
         hoverEffect.find(".price-in-grid").remove();
     }
     displayCart();
     if (anchor && mobile) {
-        cardInRow = $(".card-in-row");
         cardInRow.removeClass("d-none");
         cardInRow.addClass("d-flex");
         window.location.href = "/" + anchor;
     } else {
-        var cardInGrid = $(".card-in-grid");
         cardInGrid.removeClass("d-none");
         cardInGrid.addClass("d-flex");
     }
     $(".hover-effect").on("click", function (e) {
         if (mobile) {
-            var cardInGrid = $(".card-in-grid");
-            var cardInRow = $(".card-in-row");
             cardInGrid.addClass("d-none");
             cardInGrid.removeClass("d-flex");
             cardInRow.removeClass("d-none");
@@ -33,7 +34,7 @@ $(document).ready(function () {
             window.location.href = "/#" + $(this).data('id');
         }
     });
-    var likeCountEls = $(".like-count");
+    const likeCountEls = $(".like-count");
     likeCountEls.each(function (i, e) {
         var el = $(e);
         var url = el.data('instagram');

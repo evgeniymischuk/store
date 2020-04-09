@@ -1,6 +1,5 @@
 package service;
 
-import db.CacheDb;
 import dto.ItemDto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -12,6 +11,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+
+import static db.CacheDb.itemList;
+import static db.CacheDb.itemMap;
 
 public abstract class ItemService {
     public static final String ITEMS_CSV = "items.csv";
@@ -38,12 +40,12 @@ public abstract class ItemService {
                 if (ids.contains(id)) {
                     if (isReservation) {
                         reservation = "true";
-                        ItemDto itemDto = CacheDb.itemMap.get(id);
+                        ItemDto itemDto = itemMap.get(id);
                         itemDto.setReservation(reservation);
                     } else {
                         hide = "true";
-                        CacheDb.itemMap.remove(id);
-                        CacheDb.itemList = new ArrayList<>(CacheDb.itemMap.values());
+                        itemMap.remove(id);
+                        itemList = new ArrayList<>(itemMap.values());
                     }
                 }
                 printer.printRecord(
@@ -57,5 +59,39 @@ public abstract class ItemService {
                 );
             }
         }
+    }
+
+    public synchronized static List<ItemDto> findById(
+            final List<String> ids
+    ) throws IOException {
+        if (ids == null || ids.isEmpty()) new ArrayList<>();
+        List<ItemDto> list = new ArrayList<>();
+        final Reader in = new FileReader(ITEMS_CSV);
+        final Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                .withHeader(ITEM_HEADER)
+                .withFirstRecordAsHeader()
+                .parse(in);
+        for (final CSVRecord record : records) {
+            final String id = record.get("id");
+            final String title = record.get("title");
+            final String price = record.get("price");
+            final String description = record.get("description");
+            final String instagramLikeUrl = record.get("instagramLikeUrl");
+            String reservation = record.get("reservation");
+            String hide = record.get("hide");
+            ItemDto i = new ItemDto();
+            i.setId(id);
+            i.setTitle(title);
+            i.setPrice(price);
+            i.setDescription(description);
+            i.setInstagramLikeUrl(instagramLikeUrl);
+            i.setReservation(reservation);
+            i.setHide(hide);
+            if (ids.contains(id)) {
+                list.add(i);
+            }
+        }
+
+        return list;
     }
 }

@@ -9,7 +9,7 @@
             </#if>
             <div class="flex-fill ${(x == 2)?then('', 'mr-card-custom')}">
                 <div class="hover-effect" data-id="${item.id}">
-                    <div style="background-image: url('../download?name=${item.id}_small')" class="img-responsive">
+                    <div style="background-image: url('../download?id=${item.id}_small')" class="img-responsive">
                         <div class="overlay">
                             <ul>
                                 <li class="likeCountLi animation-show">
@@ -96,7 +96,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="settingModalTitle"></h5>
+                <h5 class="modal-title" id="settingModalTitle">Add new item</h5>
                 <button id="settingModalBtnClose" type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -186,7 +186,7 @@
             </div>
             <div class="modal-footer justify-content-center col-12">
                 <button onclick="$('#settingBtnSubmit').click()" type="button" class="btn btn-outline-dark col-3">
-                    Add new item
+                    Done
                 </button>
             </div>
         </div>

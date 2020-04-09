@@ -4,13 +4,17 @@ import db.CacheDb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
 
 import static service.CacheService.refreshCache;
 import static service.ItemService.ITEMS_CSV;
+import static service.ItemService.findById;
 import static service.OrderService.ORDERS_CSV;
 
 @Controller
@@ -21,6 +25,14 @@ public class MainController {
         model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
         model.addAttribute("itemList", CacheDb.itemList);
         return "index";
+    }
+
+    @RequestMapping("/archive")
+    public String archive(Model model, @RequestParam String id, HttpServletRequest request) throws IOException {
+        final String userAgent = request.getHeader("User-Agent").toLowerCase();
+        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        model.addAttribute("itemList", findById(Collections.singletonList(id)));
+        return "archive";
     }
 
     @RequestMapping("/clear-csv")

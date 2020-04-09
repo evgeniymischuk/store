@@ -15,12 +15,12 @@
                     </li>
                     <#list order.purchasesDtoList as purchase>
                         <li class="list-group-item">
-                            <a href="/#${purchase.id}"
+                            <a href="${(purchase.hide == 'true')?then('/archive?id='+purchase.id,'/#'+purchase.id)}"
                                class="text-primary">${purchase.title}
                             </a>
                         </li>
                         <li class="list-group-item ">
-                            <div style='background-image: url("/download?name=${purchase.id}.jpg")'
+                            <div style='background-image: url("/download?id=${purchase.id}.jpg")'
                                  class='img-responsive-order m-auto'>
                             </div>
                         </li>

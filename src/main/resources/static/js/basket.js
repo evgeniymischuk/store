@@ -198,7 +198,7 @@ function displayCart() {
                 }
             });
             if ($el) {
-                const imgSrc = "/download?name=" + $el.data("id") + ".jpg";
+                const imgSrc = "/download?id=" + $el.data("id") + ".jpg";
                 const divImg = "<div style='background-image: url(" + imgSrc + ")' class='img-responsive-basket'></div>";
                 output += "<tr>"
                     + "<td class='hw-38px'>"
