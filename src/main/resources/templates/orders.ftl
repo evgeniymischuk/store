@@ -4,7 +4,11 @@
         <#list orderList as order>
             <ul class="list-group mt-3 list-none">
                 <li class="list-group-item active text-center">Номер заказ : ${order.number}</li>
-                <li class="list-group-item">Статус : ${order.status}</li>
+                <li class="list-group-item">
+                    <label for="status">Статус : </label>
+                    <input data-uid="${order.id}" data-name="status" type="text" class="input-edit"
+                           value="${order.status}"/>
+                </li>
                 <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>
                 <#if order.track != "">
                     <li class="list-group-item">Трек номер ${order.track}</li>
@@ -16,7 +20,7 @@
                         </li>
                         <#list order.purchasesDtoList as purchase>
                             <li class="list-group-item">
-                                <a href="/#${purchase.id}"
+                                <a href="${(purchase.hide == "true")?then('/archive?id='+purchase.id+'','/#'+purchase.id +'')}"
                                    class="text-primary">${purchase.title}
                                 </a>
                             </li>
@@ -40,3 +44,4 @@
         </#list>
     </div>
 </@t.page>
+<script type="text/javascript" src="../js/admin.js"></script>

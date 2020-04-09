@@ -46,4 +46,34 @@ $(document).ready(function () {
             });
         }
     });
+    let timeout;
+    $(".input-edit").on("keyup", function () {
+        const val = $(this).prop("value");
+        const val_len = val.length;
+        if (val_len >= 3 || val_len === 0) {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            const data = new Map();
+            const uid = $(this).data("uid");
+            const name = $(this).data("name");
+            data.set(name, ''+val+'');
+            data.set("uid", ''+uid+'');
+            timeout = setTimeout(function () {
+                // url: "/admin/orders/refresh?" + "uid=" + uid +  "&"+ name + "=" + val
+                    $.ajax({
+                        url: "/admin/orders/refresh?" + "uid=" + uid +  "&"+ name + "=" + val,
+                        data: {
+                           data
+                        },
+                        type: 'POST',
+                        success: function (done) {
+                            console.log(done)
+                        }
+                    })
+                }, 2500
+            )
+        }
+    })
 });

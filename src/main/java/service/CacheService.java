@@ -4,10 +4,11 @@ import dto.ItemDto;
 import dto.OrderDto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import utils.CommonUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import static db.CacheDb.*;
 import static service.ItemService.ITEMS_CSV;
@@ -34,8 +35,8 @@ public abstract class CacheService {
         item.setDescription(description);
         item.setReservation(reservation);
 
-        itemList.add(item);
         itemMap.put(id, item);
+        itemList = new ArrayList<>(itemMap.values());
     }
 
     public static void addOrder(
@@ -63,14 +64,14 @@ public abstract class CacheService {
         item.setNumber(number);
         item.setTrack(track);
         item.setInfo(info);
-        item.setPurchasesIds(Arrays.asList(purchasesIds.split("zZ")));
+        item.setPurchasesIds(CommonUtil.parse(purchasesIds));
         item.setPriceTotal(priceTotal);
         item.setDate(date);
         for (final String uid : item.getPurchasesIds()) {
             item.getPurchasesDtoList().add(itemMap.get(uid));
         }
-        orderList.add(item);
         orderMap.put(id, item);
+        orderList = new ArrayList<>(orderMap.values());
         orderNumberMap.put(number, item);
     }
 

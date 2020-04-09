@@ -1,15 +1,12 @@
 package dto;
 
-import org.apache.tomcat.util.buf.StringUtils;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static service.ItemService.findById;
+import static utils.CommonUtil.join;
 
 public class OrderDto {
     private String id;
@@ -99,7 +96,7 @@ public class OrderDto {
     }
 
     public String getPurchasesIdsString() {
-        return StringUtils.join(purchasesIds, ',');
+        return join(purchasesIds);
     }
 
     public List<String> getPurchasesIds() {
@@ -135,8 +132,11 @@ public class OrderDto {
 
     public String getDateString() {
         final Date d = new Date();
-        d.setTime(Long.parseLong(this.date));
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        try {
+            d.setTime(Long.parseLong(this.date));
+        } catch (NumberFormatException ignored) {
+        }
         return dateFormat.format(d);
     }
 

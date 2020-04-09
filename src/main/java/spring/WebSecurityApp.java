@@ -16,6 +16,8 @@ public class WebSecurityApp extends WebSecurityConfigurerAdapter {
                 .antMatchers("/img").permitAll()
                 .antMatchers("/svg").permitAll()
                 .antMatchers("/admin").hasRole("manager")
+                .antMatchers("/admin/orders").hasRole("manager")
+                .antMatchers("/admin/refresh").hasRole("manager")
                 .antMatchers("/clear-csv").hasRole("manager")
                 .and()
                 .formLogin();
