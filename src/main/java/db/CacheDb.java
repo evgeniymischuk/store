@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static helpers.ItemHelper.refreshCache;
+import static service.CacheService.refreshCache;
 
-public class CacheDb {
+public abstract class CacheDb {
 
     public volatile static List<ItemDto> itemList = new ArrayList<>();
     public volatile static Map<String, ItemDto> itemMap = new HashMap<>();

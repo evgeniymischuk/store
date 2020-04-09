@@ -1,6 +1,6 @@
 <#import "templates.ftl" as t>
 <@t.page>
-    <script>var mobile = ${mobile};</script>
+    <script>let mobile = ${mobile};</script>
     <div class="container-fluid">
         <#assign x = 0>
         <#assign lastState = 0>
@@ -16,7 +16,7 @@
                                 <li class="likeCountLi animation-show">
                                     <span class="like-count" data-instagram="${item.instagramLikeUrl}"></span>
                                     <span class="mr-1">
-                                        <svg aria-label="Unlike" class="_8-yf5 " fill="#ed4956"
+                                        <svg aria-label="Unlike" fill="#ed4956"
                                              height="19" viewBox="0 0 48 48"
                                              width="19">
                                             <path clip-rule="evenodd"
@@ -27,11 +27,18 @@
                                     </span>
                                     <#if mobile == "false">
                                         <span class="ml-1 price-in-grid">${item.price}&#8381;</span>
-                                        <div data-id="${item.id}" data-name="${item.title}" data-single="true"
-                                             data-price="${item.price}"
-                                             class="mt-2 add-to-cart buy-btn btn btn-outline-light btn-in-grid">
-                                            Купить
-                                        </div>
+                                        <#if item.reservation == "true">
+                                            <div class="mt-2 buy-btn btn btn-outline-light btn-in-grid">
+                                                Зарезервировано
+                                            </div>
+                                        </#if>
+                                        <#if item.reservation != "true">
+                                            <div data-id="${item.id}" data-name="${item.title}" data-single="true"
+                                                 data-price="${item.price}"
+                                                 class="mt-2 add-to-cart buy-btn btn btn-outline-light btn-in-grid">
+                                                Купить
+                                            </div>
+                                        </#if>
                                     </#if>
                                 </li>
                             </ul>
@@ -59,17 +66,24 @@
                         <div style="background-image: url('download?name=${item.id}')"
                              class="img-responsive-cards"></div>
                         <div class="card-price">
-                            <div data-id="${item.id}" data-name="${item.title}" data-single="true"
-                                 data-price="${item.price}"
-                                 class="add-to-cart buy-btn btn btn-outline-dark buy-btn-in-card">
-                                Купить
-                            </div>
+                            <#if item.reservation == 'true'>
+                                <div class="buy-btn btn btn-outline-dark buy-btn-in-card">
+                                    Зарезервировано
+                                </div>
+                            </#if>
+                            <#if item.reservation != 'true'>
+                                <div data-id="${item.id}" data-name="${item.title}" data-single="true"
+                                     data-price="${item.price}"
+                                     class="add-to-cart buy-btn btn btn-outline-dark buy-btn-in-card">
+                                    Купить
+                                </div>
+                            </#if>
                             <span class="ml-1 price-in-card">${item.price}&#8381;</span>
                             <span class="like-count like-count-in-card animation-show"
                                   data-instagram="${item.instagramLikeUrl}" style="opacity: 0"></span>
                             <svg onclick="location.href = '/#${item.id}'" aria-label="Share Post"
                                  fill="#262626" height="24" viewBox="0 0 48 48"
-                                 width="24" style="position: absolute;left: 2.3rem;">
+                                 width="24" style="position: absolute;left: 2.3rem;top: 3px;">
                                 <path d="M46.5 3.5h-45C.6 3.5.2 4.6.8 5.2l16 15.8 5.5 22.8c.2.9 1.4 1 1.8.3L47.4 5c.4-.7-.1-1.5-.9-1.5zm-40.1 3h33.5L19.1 18c-.4.2-.9.1-1.2-.2L6.4 6.5zm17.7 31.8l-4-16.6c-.1-.4.1-.9.5-1.1L41.5 9 24.1 38.3z"></path>
                                 <path d="M14.7 48.4l2.9-.7"></path>
                             </svg>

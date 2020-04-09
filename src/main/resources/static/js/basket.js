@@ -172,9 +172,11 @@ function displayCart() {
     const cardArr = shoppingCart.listCart();
     let output = "";
     let sum = 0;
+    let purchasesIds = "";
     for (const i in cardArr) {
         const card = cardArr[i];
         const cardId = card.id;
+        purchasesIds = purchasesIds + cardId;
         const cardName = card.name;
         const cardPrice = card.price;
         const cardTotal = card.total;
@@ -229,6 +231,8 @@ function displayCart() {
     const totalCount = shoppingCart.totalCount();
     $('.total-count').html(totalCount > 0 ? totalCount : '');
     $('.total-sum').html(sum + "&#8381;");
+    $("#priceTotal").val(sum);
+    $("#purchasesIds").val(purchasesIds);
 }
 
 $('.add-to-cart').on("click", function () {

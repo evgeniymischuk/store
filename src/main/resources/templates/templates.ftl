@@ -44,7 +44,7 @@
                 <div class="modal-body">
                     <table class="show-cart mb-0 table">
                     </table>
-                    <form id="basketForm" type="POST" action="/submitConfirm" class="dao-none">
+                    <form id="basketForm" type="POST" action="/submitOrder" enctype="multipart/form-data"  class="dao-none">
                         <div class="mt-3px">
                             <input type="text"
                                    id="name"
@@ -75,7 +75,15 @@
                                    required="required"
                             >
                         </div>
-                        <button type="submit" class="btn btn-primary d-none" id="basketBtnSubmit">Отправить</button>
+                        <input type="hidden"
+                               id="purchasesIds"
+                               name="purchasesIds"
+                        >
+                        <input type="hidden"
+                               id="priceTotal"
+                               name="priceTotal"
+                        >
+                        <button type="submit" class="btn btn-primary d-none" id="basketBtnSubmit">Submit</button>
                     </form>
                     <div class="alert alert-info pay-stage dao-none" role="alert">
                         Произведите оплату в размере <span class="total-sum danger-text"></span>,<br>

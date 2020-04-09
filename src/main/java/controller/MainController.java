@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
-import static helpers.ItemHelper.ITEMS_CSV;
-import static helpers.OrderHelper.ORDERS_CSV;
+import static service.ItemService.ITEMS_CSV;
+import static service.OrderService.ORDERS_CSV;
 
 @Controller
 public class MainController {

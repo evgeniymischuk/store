@@ -1,16 +1,21 @@
 package dto;
 
-import java.util.ArrayList;
+import org.apache.tomcat.util.buf.StringUtils;
+
 import java.util.List;
 
 public class OrderDto {
     private String id;
+    private String name;
+    private String email;
+    private String postal;
+    private String number;
     private String status;
     private String done;
     private String track;
     private String info;
     private List<String> purchasesIds;
-    private String price;
+    private String priceTotal;
     private String date;
 
     public String getId() {
@@ -19,6 +24,38 @@ public class OrderDto {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getStatus() {
@@ -53,6 +90,10 @@ public class OrderDto {
         this.info = info;
     }
 
+    public String getPurchasesIdsString() {
+        return StringUtils.join(purchasesIds, ',');
+    }
+
     public List<String> getPurchasesIds() {
         return purchasesIds;
     }
@@ -61,12 +102,12 @@ public class OrderDto {
         this.purchasesIds = purchasesIds;
     }
 
-    public String getPrice() {
-        return price;
+    public String getPriceTotal() {
+        return priceTotal;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setPriceTotal(String priceTotal) {
+        this.priceTotal = priceTotal;
     }
 
     public String getDate() {

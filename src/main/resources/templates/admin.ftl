@@ -103,7 +103,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="settingForm" enctype="multipart/form-data" method="post" action="../admin/add"
+                <form id="adminForm" enctype="multipart/form-data" method="post" action="../admin/add"
                       class="row">
                     <#--                        <div class="mt-3px col-12">-->
                     <#--                            <input type="text"-->

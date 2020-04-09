@@ -16,20 +16,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 
-import static helpers.CommonHelper.getId;
-import static helpers.FileHelper.save;
-import static helpers.ItemHelper.*;
-import static helpers.OrderHelper.ORDERS_CSV;
+import static service.CacheService.refreshCache;
+import static service.FileService.save;
+import static service.ItemService.*;
+import static service.OrderService.ORDERS_CSV;
+import static utils.CommonUtil.getId;
 
 @Controller
 public class AdminController {
 
     @RequestMapping("/admin")
     public String admin(Model model) throws Exception {
-        final File f = new File(ITEMS_CSV);
-        final File f1 = new File(ORDERS_CSV);
-        if (!f.exists() || !f1.exists()) {
-            if (!f.createNewFile() || !f1.createNewFile()) {
+        final File i = new File(ITEMS_CSV);
+        final File o = new File(ORDERS_CSV);
+        if (!i.exists() || !o.exists()) {
+            if (!i.createNewFile() || !o.createNewFile()) {
                 throw new Exception("doesnt create file");
             }
         }
@@ -52,7 +53,9 @@ public class AdminController {
         if ((savedFullImage == null || !savedFullImage.exists()) || (savedSmallImage == null || !savedSmallImage.exists())) {
             return "redirect:/admin";
         }
+
         final CSVFormat csvFormat = CacheDb.itemList.size() == 0 ? CSVFormat.DEFAULT.withHeader(ITEM_HEADER) : CSVFormat.DEFAULT;
+
         try (CSVPrinter printer = new CSVPrinter(new FileWriter(ITEMS_CSV, true), csvFormat)) {
             printer.printRecord(
                     dto.getId(),
@@ -71,7 +74,15 @@ public class AdminController {
     @RequestMapping("/admin/remove")
     @PostMapping
     public String remove(ItemDto dto) throws IOException {
-        removeOrReservationFromCsv(Collections.singletonList(dto.getId()), false);
+
+        removeOrReservation(Collections.singletonList(dto.getId()), false);
+
         return "redirect:/admin";
+    }
+
+    @RequestMapping("/admin/orders")
+    public String orders(Model model) throws IOException {
+        model.addAttribute("orderList", CacheDb.orderList);
+        return "orders";
     }
 }

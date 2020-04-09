@@ -13,13 +13,15 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
-import static helpers.FileHelper.write;
-import static helpers.ItemHelper.removeOrReservationFromCsv;
+import static db.CacheDb.orderMap;
+import static service.FileService.write;
+import static service.ItemService.removeOrReservation;
+import static service.OrderService.addAndGetId;
 
 @Controller
 public class OtherController {
-
     @RequestMapping("/download")
     public void download(@RequestParam("name") String name,
                          final HttpServletResponse response) throws IOException {
@@ -38,16 +40,29 @@ public class OtherController {
     @RequestMapping("/submitOrder")
     @PostMapping
     public RedirectView submitOrder(RedirectAttributes attributes, OrderDto orderDto) throws IOException {
-        removeOrReservationFromCsv(orderDto.getPurchasesIds(), true);
+        removeOrReservation(orderDto.getPurchasesIds(), true);
+        final String id = addAndGetId(orderDto);
+        attributes.addFlashAttribute("id", id);
+        attributes.addAttribute("id", id);
 
-        attributes.addAttribute("n", "");
-        return new RedirectView("/confirm");
+        return new RedirectView("/order");
     }
 
     @RequestMapping("/order")
-    @PostMapping
-    public String order(Model model, @RequestParam(name = "n") String n) throws IOException {
-        //get from db purchase
+    public String order(Model model,
+                        @RequestParam(name = "id", required = false) String id,
+                        @RequestParam(name = "number", required = false) String number
+    ) {
+        if ((id == null || id.isEmpty()) && (number == null || number.isEmpty())) return "orderNotFound";
+        final Map<String, OrderDto> map = orderMap;
+        for (Map.Entry<String, OrderDto> orderDto: map.entrySet()){
+            orderDto.getKey();
+        }
+        final OrderDto orderDto = orderMap.get(id);
+        if (orderDto == null || orderDto.getId() == null) return "orderNotFound";
+
+        model.addAttribute("orderDto", orderDto);
+
         return "order";
     }
 }
