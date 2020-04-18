@@ -10497,7 +10497,7 @@ a.text-dark:focus, a.text-dark:hover {
     color: #fff;
     display: -webkit-box;
     display: -webkit-flex;
-    margin-top: 5em;
+    /* margin-top: 5em; */
     display: -ms-flexbox;
     display: flex;
     font-size: 14px;
@@ -10508,6 +10508,8 @@ a.text-dark:focus, a.text-dark:hover {
     -ms-flex-pack: end;
     justify-content: flex-end;
     /* width: 107%; */
+    margin-top: 1.7rem;
+    margin-right:auto;
     /* text-align: center; */
 }
 
@@ -10544,7 +10546,7 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .price-in-card-reservation {
-    right: 9rem;
+    right: 53%;
 }
 
 .like-count-in-card {

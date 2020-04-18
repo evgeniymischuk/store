@@ -104,7 +104,7 @@ var shoppingCart = (function () {
             const cartItem = cart[i];
             totalCart += cartItem.price * cartItem.count;
         }
-        return Number(totalCart.toFixed(2));
+        return new Number(totalCart.toFixed(2));
     };
     obj.listCart = function () {
         const cartCopy = [];
@@ -114,7 +114,7 @@ var shoppingCart = (function () {
             for (const k in item) {
                 itemCopy[k] = item[k];
             }
-            itemCopy.total = Number(item.price * item.count).toFixed(2);
+            itemCopy.total = new Number(item.price * item.count).toFixed(2);
             cartCopy.push(itemCopy)
         }
         return cartCopy;
@@ -243,7 +243,7 @@ $('.add-to-cart').on("click", function () {
     const id = $(this).data('id');
     const name = $(this).data('name');
     const single = $(this).data('single');
-    const price = Number($(this).data('price'));
+    const price = new Number($(this).data('price'));
     const added = shoppingCart.addItemToCart(id, name, price, 1, single);
     if ($(this).html() === "В корзину") {
         $("#basketModal").modal();
@@ -280,7 +280,7 @@ $show_cart.on("click", ".plus-item", function () {
 });
 $show_cart.on("change", ".item-count", function () {
     const id = $(this).data('id');
-    const count = Number($(this).val());
+    const count = new Number($(this).val());
     shoppingCart.setCountForItem(id, count);
     displayCart();
 });
