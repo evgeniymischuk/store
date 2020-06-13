@@ -1,1 +1,1 @@
-# your.sol.store
+http://yoursol.store/
