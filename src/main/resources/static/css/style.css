@@ -4637,7 +4637,10 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .navbar-expand .navbar-toggler {
     display: none
 }
-
+.font-size-16{
+    font-size: 16px;
+    text-shadow: #80bdff;
+}
 .navbar-light .navbar-brand {
     color: rgba(0, 0, 0, .9)
 }
@@ -10833,4 +10836,17 @@ a.text-dark:focus, a.text-dark:hover {
 
 .list-none {
     list-style: none !important;
+}
+.parallax {
+    /* The image used */
+    background-image: url("/img/CATALINA-02.jpeg");
+
+    /* Set a specific height */
+    min-height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

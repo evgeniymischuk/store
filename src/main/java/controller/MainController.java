@@ -24,7 +24,35 @@ public class MainController {
         final String userAgent = request.getHeader("User-Agent").toLowerCase();
         model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
         model.addAttribute("itemList", CacheDb.itemList);
+        model.addAttribute("isStoreEnabled", "false");
         return "index";
+    }
+
+    @RequestMapping("/photogallery")
+    public String photogallery(Model model, HttpServletRequest request) {
+        final String userAgent = request.getHeader("User-Agent").toLowerCase();
+        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        model.addAttribute("itemList", CacheDb.itemList);
+        model.addAttribute("isStoreEnabled", "false");
+        return "photogallery";
+    }
+
+    @RequestMapping("/retouch")
+    public String retouch(Model model, HttpServletRequest request) {
+        final String userAgent = request.getHeader("User-Agent").toLowerCase();
+        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        model.addAttribute("itemList", CacheDb.itemList);
+        model.addAttribute("isStoreEnabled", "false");
+        return "retouch";
+    }
+
+    @RequestMapping("/calendar")
+    public String calendar(Model model, HttpServletRequest request) {
+        final String userAgent = request.getHeader("User-Agent").toLowerCase();
+        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        model.addAttribute("itemList", CacheDb.itemList);
+        model.addAttribute("isStoreEnabled", "false");
+        return "calendar";
     }
 
     @RequestMapping("/archive")
@@ -46,19 +74,21 @@ public class MainController {
 
     @PostConstruct
     public void post() throws Exception {
-        final File i = new File(ITEMS_CSV);
-        final File o = new File(ORDERS_CSV);
-        if (!i.exists()) {
-            if (!i.createNewFile()) {
-                throw new Exception("doesnt create file");
+        if (false) {
+            final File i = new File(ITEMS_CSV);
+            final File o = new File(ORDERS_CSV);
+            if (!i.exists()) {
+                if (!i.createNewFile()) {
+                    throw new Exception("doesnt create file");
+                }
             }
-        }
-        if (!o.exists()) {
-            if (!o.createNewFile()) {
-                throw new Exception("doesnt create file");
+            if (!o.exists()) {
+                if (!o.createNewFile()) {
+                    throw new Exception("doesnt create file");
+                }
             }
+            new CacheDb();
+            refreshCache();
         }
-        new CacheDb();
-        refreshCache();
     }
 }
