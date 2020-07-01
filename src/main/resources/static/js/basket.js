@@ -152,9 +152,9 @@ $(document).ready(function () {
                     case 'email' :
                         e.target.setCustomValidity("Пожалуйста введите электронную почту");
                         break;
-                    case 'postal' :
-                        e.target.setCustomValidity("Пожалуйста введите адрес или индекс почтового отделения");
-                        break;
+                    // case 'postal' :
+                    //     e.target.setCustomValidity("Пожалуйста введите адрес или индекс почтового отделения");
+                    //     break;
                     default :
                         e.target.setCustomValidity("");
                         break;
@@ -294,16 +294,16 @@ $('.btn-order-show').on("click", function () {
         $btn_order_show.html("Перейти к оплате");
     } else if (showText === "Перейти к оплате") {
         let count = 0;
-        if ($("#postal").val()) {
-            count = count + 1;
-        }
+        // if ($("#postal").val()) {
+        //     count = count + 1;
+        // }
         if ($("#email").val()) {
             count = count + 1;
         }
         if ($("#name").val()) {
             count = count + 1;
         }
-        if (count !== 3) {
+        if (count !== 2) {
             $("#basketBtnSubmit").click();
         } else {
             $("#basketForm").addClass("dao-none");

@@ -23,7 +23,7 @@ public abstract class CacheService {
             final String title,
             final String price,
             final String description,
-            final String instagramLikeUrl,
+            final String additionalItem,
             final String reservation
     ) {
         final ItemDto item = new ItemDto();
@@ -31,7 +31,7 @@ public abstract class CacheService {
         item.setId(id);
         item.setTitle(title);
         item.setPrice(price);
-        item.setInstagramLikeUrl(instagramLikeUrl);
+        item.setAdditionalItem(additionalItem);
         item.setDescription(description);
         item.setReservation(reservation);
 
@@ -94,7 +94,7 @@ public abstract class CacheService {
             final String title = record.get("title");
             final String price = record.get("price");
             final String description = record.get("description");
-            final String instagramLikeUrl = record.get("instagramLikeUrl");
+            final String additionalItem = record.get("additionalItem");
             final String reservation = record.get("reservation");
             final String hide = record.get("hide");
             if (!"true".equalsIgnoreCase(hide)) {
@@ -103,7 +103,7 @@ public abstract class CacheService {
                         title,
                         price,
                         description,
-                        instagramLikeUrl,
+                        additionalItem,
                         reservation
                 );
             }

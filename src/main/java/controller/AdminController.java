@@ -59,7 +59,7 @@ public class AdminController {
                     dto.getTitle(),
                     dto.getPrice(),
                     dto.getDescription(),
-                    dto.getInstagramLikeUrl(),
+                    dto.getAdditionalItem(),
                     dto.getReservation(),
                     "false"
             );

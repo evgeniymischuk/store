@@ -1,6 +1,8 @@
 package controller;
 
 import db.CacheDb;
+import dto.ItemDto;
+import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 
 import static service.CacheService.refreshCache;
 import static service.ItemService.ITEMS_CSV;
@@ -58,7 +61,7 @@ public class MainController {
                 throw new Exception("doesnt create file");
             }
         }
-        new CacheDb();
+        CacheDb regInMemoryStaticFields = new CacheDb();
         refreshCache();
     }
 }

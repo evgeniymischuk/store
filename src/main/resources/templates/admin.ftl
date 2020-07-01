@@ -1,6 +1,6 @@
 <#import "templates.ftl" as t>
 <@t.page>
-    <div class="container-fluid">
+    <div class="container-fluid mt-10">
         <#assign x = 0>
         <#assign hasButton = 0>
         <#list itemList as item >
@@ -13,7 +13,6 @@
                         <div class="overlay">
                             <ul>
                                 <li class="likeCountLi animation-show">
-                                    <span class="like-count" data-instagram="${item.instagramLikeUrl}"></span>
                                     <span class="mr-1">
                                         <svg aria-label="Unlike" class="_8-yf5 " fill="#ed4956"
                                              height="19" viewBox="0 0 48 48"
@@ -147,11 +146,11 @@
                     </div>
                     <div class="mt-3px col-12">
                         <input type="text"
-                               id="instagramLikeUrl"
-                               name="instagramLikeUrl"
+                               id="additionalItem"
+                               name="additionalItem"
                                class="form-control"
-                               placeholder="Instagram link"
-                               aria-label="Instagram link"
+                               placeholder="Если доп то 1"
+                               aria-label="Если доп то 1"
                                required="required"
                         >
                     </div>

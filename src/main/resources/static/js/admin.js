@@ -3,12 +3,16 @@ $(document).ready(function () {
     if (anchor) {
         var cardInRow = $(".card-in-row");
         cardInRow.removeClass("d-none");
-        cardInRow.addClass("d-flex");
+        if (!cardInRow.hasClass("col-6")){
+            cardInRow.addClass("d-flex");
+        }
         window.location.href = "/" + anchor;
     } else {
         var cardInGrid = $(".card-in-grid");
         cardInGrid.removeClass("d-none");
-        cardInGrid.addClass("d-flex");
+        if (!cardInGrid.hasClass("col-6")) {
+            cardInGrid.addClass("d-flex");
+        }
     }
     $(".hover-effect").on("click", function (e) {
         if (e && e.target && e.target.id === "removeButton") {
@@ -21,7 +25,9 @@ $(document).ready(function () {
             cardInGrid.addClass("d-none");
             cardInGrid.removeClass("d-flex");
             cardInRow.removeClass("d-none");
-            cardInRow.addClass("d-flex");
+            if (!cardInRow.hasClass("col-6")){
+                cardInRow.addClass("d-flex");
+            }
             window.location.href = "/#" + $(this).data('id');
         }
     });

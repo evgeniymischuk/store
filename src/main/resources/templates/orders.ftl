@@ -9,10 +9,10 @@
                     <input data-uid="${order.id}" data-name="status" type="text" class="input-edit"
                            value="${order.status}"/>
                 </li>
-                <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>
-                <#if order.track != "">
-                    <li class="list-group-item">Трек номер ${order.track}</li>
-                </#if>
+<#--                <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>-->
+<#--                <#if order.track != "">-->
+<#--                    <li class="list-group-item">Трек номер ${order.track}</li>-->
+<#--                </#if>-->
                 <li>
                     <ul class="list-group text-center list-none">
                         <li class="list-group-item active">
@@ -33,9 +33,9 @@
                         </#list>
                     </ul>
                 </li>
-                <#if order.track != "">
-                    <li class="list-group-item">Информация : ${order.info}</li>
-                </#if>
+<#--                <#if order.track != "">-->
+<#--                    <li class="list-group-item">Информация : ${order.info}</li>-->
+<#--                </#if>-->
                 <li class="list-group-item">Имя : ${order.name}</li>
                 <li class="list-group-item">Электронная почта : ${order.email} </li>
                 <li class="list-group-item">Дата заказа : ${order.dateString}</li>

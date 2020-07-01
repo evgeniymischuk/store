@@ -15,7 +15,7 @@ import static service.CacheService.addItem;
 
 public abstract class ItemService {
     public static final String ITEMS_CSV = "items.csv";
-    public static String[] ITEM_HEADER = {"id", "title", "price", "description", "instagramLikeUrl", "reservation", "hide"};
+    public static String[] ITEM_HEADER = {"id", "title", "price", "description", "additionalItem", "reservation", "hide"};
 
     public synchronized static void removeOrReservation(
             final List<String> ids, boolean isReservation
@@ -32,7 +32,7 @@ public abstract class ItemService {
                 final String title = record.get("title");
                 final String price = record.get("price");
                 final String description = record.get("description");
-                final String instagramLikeUrl = record.get("instagramLikeUrl");
+                final String additionalItem = record.get("additionalItem");
                 String reservation = record.get("reservation");
                 String hide = record.get("hide");
                 if (ids.contains(id)) {
@@ -51,7 +51,7 @@ public abstract class ItemService {
                         title,
                         price,
                         description,
-                        instagramLikeUrl,
+                        additionalItem,
                         reservation,
                         hide
                 );
@@ -65,7 +65,7 @@ public abstract class ItemService {
         final String idInner = itemDto.getId();
         if ((idInner == null || idInner.isEmpty()) || (
                 itemDto.getDescription() == null &&
-                        itemDto.getInstagramLikeUrl() == null &&
+                        itemDto.getAdditionalItem() == null &&
                         itemDto.getPrice() == null &&
                         itemDto.getTitle() == null)) {
             return;
@@ -81,7 +81,7 @@ public abstract class ItemService {
                 String title = record.get("title");
                 String price = record.get("price");
                 String description = record.get("description");
-                String instagramLikeUrl = record.get("instagramLikeUrl");
+                String additionalItem = record.get("additionalItem");
                 String reservation = record.get("reservation");
                 String hide = record.get("hide");
                 if (idInner.equalsIgnoreCase(id)) {
@@ -91,8 +91,8 @@ public abstract class ItemService {
                     if (itemDto.getHide() != null) {
                         hide = itemDto.getHide();
                     }
-                    if (itemDto.getInstagramLikeUrl() != null) {
-                        instagramLikeUrl = itemDto.getInstagramLikeUrl();
+                    if (itemDto.getAdditionalItem() != null) {
+                        additionalItem = itemDto.getAdditionalItem();
                     }
                     if (itemDto.getPrice() != null) {
                         price = itemDto.getPrice();
@@ -108,7 +108,7 @@ public abstract class ItemService {
                             title,
                             price,
                             description,
-                            instagramLikeUrl,
+                            additionalItem,
                             reservation
                     );
                 }
@@ -117,7 +117,7 @@ public abstract class ItemService {
                         title,
                         price,
                         description,
-                        instagramLikeUrl,
+                        additionalItem,
                         reservation,
                         hide
                 );
@@ -140,7 +140,7 @@ public abstract class ItemService {
             final String title = record.get("title");
             final String price = record.get("price");
             final String description = record.get("description");
-            final String instagramLikeUrl = record.get("instagramLikeUrl");
+            final String additionalItem = record.get("additionalItem");
             String reservation = record.get("reservation");
             String hide = record.get("hide");
             ItemDto i = new ItemDto();
@@ -148,7 +148,7 @@ public abstract class ItemService {
             i.setTitle(title);
             i.setPrice(price);
             i.setDescription(description);
-            i.setInstagramLikeUrl(instagramLikeUrl);
+            i.setAdditionalItem(additionalItem);
             i.setReservation(reservation);
             i.setHide(hide);
             if (ids.contains(id)) {

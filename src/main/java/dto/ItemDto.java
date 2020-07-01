@@ -1,11 +1,11 @@
 package dto;
 
-public class ItemDto {
+public class ItemDto implements Comparable<ItemDto> {
     private String id;
     private String title;
     private String price;
     private String description;
-    private String instagramLikeUrl;
+    private String additionalItem;
     private String reservation = "false";
     private String hide = "false";
 
@@ -41,16 +41,16 @@ public class ItemDto {
         this.description = description;
     }
 
-    public String getInstagramLikeUrl() {
-        return instagramLikeUrl;
+    public String getAdditionalItem() {
+        return additionalItem;
     }
 
-    public void setInstagramLikeUrl(String instagramLikeUrl) {
-        this.instagramLikeUrl = instagramLikeUrl;
+    public void setAdditionalItem(String additionalItem) {
+        this.additionalItem = additionalItem;
     }
 
     public String getReservation() {
-        return reservation;
+        return "false";
     }
 
     public void setReservation(String reservation) {
@@ -63,5 +63,10 @@ public class ItemDto {
 
     public void setHide(String hide) {
         this.hide = hide;
+    }
+
+    @Override
+    public int compareTo(ItemDto o) {
+        return this.getId().compareTo(o.getId());
     }
 }

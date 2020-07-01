@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="../css/style.css">
         <title>Your Sol</title>
-        <link rel=icon href="../img/favicon.png" sizes="16x16" type="image/png">
+        <link rel=icon href="../img/logo.jpg" sizes="16x16" type="image/png">
     </head>
     <header class="header-wrap fixed-top pr-0">
         <nav class="nav-wrap navbar navbar-expand-lg navbar-light m-auto">
             <a class="navbar-brand" href="/">
-                <img src="../img/your-sol-logo.png" width="120" height="20" alt="your-sol-logo" style="margin-left: 3px;">
+                <img src="../img/logo.jpg" width="240" height="140" alt="logo" style="margin-left: 3px;">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
@@ -65,16 +65,16 @@
                                    required="required"
                             >
                         </div>
-                        <div class="mt-3px">
-                            <input type="text"
-                                   id="postal"
-                                   name="postal"
-                                   class="form-control"
-                                   placeholder="Адрес или почтовый индекс"
-                                   aria-label="Адрес или почтовый индекс"
-                                   required="required"
-                            >
-                        </div>
+<#--                        <div class="mt-3px">-->
+<#--                            <input type="text"-->
+<#--                                   id="postal"-->
+<#--                                   name="postal"-->
+<#--                                   class="form-control"-->
+<#--                                   placeholder="Адрес или почтовый индекс"-->
+<#--                                   aria-label="Адрес или почтовый индекс"-->
+<#--                                   required="required"-->
+<#--                            >-->
+<#--                        </div>-->
                         <input type="hidden"
                                id="purchasesIds"
                                name="purchasesIds"

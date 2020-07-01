@@ -5,20 +5,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="css/style.css">
-        <title>Your Sol</title>
-        <link rel=icon href="img/favicon.png" sizes="16x16" type="image/png">
+        <title>Готовые контент-планы для instagram</title>
+        <link rel=icon href="img/logo.jpg" sizes="153x45" type="image/png">
     </head>
     <header class="header-wrap fixed-top pr-0">
         <nav class="nav-wrap navbar navbar-expand-lg navbar-light m-auto">
             <a class="navbar-brand" href="/">
-                <img src="img/your-sol-logo.png" width="120" height="20" alt="your-sol-logo" style="margin-left: 3px;">
+                <img src="img/logo.jpg" width="153" height="45" alt="logo" style="margin-left: 3px;">
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
                 </ul>
                 <a id="basket" data-toggle="modal" data-target="#basketModal" class="navbar-brand"
                    href="javascript:void(0);">
-                    <img width="24" height="24" src="/svg/shopping.svg" alt="basket"/>
+                    <img width="16" height="16" src="/svg/shopping.svg" alt="basket"/>
                     <span class="total-count basket"></span>
                 </a>
             </div>
@@ -62,16 +62,6 @@
                                    class="form-control"
                                    placeholder="Электронная почта"
                                    aria-label="Электронная почта"
-                                   required="required"
-                            >
-                        </div>
-                        <div class="mt-3px">
-                            <input type="text"
-                                   id="postal"
-                                   name="postal"
-                                   class="form-control"
-                                   placeholder="Адрес или почтовый индекс"
-                                   aria-label="Адрес или почтовый индекс"
                                    required="required"
                             >
                         </div>

@@ -4,10 +4,10 @@
         <ul class="list-group mt-3 list-none">
             <li class="list-group-item active text-center">Номер заказ : ${order.number}</li>
             <li class="list-group-item">Статус : ${order.status}</li>
-            <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>
-            <#if order.track != "">
-                <li class="list-group-item">Трек номер ${order.track}</li>
-            </#if>
+<#--            <li class="list-group-item">Адрес или почтовый индекс : <br>${order.postal}</li>-->
+<#--            <#if order.track != "">-->
+<#--                <li class="list-group-item">Трек номер ${order.track}</li>-->
+<#--            </#if>-->
             <li>
                 <ul class="list-group text-center list-none">
                     <li class="list-group-item active">

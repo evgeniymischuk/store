@@ -6,7 +6,9 @@ $(document).ready(function () {
         if (anchor) {
             $(".card-in-row:not(" + anchor + ")").remove();
             cardInRow.removeClass("d-none");
-            cardInRow.addClass("d-flex");
+            if (!cardInRow.hasClass("col-6")){
+                cardInRow.addClass("d-flex");
+            }
             cardInGrid.remove();
         } else if (!archive) {
             cardInRow.remove();
@@ -19,20 +21,26 @@ $(document).ready(function () {
     displayCart();
     if (anchor && mobile) {
         cardInRow.removeClass("d-none");
-        cardInRow.addClass("d-flex");
+        if (!cardInRow.hasClass("col-6")){
+            cardInRow.addClass("d-flex");
+        }
         window.location.href = "/" + anchor;
     } else {
         cardInGrid.removeClass("d-none");
-        cardInGrid.addClass("d-flex");
+        if (!cardInGrid.hasClass("col-6")) {
+            cardInGrid.addClass("d-flex");
+        }
     }
     $(".hover-effect").on("click", function (e) {
-        if (mobile) {
+        // if (mobile) {
             cardInGrid.addClass("d-none");
             cardInGrid.removeClass("d-flex");
             cardInRow.removeClass("d-none");
-            cardInRow.addClass("d-flex");
+            if (!cardInRow.hasClass("col-6")) {
+                cardInRow.addClass("d-flex");
+            }
             window.location.href = "/#" + $(this).data('id');
-        }
+        // }
     });
     const likeCountEls = $(".like-count");
     likeCountEls.each(function (i, e) {

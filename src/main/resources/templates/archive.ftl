@@ -18,8 +18,6 @@
                             В архиве
                         </div>
                         <span class="ml-1 price-in-card${(item.reservation=='true')?then(' price-in-card-reservation' , '')}">${item.price}&#8381;</span>
-                        <span class="like-count like-count-in-card animation-show"
-                              data-instagram="${item.instagramLikeUrl}" style="opacity: 0"></span>
                         <svg onclick="location.href = '/archive?id=${item.id}'"
                              aria-label="Share Post"
                              fill="#262626" height="24" viewBox="0 0 48 48"
