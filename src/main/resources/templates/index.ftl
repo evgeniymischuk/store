@@ -19,7 +19,7 @@
                             <div class="flex-fill">
                                 <div class="hover-effect" data-id="${item.id}">
                                     <#if mobile == "true">
-                                        <p class="mt-3">${item.title}</p>
+                                        <p class="mt-3 font-weight-100">${item.title}</p>
                                     </#if>
                                     <#if mobile == "false">
                                         <p class="mt-3"></p>
@@ -55,7 +55,7 @@
                             <div class="flex-fill">
                                 <div class="hover-effect" data-id="${item.id}">
                                     <#if mobile == "true">
-                                        <p class="mt-3">${item.title}</p>
+                                        <p class="mt-3 font-weight-100">${item.title}</p>
                                     </#if>
                                     <#if mobile == "false">
                                         <p class="mt-3"></p>
@@ -91,15 +91,14 @@
                         <div class="card-title">${item.title}</div>
                         <div style="background-image: url('download?id=${item.id}')"
                              class="img-responsive-cards"></div>
-                        <div class="card-price">
+                        <div class="card-price col-12">
                             <#if item.hide != "true">
                                 <div data-id="${item.id}" data-name="${item.title}" data-single="true"
                                      data-price="${item.price}"
                                      class="add-to-cart buy-btn btn btn-outline-dark buy-btn-in-card">
-                                    Купить
+                                    Купить за ${item.price}&#8381;
                                 </div>
                             </#if>
-                            <span class="ml-1 price-in-card">${item.price}&#8381;</span>
                         </div>
                         <div class="card-description border-btm mt-3">${item.description}</div>
                     </div>

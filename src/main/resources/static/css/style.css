@@ -4779,6 +4779,12 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     text-align: center;
     margin-bottom: 1em;
     margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+.font-weight-100 {
+    font-weight: 100;
 }
 
 .card-description {
@@ -5290,9 +5296,11 @@ a.badge-dark.focus, a.badge-dark:focus {
     padding-left: 0;
     border-radius: 0
 }
-.mt-10{
+
+.mt-10 {
     margin-top: 10rem;
 }
+
 .alert {
     position: relative;
     padding: .75rem 1.25rem;
@@ -8249,6 +8257,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 .hw-38px {
     width: 38px !important;
     height: 38px !important;
+    font-size: 14px !important;
 }
 
 .w-50 {
@@ -10519,7 +10528,7 @@ a.text-dark:focus, a.text-dark:hover {
     justify-content: flex-end;
     /* width: 107%; */
     margin-top: 1.7rem;
-    margin-right:auto;
+    margin-right: auto;
     /* text-align: center; */
 }
 
@@ -10534,13 +10543,15 @@ a.text-dark:focus, a.text-dark:hover {
     color: #262626;
     margin: 1em 1em 0.25em;
     position: relative;
-    height: 1.65rem;
+    /* height: 1.65rem; */
 }
 
 .buy-btn-in-card {
-    padding: 9px 8px;
-    right: 0rem;
-    position: absolute;
+    padding: 8px 35px;
+    /* right: 0rem; */
+    /* position: absolute; */
+    font-size: 1.5rem;
+    font-weight: 100;
 }
 
 .buy-btn-in-card-added {
@@ -10548,11 +10559,12 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .price-in-card {
-    position: absolute;
-    top: 0.7rem;
+    /* position: relative; */
+    /* top: 0.7rem; */
     font-size: 1.5rem;
     font-weight: 100;
-    right: 7.5rem;
+    /* right: 7.5rem; */
+    margin-left: 3rem;
 }
 
 .price-in-card-reservation {
@@ -10742,6 +10754,8 @@ a.text-dark:focus, a.text-dark:hover {
         /* margin: 0; */
         /* width: 50px; */
         /* text-align: center; */
+        font-size: 1.5rem;
+        font-weight: 100;
     }
 
     .hover-effect {
