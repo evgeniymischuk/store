@@ -1,8 +1,6 @@
 package controller;
 
 import db.CacheDb;
-import dto.ItemDto;
-import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 
 import static service.CacheService.refreshCache;
 import static service.ItemService.ITEMS_CSV;
@@ -24,8 +21,14 @@ import static service.OrderService.ORDERS_CSV;
 public class MainController {
     @RequestMapping("/")
     public String index(Model model, HttpServletRequest request) {
-        final String userAgent = request.getHeader("User-Agent").toLowerCase();
-        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        final String mobile;
+        if (request != null && request.getHeader("User-Agent") != null) {
+            final String userAgent = request.getHeader("User-Agent").toLowerCase();
+            mobile = String.valueOf(userAgent.contains("android") || userAgent.contains("iphone"));
+        } else {
+            mobile = "false";
+        }
+        model.addAttribute("mobile", mobile);
         model.addAttribute("itemList", CacheDb.itemList);
         return "index";
     }
