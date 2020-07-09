@@ -7,6 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static db.CacheDb.itemList;
@@ -44,6 +45,7 @@ public abstract class ItemService {
                         hide = "true";
                         itemMap.remove(id);
                         itemList = new ArrayList<>(itemMap.values());
+                        Collections.sort(itemList);
                     }
                 }
                 printer.printRecord(

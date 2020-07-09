@@ -9,6 +9,7 @@ import utils.CommonUtil;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static db.CacheDb.*;
 import static service.ItemService.ITEMS_CSV;
@@ -37,6 +38,7 @@ public abstract class CacheService {
 
         itemMap.put(id, item);
         itemList = new ArrayList<>(itemMap.values());
+        Collections.sort(itemList);
     }
 
     public static void addOrder(
