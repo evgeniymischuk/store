@@ -67,7 +67,7 @@ var shoppingCart = (function () {
                 $.each(els, function (i, e) {
                     const $el = $(e);
                     if (id === $el.data('id')) {
-                        $el.html("Купить за");
+                        $el.html("Купить за "+ $el.data("price")+"&#8381;");
                         $el.removeClass("buy-btn-in-card-added");
                         return false;
                     }
@@ -83,7 +83,7 @@ var shoppingCart = (function () {
             const els = $(".add-to-cart");
             $.each(els, function (i, e) {
                 const $el = $(e);
-                $el.html("Купить за");
+                $el.html("Купить за "+ $el.data("price")+"&#8381;");
                 $el.removeClass("buy-btn-in-card-added");
             });
         }

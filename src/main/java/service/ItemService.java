@@ -45,7 +45,6 @@ public abstract class ItemService {
                         hide = "true";
                         itemMap.remove(id);
                         itemList = new ArrayList<>(itemMap.values());
-                        Collections.sort(itemList);
                     }
                 }
                 printer.printRecord(

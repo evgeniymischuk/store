@@ -39,6 +39,19 @@ $(document).ready(function () {
         if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")) {
             cardInRow.addClass("d-flex");
         }
+        const anchor = $(this).data('id');
+        if (!mobile) {
+            if (anchor) {
+                $(".card-in-row:not(#" + anchor + ")").remove();
+                cardInRow.removeClass("d-none");
+                if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")) {
+                    cardInRow.addClass("d-flex");
+                }
+                cardInGrid.remove();
+            } else if (!archive) {
+                cardInRow.remove();
+            }
+        }
         window.location.href = "/#" + $(this).data('id');
         // }
     });

@@ -1,6 +1,6 @@
 package dto;
 
-public class ItemDto implements Comparable<ItemDto> {
+public class ItemDto {
     private String id;
     private String title;
     private String price;
@@ -63,10 +63,5 @@ public class ItemDto implements Comparable<ItemDto> {
 
     public void setHide(String hide) {
         this.hide = hide;
-    }
-
-    @Override
-    public int compareTo(ItemDto o) {
-        return this.getId().compareTo(o.getId());
     }
 }
