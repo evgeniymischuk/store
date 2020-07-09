@@ -35,8 +35,14 @@ public class MainController {
 
     @RequestMapping("/archive")
     public String archive(Model model, @RequestParam String id, HttpServletRequest request) throws IOException {
-        final String userAgent = request.getHeader("User-Agent").toLowerCase();
-        model.addAttribute("mobile", String.valueOf(userAgent.contains("android") || userAgent.contains("iphone")));
+        final String mobile;
+        if (request != null && request.getHeader("User-Agent") != null) {
+            final String userAgent = request.getHeader("User-Agent").toLowerCase();
+            mobile = String.valueOf(userAgent.contains("android") || userAgent.contains("iphone"));
+        } else {
+            mobile = "false";
+        }
+        model.addAttribute("mobile", mobile);
         model.addAttribute("itemList", findById(Collections.singletonList(id)));
         return "archive";
     }
