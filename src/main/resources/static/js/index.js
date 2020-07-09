@@ -6,7 +6,7 @@ $(document).ready(function () {
         if (anchor) {
             $(".card-in-row:not(" + anchor + ")").remove();
             cardInRow.removeClass("d-none");
-            if (!cardInRow.hasClass("col-6")){
+            if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")) {
                 cardInRow.addClass("d-flex");
             }
             cardInGrid.remove();
@@ -21,25 +21,25 @@ $(document).ready(function () {
     displayCart();
     if (anchor && mobile) {
         cardInRow.removeClass("d-none");
-        if (!cardInRow.hasClass("col-6")){
+        if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")) {
             cardInRow.addClass("d-flex");
         }
         window.location.href = "/" + anchor;
     } else {
         cardInGrid.removeClass("d-none");
-        if (!cardInGrid.hasClass("col-6")) {
+        if (!cardInGrid.hasClass("col-sm-6") || !cardInGrid.hasClass("col-12")) {
             cardInGrid.addClass("d-flex");
         }
     }
     $(".hover-effect").on("click", function (e) {
         // if (mobile) {
-            cardInGrid.addClass("d-none");
-            cardInGrid.removeClass("d-flex");
-            cardInRow.removeClass("d-none");
-            if (!cardInRow.hasClass("col-6")) {
-                cardInRow.addClass("d-flex");
-            }
-            window.location.href = "/#" + $(this).data('id');
+        cardInGrid.addClass("d-none");
+        cardInGrid.removeClass("d-flex");
+        cardInRow.removeClass("d-none");
+        if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")) {
+            cardInRow.addClass("d-flex");
+        }
+        window.location.href = "/#" + $(this).data('id');
         // }
     });
     const likeCountEls = $(".like-count");
@@ -72,6 +72,14 @@ $(document).ready(function () {
             });
         }
     });
+    $(".btn-nav").on("click", function () {
+        $('.not-additional-item').toggle();
+        $('.btn-nav-arr').toggleClass('expand-arrow').toggleClass('collapse-arrow');
+    })
+    $(".btn-nav-add").on("click", function () {
+        $('.additional-item').toggle();
+        $('.btn-nav-add-arr').toggleClass('expand-arrow').toggleClass('collapse-arrow');
+    })
 });
 
 function get_name_records(number) {

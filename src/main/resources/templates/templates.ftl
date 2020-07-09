@@ -16,8 +16,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ml-auto">
                 </ul>
-                <a id="basket" data-toggle="modal" data-target="#basketModal" class="navbar-brand"
-                   href="javascript:void(0);">
+                <a id="basket" data-toggle="modal" data-target="#basketModal" class="navbar-brand mr-4 mr-sm-2" href="javascript:void(0);">
                     <img width="16" height="16" src="/svg/shopping.svg" alt="basket"/>
                     <span class="total-count basket"></span>
                 </a>

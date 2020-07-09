@@ -11,8 +11,13 @@
                 <p class="lead">Выберите подходящий вам план</p>
             </div>
         </div>
+
         <div class="row align-content-center">
-            <div class="col-6 p-2 p-sm-3 m-0 card-in-grid d-none">
+            <#if mobile == "true">
+                <div class="btn-nav btn bg-white col-8 p-2 p-sm-3 m-0 card-in-grid d-none">Основные планы</div>
+                <div class="btn-nav btn-nav-arr btn bg-white col-4 p-2 p-sm-3 m-0 card-in-grid d-none expand-arrow"></div>
+            </#if>
+            <div class="col-sm-6 col-12 p-2 p-sm-3 m-0 card-in-grid d-none not-additional-item animation-show"  ${(mobile == 'true')?then('style="display:none;"', '')}>
                 <#list itemList as item>
                     <#if item.additionalItem != "1">
                         <div class="mt-card-custom card-in-grid d-none">
@@ -48,7 +53,11 @@
                     </#if>
                 </#list>
             </div>
-            <div class="col-6 p-2 p-sm-3 m-0 border-left-solid card-in-grid d-none">
+            <#if mobile == "true">
+                <div class="btn-nav-add btn bg-white col-8 p-2 p-sm-3 m-0 card-in-grid d-none">Дополнительные планы</div>
+                <div class="btn-nav btn-nav-add-arr btn bg-white col-4 p-2 p-sm-3 m-0 card-in-grid d-none expand-arrow"></div>
+            </#if>
+            <div class="col-sm-6 col-12 p-2 p-sm-3 m-0 border-left-solid card-in-grid d-none additional-item animation-show" ${(mobile == 'true')?then('style="display:none;"', '')}>
                 <#list itemList as item>
                     <#if item.additionalItem == "1">
                         <div class="mt-card-custom card-in-grid d-none">

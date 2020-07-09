@@ -3,7 +3,7 @@ $(document).ready(function () {
     if (anchor) {
         var cardInRow = $(".card-in-row");
         cardInRow.removeClass("d-none");
-        if (!cardInRow.hasClass("col-6")){
+        if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")){
             cardInRow.addClass("d-flex");
         }
         window.location.href = "/" + anchor;
@@ -25,7 +25,7 @@ $(document).ready(function () {
             cardInGrid.addClass("d-none");
             cardInGrid.removeClass("d-flex");
             cardInRow.removeClass("d-none");
-            if (!cardInRow.hasClass("col-6")){
+            if (!cardInRow.hasClass("col-sm-6") || !cardInRow.hasClass("col-12")){
                 cardInRow.addClass("d-flex");
             }
             window.location.href = "/#" + $(this).data('id');

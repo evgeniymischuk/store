@@ -10858,3 +10858,19 @@ a.text-dark:focus, a.text-dark:hover {
 .list-none {
     list-style: none !important;
 }
+
+.expand-arrow{
+    background: url('/img/icons8-expand-arrow-25.png');
+    width: 25px !important;
+    height: 42px !important;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.collapse-arrow{
+    background: url('/img/icons8-collapse-arrow-25.png');
+    width: 25px !important;
+    height: 42px !important;
+    background-repeat: no-repeat;
+    background-position: center;
+}
