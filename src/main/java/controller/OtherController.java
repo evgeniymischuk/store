@@ -16,8 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static db.CacheDb.orderMap;
-import static db.CacheDb.orderNumberMap;
+import static db.CacheDb.*;
 import static service.FileService.write;
 import static service.ItemService.findById;
 import static service.ItemService.removeOrReservation;
@@ -29,13 +28,19 @@ public class OtherController {
     public void download(@RequestParam String id,
                          final HttpServletResponse response) throws IOException {
         if (StringUtils.isEmpty(id)) return;
-        final File directory = new File("img");
-        if (!directory.exists()) return;
-        final File[] fileList = directory.listFiles();
-        if (fileList == null) return;
-        for (File file : fileList) {
-            if (file.getName().contains(id)) {
-                write(response, file);
+        final File downloadedFile = fileCacheMap.get(id);
+        if (downloadedFile != null) {
+            write(response, downloadedFile);
+        } else {
+            final File directory = new File("img");
+            if (!directory.exists()) return;
+            final File[] fileList = directory.listFiles();
+            if (fileList == null) return;
+            for (File file : fileList) {
+                if (file.getName().contains(id)) {
+                    fileCacheMap.put(id, file);
+                    write(response, file);
+                }
             }
         }
     }

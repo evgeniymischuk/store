@@ -3,6 +3,7 @@ package db;
 import dto.ItemDto;
 import dto.OrderDto;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,4 +15,5 @@ public class CacheDb {
     public volatile static List<OrderDto> orderList = new ArrayList<>();
     public volatile static Map<String, OrderDto> orderMap = new HashMap<>();
     public volatile static Map<String, OrderDto> orderNumberMap = new HashMap<>();
+    public volatile static Map<String, File> fileCacheMap = new HashMap<>();
 }

@@ -54,8 +54,8 @@
                 </#list>
             </div>
             <#if mobile == "true">
-                <div class="btn-nav-add btn bg-white col-8 p-2 p-sm-3 m-0 card-in-grid d-none">Дополнительные планы</div>
-                <div class="btn-nav btn-nav-add-arr btn bg-white col-4 p-2 p-sm-3 m-0 card-in-grid d-none expand-arrow"></div>
+                <div class="btn-nav-add btn bg-white col-8 p-2 p-sm-3 m-0 card-in-grid d-none">Дополнительные пакеты услуг к планам</div>
+                <div class="btn-nav-add btn-nav-add-arr btn bg-white col-4 p-2 p-sm-3 m-0 card-in-grid d-none expand-arrow"></div>
             </#if>
             <div class="col-sm-6 col-12 p-2 p-sm-3 m-0 border-left-solid card-in-grid d-none additional-item animation-show" ${(mobile == 'true')?then('style="display:none;"', '')}>
                 <#list itemList as item>
